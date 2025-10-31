@@ -61,7 +61,7 @@ export default buildConfig({
   editor: defaultLexical,
   db: vercelPostgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL || '',
+      connectionString: process.env.NEON_POSTGRES_URL || '',
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
