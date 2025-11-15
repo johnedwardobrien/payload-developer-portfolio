@@ -7,6 +7,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
     ADD COLUMN "video_thumbnail_id" integer;
   `)
 
+  // Add videoThumbnailFilename text field to media table
+  await db.execute(sql`
+    ALTER TABLE "media" 
+    ADD COLUMN "video_thumbnail_filename" varchar;
+  `)
+
   // Add isVideoThumbnail boolean field to media table with default false
   await db.execute(sql`
     ALTER TABLE "media" 
@@ -32,6 +38,11 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.execute(sql`
     ALTER TABLE "media" 
     DROP COLUMN IF EXISTS "video_thumbnail_id";
+  `)
+
+  await db.execute(sql`
+    ALTER TABLE "media" 
+    DROP COLUMN IF EXISTS "video_thumbnail_filename";
   `)
 
   await db.execute(sql`
