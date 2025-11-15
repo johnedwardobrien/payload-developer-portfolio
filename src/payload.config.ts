@@ -1,6 +1,5 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
-import { migrations } from './migrations'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -66,6 +65,7 @@ export default buildConfig({
       connectionString: process.env.NEON_POSTGRES_URL || '',
     },
     migrationDir: './src/migrations',
+    push: process.env.NODE_ENV === 'production' ? false : true
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
