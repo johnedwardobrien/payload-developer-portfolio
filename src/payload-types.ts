@@ -266,7 +266,10 @@ export interface Post {
  */
 export interface Media {
   id: number;
+  videoThumbnail?: (number | null) | Media;
+  videoThumbnailFilename?: string | null;
   alt?: string | null;
+  isVideoThumbnail?: boolean | null;
   caption?: {
     root: {
       type: string;
@@ -1169,7 +1172,10 @@ export interface PostsSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  videoThumbnail?: T;
+  videoThumbnailFilename?: T;
   alt?: T;
+  isVideoThumbnail?: T;
   caption?: T;
   updatedAt?: T;
   createdAt?: T;
