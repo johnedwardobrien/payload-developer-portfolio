@@ -64,6 +64,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.NEON_POSTGRES_URL || '',
     },
+    migrationDir: '@/migrations'
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
