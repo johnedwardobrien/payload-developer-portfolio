@@ -64,7 +64,7 @@ export const SideTabPanel: Block = {
   dbName: 'side_tab',
   fields: [
     {
-      name: 'tabs',
+      name: 'tabGroups',
       type: 'array',
       fields: tabButtons,
     },

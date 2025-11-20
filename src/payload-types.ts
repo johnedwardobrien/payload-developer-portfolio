@@ -751,7 +751,7 @@ export interface Form {
  * via the `definition` "SideTabPanel".
  */
 export interface SideTabPanel {
-  tabs?:
+  tabGroups?:
     | {
         btn: {
           text?: string | null;
@@ -1191,7 +1191,7 @@ export interface FormBlockSelect<T extends boolean = true> {
  * via the `definition` "SideTabPanel_select".
  */
 export interface SideTabPanelSelect<T extends boolean = true> {
-  tabs?:
+  tabGroups?:
     | T
     | {
         btn?:
