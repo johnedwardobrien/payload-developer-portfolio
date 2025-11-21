@@ -2,6 +2,7 @@ import * as migration_20251115_094900_add_video_thumbnail_fields from './2025111
 import * as migration_20251115_094900_add_video_thumbnail_fields_2 from './20251115_094900_add_video_thumbnail_fields_2';
 import * as migration_20251120_050201 from './20251120_050201';
 import * as migration_20251120_050631 from './20251120_050631';
+import * as migration_20251121_020431 from './20251121_020431';
 
 export const migrations = [
   {
@@ -22,6 +23,11 @@ export const migrations = [
   {
     up: migration_20251120_050631.up,
     down: migration_20251120_050631.down,
-    name: '20251120_050631'
+    name: '20251120_050631',
+  },
+  {
+    up: migration_20251121_020431.up,
+    down: migration_20251121_020431.down,
+    name: '20251121_020431'
   },
 ];

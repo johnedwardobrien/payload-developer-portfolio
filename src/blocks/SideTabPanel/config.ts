@@ -1,13 +1,8 @@
 import type { Block, Field } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-
 import { link } from '@/fields/link'
+import { Content } from '@/blocks/Content/config'
+import { MediaBlock } from '@/blocks/MediaBlock/config'
 
 const tabButtons: Field[] = [
   {
@@ -18,7 +13,7 @@ const tabButtons: Field[] = [
       {
         name: 'text',
         label: 'Button Text',
-        type: 'text'
+        type: 'text',
       },
       {
         type: 'collapsible',
@@ -28,34 +23,18 @@ const tabButtons: Field[] = [
         },
         fields: [
           link({
-            appearances: false
+            appearances: false,
           }),
-        ]
+        ],
       },
-    ]
+    ],
   },
   {
     name: 'content',
-    type: 'group',
+    type: 'blocks',
     label: 'Tab Content',
-    fields: [
-      {
-        name: 'body',
-        label: 'Tab Body Content',
-        type: 'richText',
-        editor: lexicalEditor({
-          features: ({ rootFeatures }) => {
-            return [
-              ...rootFeatures,
-              HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-              FixedToolbarFeature(),
-              InlineToolbarFeature(),
-            ]
-          },
-        }),
-      },
-    ]
-  }
+    blocks: [Content, MediaBlock],
+  },
 ]
 
 export const SideTabPanel: Block = {

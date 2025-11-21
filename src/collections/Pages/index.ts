@@ -73,14 +73,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [
-                CallToAction, 
-                Content, 
-                MediaBlock, 
-                Archive, 
-                FormBlock, 
-                SideTabPanel
-              ],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, SideTabPanel],
               required: true,
               admin: {
                 initCollapsed: true,
@@ -114,6 +107,27 @@ export const Pages: CollectionConfig<'pages'> = {
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
+          ],
+        },
+        {
+          label: 'Settings',
+          fields: [
+            {
+              name: 'pageLayout',
+              type: 'select',
+              label: 'Layout',
+              options: [
+                {
+                  label: 'Full Layout',
+                  value: 'full',
+                },
+                {
+                  label: 'Empty Page',
+                  value: 'empty',
+                },
+              ],
+              defaultValue: 'full',
+            },
           ],
         },
       ],

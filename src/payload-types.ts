@@ -200,6 +200,7 @@ export interface Page {
     image?: (number | null) | Media;
     description?: string | null;
   };
+  pageLayout?: ('full' | 'empty') | null;
   publishedAt?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -771,23 +772,7 @@ export interface SideTabPanel {
             label: string;
           };
         };
-        content?: {
-          body?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
-            [k: string]: unknown;
-          } | null;
-        };
+        content?: (ContentBlock | MediaBlock)[] | null;
         id?: string | null;
       }[]
     | null;
@@ -1095,6 +1080,7 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  pageLayout?: T;
   publishedAt?: T;
   generateSlug?: T;
   slug?: T;
@@ -1211,7 +1197,8 @@ export interface SideTabPanelSelect<T extends boolean = true> {
         content?:
           | T
           | {
-              body?: T;
+              content?: T | ContentBlockSelect<T>;
+              mediaBlock?: T | MediaBlockSelect<T>;
             };
         id?: T;
       };
