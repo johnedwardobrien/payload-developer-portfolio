@@ -752,6 +752,7 @@ export interface Form {
  * via the `definition` "SideTabPanel".
  */
 export interface SideTabPanel {
+  backgroundMedia?: (number | null) | Media;
   tabGroups?:
     | {
         btn: {
@@ -1177,6 +1178,7 @@ export interface FormBlockSelect<T extends boolean = true> {
  * via the `definition` "SideTabPanel_select".
  */
 export interface SideTabPanelSelect<T extends boolean = true> {
+  backgroundMedia?: T;
   tabGroups?:
     | T
     | {

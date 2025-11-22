@@ -24,10 +24,34 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   children,
 }) => {
   const [activeTabId, setActiveTabId] = useState<string | null>(defaultActiveTabId)
-  const [isPanelOpen, setIsPanelOpen] = useState<boolean>(false)
-  const [isDesktop, setIsDesktop] = useState<boolean>(false)
-  const [isMobile, setIsMobile] = useState<boolean>(false)
-  const [isTablet, setIsTablet] = useState<boolean>(false)
+
+  // Initialize breakpoint states to prevent layout shift
+  const [isDesktop, setIsDesktop] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(min-width: 1024px)').matches
+    }
+    return false
+  })
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(max-width: 767px)').matches
+    }
+    return false
+  })
+  const [isTablet, setIsTablet] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches
+    }
+    return false
+  })
+
+  // Initialize panel state: open on desktop, closed on mobile/tablet
+  const [isPanelOpen, setIsPanelOpen] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(min-width: 1024px)').matches
+    }
+    return false
+  })
 
   // Check if we're on mobile (< 768px)
   useEffect(() => {
@@ -101,6 +125,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
       delay: 250, // Start after caret rotation
       easing: (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2), // cubic ease-in-out
     },
+    immediate: !isDesktop, // Don't animate on initial render if not desktop (prevents shift)
   })
 
   // Hide admin bar when component mounts
@@ -190,6 +215,10 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
             width: contentSpring.widthPercent.to(
               (w: number) => `calc((100% - 100% / 6) * ${w / 100})`,
             ),
+            // Prevent layout shift by setting initial width
+            minWidth: isPanelOpen
+              ? `calc((100% - 100% / 6) * 0.75)`
+              : `calc((100% - 100% / 6) * ${(75 + (panelWidth25Percent / (100 - panelWidthPercent)) * 75) / 100})`,
           }}
         >
           {React.Children.map(children, (child, index) => {

@@ -43,6 +43,12 @@ export const SideTabPanel: Block = {
   dbName: 'side_tab',
   fields: [
     {
+      name: 'backgroundMedia',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Background Media',
+    },
+    {
       name: 'tabGroups',
       type: 'array',
       fields: tabButtons,
