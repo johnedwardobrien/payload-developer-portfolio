@@ -30,7 +30,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   // Initialize breakpoint states to prevent layout shift
   const [isDesktop, setIsDesktop] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
-      return window.matchMedia('(min-width: 1024px)').matches
+      return window.matchMedia('(min-width: 1090px)').matches
     }
     return false
   })
@@ -42,7 +42,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   })
   const [isTablet, setIsTablet] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
-      return window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches
+      return window.matchMedia('(min-width: 768px) and (max-width: 1089px)').matches
     }
     return false
   })
@@ -50,7 +50,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   // Initialize panel state: open on desktop, closed on mobile/tablet
   const [isPanelOpen, setIsPanelOpen] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
-      return window.matchMedia('(min-width: 1024px)').matches
+      return window.matchMedia('(min-width: 1090px)').matches
     }
     return false
   })
@@ -65,10 +65,10 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Check if we're on tablet (768px to 1023px)
+  // Check if we're on tablet (768px to 1089px)
   useEffect(() => {
     const checkTablet = () => {
-      setIsTablet(window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches)
+      setIsTablet(window.matchMedia('(min-width: 768px) and (max-width: 1089px)').matches)
     }
     checkTablet()
     window.addEventListener('resize', checkTablet)
@@ -78,7 +78,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   // Check if we're on desktop and set panel state accordingly
   useEffect(() => {
     const checkDesktop = () => {
-      const desktop = window.matchMedia('(min-width: 1024px)').matches
+      const desktop = window.matchMedia('(min-width: 1090px)').matches
       setIsDesktop(desktop)
       // Panel open on desktop, closed on mobile/tablet
       setIsPanelOpen(desktop)
@@ -119,9 +119,13 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   const panelWidth75Percent = panelWidthPercent * 0.75 // 75% of panel width = ~12.5%
   const panelWidth25Percent = panelWidthPercent * 0.25 // 25% of panel width = ~4.166%
 
+  // Calculate width change and increase by 30% total (15% + 15% more)
+  const baseWidthChange = (panelWidth25Percent / (100 - panelWidthPercent)) * 75
+  const increasedWidthChange = baseWidthChange * 1.3225 // 15% more, then another 15% more (1.15 * 1.15)
+
   const contentSpring = useSpring({
     x: isPanelOpen ? 0 : -panelWidth75Percent, // Move left by 75% of panel width
-    widthPercent: isPanelOpen ? 75 : 75 + (panelWidth25Percent / (100 - panelWidthPercent)) * 75, // Width percentage
+    widthPercent: isPanelOpen ? 75 : 75 + increasedWidthChange, // Width percentage (increased by 30% total)
     config: {
       duration: 1000,
       delay: 250, // Start after caret rotation
@@ -215,38 +219,41 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
       {isMounted && (
         <>
           {isDesktop ? (
-            <div className="relative ml-[calc(100%/6+(100%-100%/6)*0.125)] flex min-h-screen">
-              <animated.div
-                className="relative bg-porcelain [&_*]:!text-espresso"
-                style={{
-                  transform: contentSpring.x.to((x) => `translateX(${x}vw)`),
-                  width: contentSpring.widthPercent.to(
-                    (w: number) => `calc((100% - 100% / 6) * ${w / 100})`,
-                  ),
-                }}
-              >
-                {React.Children.map(children, (child, index) => {
-                  const tab = tabs[index]
-                  if (!tab) return null
-                  return (
-                    <div
-                      key={tab.id}
-                      className={cn({
-                        hidden: activeTabId !== tab.id,
-                      })}
-                    >
-                      {child}
-                    </div>
-                  )
-                })}
-              </animated.div>
-              <div
-                className="flex-shrink-0 w-[400px] h-screen relative"
-                style={{ minHeight: '100vh' }}
-              >
-                <Disc isMounted={isMounted} />
+            <>
+              <div className="relative ml-[calc(100%/6+(100%-100%/6)*0.125)] flex min-h-screen">
+                <animated.div
+                  className="relative bg-porcelain [&_*]:!text-espresso flex-shrink-0"
+                  style={{
+                    transform: contentSpring.x.to((x) => `translateX(${x}vw)`),
+                    width: contentSpring.widthPercent.to(
+                      (w: number) => `calc((100% - 100% / 6) * ${w / 100})`,
+                    ),
+                    zIndex: 20,
+                  }}
+                >
+                  {React.Children.map(children, (child, index) => {
+                    const tab = tabs[index]
+                    if (!tab) return null
+                    return (
+                      <div
+                        key={tab.id}
+                        className={cn({
+                          hidden: activeTabId !== tab.id,
+                        })}
+                      >
+                        {child}
+                      </div>
+                    )
+                  })}
+                </animated.div>
+                <div
+                  className="flex-1 h-screen relative"
+                  style={{ minHeight: '100vh', minWidth: 0 }}
+                >
+                  <Disc isMounted={isMounted} isPanelOpen={isPanelOpen} />
+                </div>
               </div>
-            </div>
+            </>
           ) : (
             <div
               className={cn(

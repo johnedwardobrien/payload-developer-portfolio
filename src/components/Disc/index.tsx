@@ -5,10 +5,30 @@ import * as THREE from 'three'
 
 type DiscProps = {
   isMounted?: boolean
+  isPanelOpen?: boolean
 }
 
-export const Disc: React.FC<DiscProps> = ({ isMounted = false }) => {
+export const Disc: React.FC<DiscProps> = ({ isMounted = false, isPanelOpen = false }) => {
   const mountRef = useRef<HTMLDivElement>(null)
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
+  // When panel opens: camera at -5.9375
+  // When panel closes: camera at -4.05078125
+  const targetCameraXRef = useRef<number>(-4.05078125)
+  const currentCameraXRef = useRef<number>(-4.05078125)
+  const animationStartRef = useRef<number | null>(null)
+  const startCameraXRef = useRef<number>(-4.05078125)
+  const isAnimatingRef = useRef<boolean>(false)
+
+  // Update target camera X position when panel state changes
+  useEffect(() => {
+    const newTarget = isPanelOpen ? -5.9375 : -4.05078125
+    if (targetCameraXRef.current !== newTarget) {
+      startCameraXRef.current = currentCameraXRef.current
+      targetCameraXRef.current = newTarget
+      animationStartRef.current = Date.now()
+      isAnimatingRef.current = true
+    }
+  }, [isPanelOpen])
 
   useEffect(() => {
     if (!isMounted) return
@@ -51,42 +71,93 @@ export const Disc: React.FC<DiscProps> = ({ isMounted = false }) => {
     height: number,
   ): (() => void) => {
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color('#FFDDC1')
+    scene.background = new THREE.Color('#FFF5F0')
 
     const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000)
-    camera.position.set(0, 0, 12)
-    camera.lookAt(0, 0, 0)
+    // Start camera at closed position
+    camera.position.set(-4.05078125, 0, 12)
+    camera.lookAt(-4.05078125, 0, 0)
+    cameraRef.current = camera
 
     const renderer = new THREE.WebGLRenderer({ antialias: true })
+    renderer.outputColorSpace = THREE.SRGBColorSpace
+    renderer.toneMapping = THREE.NoToneMapping
     renderer.setSize(width, height)
     mountElement.appendChild(renderer.domElement)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
     directionalLight.position.set(-5, 0, 10)
     directionalLight.target.position.set(5, 0, 0)
     scene.add(directionalLight)
     scene.add(directionalLight.target)
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.0)
     scene.add(ambientLight)
 
     const segments = 80
     const radius = 5
     const geometry = new THREE.CircleGeometry(radius, segments)
 
+    // Color palette from tailwind config - only these three colors
+    const porcelain = new THREE.Color('#FFF5F0')
+    const peachCream = new THREE.Color('#FFDDC1')
+    const warmSand = new THREE.Color('#FFCBA4') // Using warm-sand as tangerine
+
     const positions = geometry.attributes.position
+    const colorArray = new Float32Array(positions.count * 3)
+    const angleArray: number[] = []
+
+    // Helper function to interpolate between colors
+    const lerpColor = (color1: THREE.Color, color2: THREE.Color, t: number): THREE.Color => {
+      const result = new THREE.Color()
+      result.r = color1.r + (color2.r - color1.r) * t
+      result.g = color1.g + (color2.g - color1.g) * t
+      result.b = color1.b + (color2.b - color1.b) * t
+      return result
+    }
+
     for (let i = 0; i < positions.count; i++) {
+      const x = positions.getX(i)
       const y = positions.getY(i)
       const bendAmount = (y / radius) * -0.8
       positions.setZ(i, bendAmount)
+
+      // Calculate angle from center for radial gradient
+      const angle = Math.atan2(y, x)
+      // Normalize angle to 0-1 range
+      const normalizedAngle = (angle + Math.PI) / (2 * Math.PI)
+      angleArray.push(normalizedAngle)
+
+      // Initialize colors based on angle
+      let vertexColor: THREE.Color
+      if (normalizedAngle < 0.33) {
+        const t = normalizedAngle / 0.33
+        vertexColor = lerpColor(porcelain, peachCream, t)
+      } else if (normalizedAngle < 0.66) {
+        const t = (normalizedAngle - 0.33) / 0.33
+        vertexColor = lerpColor(peachCream, warmSand, t)
+      } else {
+        const t = (normalizedAngle - 0.66) / 0.34
+        vertexColor = lerpColor(warmSand, porcelain, t)
+      }
+
+      colorArray[i * 3] = vertexColor.r
+      colorArray[i * 3 + 1] = vertexColor.g
+      colorArray[i * 3 + 2] = vertexColor.b
     }
 
     geometry.computeVertexNormals()
 
-    const material = new THREE.MeshStandardMaterial({
-      color: '#FFDDC1',
-      roughness: 0.5,
-      metalness: 0.2,
+    // Set initial vertex colors
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colorArray, 3))
+
+    // Store angles for animation
+    const angleAttribute = new THREE.Float32BufferAttribute(new Float32Array(angleArray), 1)
+    geometry.setAttribute('colorAngle', angleAttribute)
+
+    const material = new THREE.MeshBasicMaterial({
+      color: porcelain,
+      vertexColors: true,
       side: THREE.DoubleSide,
     })
 
@@ -95,9 +166,79 @@ export const Disc: React.FC<DiscProps> = ({ isMounted = false }) => {
 
     let frame = 0
     let animationId: number | null = null
+
+    // Ease in-out cubic function
+    const easeInOutCubic = (t: number): number => {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+    }
+
     const animate = () => {
       frame += 0.005
       disk.rotation.y = Math.sin(frame) * 0.2
+
+      // Animate radial gradient that shifts as disc rotates
+      // Cycle through gradient offset over time (0 to 1, repeating)
+      // Increased velocity by 25% (0.1 * 1.25 = 0.125)
+      const gradientOffset = (frame * 0.125) % 1
+
+      // Update vertex colors based on angle and gradient offset
+      const angleAttribute = geometry.getAttribute('colorAngle') as THREE.BufferAttribute
+      const colorAttribute = geometry.getAttribute('color') as THREE.BufferAttribute
+
+      for (let i = 0; i < positions.count; i++) {
+        const angle = angleAttribute.getX(i)
+        // Add rotation offset to create shifting gradient
+        const shiftedAngle = (angle + gradientOffset) % 1
+
+        let vertexColor: THREE.Color
+        if (shiftedAngle < 0.33) {
+          // porcelain to peach-cream
+          const t = shiftedAngle / 0.33
+          vertexColor = lerpColor(porcelain, peachCream, t)
+        } else if (shiftedAngle < 0.66) {
+          // peach-cream to warm-sand
+          const t = (shiftedAngle - 0.33) / 0.33
+          vertexColor = lerpColor(peachCream, warmSand, t)
+        } else {
+          // warm-sand back to porcelain
+          const t = (shiftedAngle - 0.66) / 0.34
+          vertexColor = lerpColor(warmSand, porcelain, t)
+        }
+
+        colorAttribute.setXYZ(i, vertexColor.r, vertexColor.g, vertexColor.b)
+      }
+
+      colorAttribute.needsUpdate = true
+
+      // Animate camera X position with easing
+      if (isAnimatingRef.current && animationStartRef.current !== null) {
+        const duration = 1000 // 1 second
+        const elapsed = Date.now() - animationStartRef.current
+        const progress = Math.min(elapsed / duration, 1)
+        const easedProgress = easeInOutCubic(progress)
+
+        const startX = startCameraXRef.current
+        const targetX = targetCameraXRef.current
+        const currentX = startX + (targetX - startX) * easedProgress
+
+        currentCameraXRef.current = currentX
+        camera.position.x = currentX
+        camera.lookAt(currentX, 0, 0)
+
+        if (progress >= 1) {
+          isAnimatingRef.current = false
+          animationStartRef.current = null
+          currentCameraXRef.current = targetX
+          camera.position.x = targetX
+          camera.lookAt(targetX, 0, 0)
+        }
+      } else {
+        // Keep camera at target position when not animating
+        const targetX = targetCameraXRef.current
+        camera.position.x = targetX
+        camera.lookAt(targetX, 0, 0)
+      }
+
       renderer.render(scene, camera)
       animationId = requestAnimationFrame(animate)
     }
@@ -126,6 +267,7 @@ export const Disc: React.FC<DiscProps> = ({ isMounted = false }) => {
       geometry.dispose()
       material.dispose()
       renderer.dispose()
+      cameraRef.current = null
     }
   }
 
@@ -153,4 +295,3 @@ export const Disc: React.FC<DiscProps> = ({ isMounted = false }) => {
     </div>
   )
 }
-
