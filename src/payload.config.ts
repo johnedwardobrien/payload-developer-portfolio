@@ -24,6 +24,14 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     autoRefresh: true,
+    autoLogin:
+      process.env.NODE_ENV === 'development'
+        ? {
+            email: 'test@example.com',
+            password: 'test',
+            prefillOnly: true, // Optional: if true, credentials are prefilled but user still clicks login
+          }
+        : false,
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
@@ -65,7 +73,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.NEON_POSTGRES_URL || '',
     },
-    prodMigrations: migrations
+    prodMigrations: migrations,
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),

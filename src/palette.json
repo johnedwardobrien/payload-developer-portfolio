@@ -1,0 +1,106 @@
+{
+  "palette": {
+    "name": "Warm Fleshtone Developer Palette",
+    "description": "Human-centered colors for an inviting developer portfolio",
+    "colors": [
+      {
+        "name": "Porcelain",
+        "hex": "#FFF5F0",
+        "rgb": "rgb(255, 245, 240)",
+        "rgba": "rgba(255, 245, 240, 1)",
+        "hsl": "hsl(20, 100%, 97%)",
+        "use": "Background, Cards"
+      },
+      {
+        "name": "Peach Cream",
+        "hex": "#FFDDC1",
+        "rgb": "rgb(255, 221, 193)",
+        "rgba": "rgba(255, 221, 193, 1)",
+        "hsl": "hsl(27, 100%, 88%)",
+        "use": "Accents, Highlights"
+      },
+      {
+        "name": "Warm Sand",
+        "hex": "#FFCBA4",
+        "rgb": "rgb(255, 203, 164)",
+        "rgba": "rgba(255, 203, 164, 1)",
+        "hsl": "hsl(26, 100%, 82%)",
+        "use": "Secondary Background"
+      },
+      {
+        "name": "Terracotta",
+        "hex": "#E8997A",
+        "rgb": "rgb(232, 153, 122)",
+        "rgba": "rgba(232, 153, 122, 1)",
+        "hsl": "hsl(17, 70%, 69%)",
+        "use": "Interactive Elements"
+      },
+      {
+        "name": "Clay",
+        "hex": "#C77556",
+        "rgb": "rgb(199, 117, 86)",
+        "rgba": "rgba(199, 117, 86, 1)",
+        "hsl": "hsl(16, 50%, 56%)",
+        "use": "Primary Buttons, Links"
+      },
+      {
+        "name": "Rust",
+        "hex": "#A65D47",
+        "rgb": "rgb(166, 93, 71)",
+        "rgba": "rgba(166, 93, 71, 1)",
+        "hsl": "hsl(14, 40%, 46%)",
+        "use": "Hover States"
+      },
+      {
+        "name": "Deep Umber",
+        "hex": "#6B4735",
+        "rgb": "rgb(107, 71, 53)",
+        "rgba": "rgba(107, 71, 53, 1)",
+        "hsl": "hsl(20, 34%, 31%)",
+        "use": "Headings, Important Text"
+      },
+      {
+        "name": "Espresso",
+        "hex": "#3D2817",
+        "rgb": "rgb(61, 40, 23)",
+        "rgba": "rgba(61, 40, 23, 1)",
+        "hsl": "hsl(27, 45%, 16%)",
+        "use": "Body Text"
+      }
+    ],
+    "css": {
+      "--color-porcelain": "#FFF5F0",
+      "--color-peach-cream": "#FFDDC1",
+      "--color-warm-sand": "#FFCBA4",
+      "--color-terracotta": "#E8997A",
+      "--color-clay": "#C77556",
+      "--color-rust": "#A65D47",
+      "--color-deep-umber": "#6B4735",
+      "--color-espresso": "#3D2817"
+    },
+    "scss": {
+      "$porcelain": "#FFF5F0",
+      "$peach-cream": "#FFDDC1",
+      "$warm-sand": "#FFCBA4",
+      "$terracotta": "#E8997A",
+      "$clay": "#C77556",
+      "$rust": "#A65D47",
+      "$deep-umber": "#6B4735",
+      "$espresso": "#3D2817"
+    },
+    "tailwind": {
+      "extend": {
+        "colors": {
+          "porcelain": "#FFF5F0",
+          "peach-cream": "#FFDDC1",
+          "warm-sand": "#FFCBA4",
+          "terracotta": "#E8997A",
+          "clay": "#C77556",
+          "rust": "#A65D47",
+          "deep-umber": "#6B4735",
+          "espresso": "#3D2817"
+        }
+      }
+    }
+  }
+}

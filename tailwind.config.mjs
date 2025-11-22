@@ -92,6 +92,15 @@ const config = {
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
+        // Warm Fleshtone Developer Palette
+        porcelain: '#FFF5F0',
+        'peach-cream': '#FFDDC1',
+        'warm-sand': '#FFCBA4',
+        terracotta: '#E8997A',
+        clay: '#C77556',
+        rust: '#A65D47',
+        'deep-umber': '#6B4735',
+        espresso: '#3D2817',
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)'],

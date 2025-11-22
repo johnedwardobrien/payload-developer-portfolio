@@ -14,8 +14,8 @@
   }
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 20 100% 97%; /* porcelain */
+    --foreground: 27 45% 16%; /* espresso */
 
     --card: 240 5% 96%;
     --card-foreground: 222.2 84% 4.9%;
@@ -47,6 +47,16 @@
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
+
+    /* Warm Fleshtone Developer Palette */
+    --color-porcelain: #FFF5F0;
+    --color-peach-cream: #FFDDC1;
+    --color-warm-sand: #FFCBA4;
+    --color-terracotta: #E8997A;
+    --color-clay: #C77556;
+    --color-rust: #A65D47;
+    --color-deep-umber: #6B4735;
+    --color-espresso: #3D2817;
   }
 
   [data-theme='dark'] {
@@ -89,7 +99,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-porcelain text-espresso min-h-[100vh] flex flex-col;
   }
 }
 
