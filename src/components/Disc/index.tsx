@@ -12,16 +12,21 @@ export const Disc: React.FC<DiscProps> = ({ isMounted = false, isPanelOpen = fal
   const mountRef = useRef<HTMLDivElement>(null)
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
   // When panel opens: camera at -5.9375
-  // When panel closes: camera at -4.05078125
-  const targetCameraXRef = useRef<number>(-4.05078125)
-  const currentCameraXRef = useRef<number>(-4.05078125)
+  // When panel closes: camera moves 25% more into viewport
+  // Current closed position: -4.05078125
+  // Movement when closing: -5.9375 to -4.05078125 = 1.88671875 units
+  // 25% more movement: 1.88671875 * 0.25 = 0.4716796875
+  // New closed position: -4.05078125 + 0.4716796875 = -3.5791015625
+  const targetCameraXRef = useRef<number>(-3.5791015625)
+  const currentCameraXRef = useRef<number>(-3.5791015625)
   const animationStartRef = useRef<number | null>(null)
-  const startCameraXRef = useRef<number>(-4.05078125)
+  const startCameraXRef = useRef<number>(-3.5791015625)
   const isAnimatingRef = useRef<boolean>(false)
 
   // Update target camera X position when panel state changes
+  // No delay - starts immediately and moves in time with content width changes
   useEffect(() => {
-    const newTarget = isPanelOpen ? -5.9375 : -4.05078125
+    const newTarget = isPanelOpen ? -5.9375 : -3.5791015625
     if (targetCameraXRef.current !== newTarget) {
       startCameraXRef.current = currentCameraXRef.current
       targetCameraXRef.current = newTarget
@@ -74,9 +79,9 @@ export const Disc: React.FC<DiscProps> = ({ isMounted = false, isPanelOpen = fal
     scene.background = new THREE.Color('#FFF5F0')
 
     const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000)
-    // Start camera at closed position
-    camera.position.set(-4.05078125, 0, 12)
-    camera.lookAt(-4.05078125, 0, 0)
+    // Start camera at closed position (with 25% more movement into viewport)
+    camera.position.set(-3.5791015625, 0, 12)
+    camera.lookAt(-3.5791015625, 0, 0)
     cameraRef.current = camera
 
     const renderer = new THREE.WebGLRenderer({ antialias: true })
