@@ -24,7 +24,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   children,
 }) => {
   const [activeTabId, setActiveTabId] = useState<string | null>(defaultActiveTabId)
-  const [isPanelOpen, setIsPanelOpen] = useState<boolean>(true)
+  const [isPanelOpen, setIsPanelOpen] = useState<boolean>(false)
   const [isDesktop, setIsDesktop] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const [isTablet, setIsTablet] = useState<boolean>(false)
@@ -49,10 +49,13 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
     return () => window.removeEventListener('resize', checkTablet)
   }, [])
 
-  // Check if we're on desktop
+  // Check if we're on desktop and set panel state accordingly
   useEffect(() => {
     const checkDesktop = () => {
-      setIsDesktop(window.matchMedia('(min-width: 1024px)').matches)
+      const desktop = window.matchMedia('(min-width: 1024px)').matches
+      setIsDesktop(desktop)
+      // Panel open on desktop, closed on mobile/tablet
+      setIsPanelOpen(desktop)
     }
     checkDesktop()
     window.addEventListener('resize', checkDesktop)
@@ -124,19 +127,19 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   }
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen flex flex-row z-50">
-      {/* Left Panel - Tab Buttons (3/4 on mobile, 2/6 on tablet, 1/6 on desktop) */}
-      {/* TAB PANEL ANIMATIONS: Work on all breakpoints */}
+    <>
+      {/* Left Panel - Tab Buttons (3/4 on mobile, 1/2 on tablet, 1/6 on desktop) */}
+      {/* TAB PANEL ANIMATIONS: Work on all breakpoints - Fixed in place */}
       <animated.div
         className={cn(
-          'absolute left-0 w-3/4 bg-peach-cream rounded-r-2xl shadow-[4px_0_12px_rgba(232,153,122,0.3)] z-50 flex flex-col',
-          isTablet ? 'w-1/3' : '',
-          isDesktop ? 'lg:w-[calc(100%/6)] lg:relative' : '',
+          'fixed left-0 w-3/4 bg-peach-cream rounded-r-2xl shadow-[4px_0_12px_rgba(232,153,122,0.3)] z-50 flex flex-col',
+          isTablet ? 'w-1/2' : '',
+          isDesktop ? 'lg:w-[calc(100%/6)]' : '',
         )}
         style={{
           ...panelSpring,
-          height: isMobile || isTablet ? '90vh' : '100vh',
-          top: isMobile || isTablet ? '5vh' : '0',
+          height: '90vh',
+          top: '5vh',
         }}
       >
         {/* Toggle button floating next to top right corner */}
@@ -178,10 +181,10 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
       </animated.div>
 
       {/* Right Panel - Tab Content */}
-      {/* TAB CONTENT ANIMATIONS: Only on desktop */}
+      {/* TAB CONTENT ANIMATIONS: Desktop has width animations, all breakpoints scroll normally */}
       {isDesktop ? (
         <animated.div
-          className="fixed top-0 left-[calc(100%/6+(100%-100%/6)*0.125)] h-screen flex-1 w-auto bg-porcelain [&_*]:!text-espresso"
+          className="relative ml-[calc(100%/6+(100%-100%/6)*0.125)] bg-porcelain [&_*]:!text-espresso"
           style={{
             transform: contentSpring.x.to((x) => `translateX(${x}vw)`),
             width: contentSpring.widthPercent.to(
@@ -207,12 +210,8 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
       ) : (
         <div
           className={cn(
-            'bg-porcelain mx-auto [&_*]:!text-espresso',
-            isMobile
-              ? 'fixed top-0 left-1/2 -translate-x-1/2 min-h-screen w-[95%]'
-              : isTablet
-                ? 'fixed top-0 left-1/2 -translate-x-1/2 min-h-screen w-[90%]'
-                : 'relative left-1/2 -translate-x-1/2 min-h-screen w-[90%]',
+            'bg-porcelain [&_*]:!text-espresso',
+            isMobile || isTablet ? 'w-[95%] mx-auto mt-[3vh]' : 'w-[90%] mx-auto',
           )}
         >
           {React.Children.map(children, (child, index) => {
@@ -231,6 +230,6 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
           })}
         </div>
       )}
-    </div>
+    </>
   )
 }
