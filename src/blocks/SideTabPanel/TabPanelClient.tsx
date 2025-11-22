@@ -3,6 +3,7 @@ import { cn } from '@/utilities/ui'
 import React, { useState, useEffect } from 'react'
 import { RxCaretLeft } from 'react-icons/rx'
 import { useSpring, animated, useChain, useSpringRef } from 'react-spring'
+import { Disc } from '@/components/Disc'
 
 type Tab = {
   id: string
@@ -24,6 +25,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   children,
 }) => {
   const [activeTabId, setActiveTabId] = useState<string | null>(defaultActiveTabId)
+  const [isMounted, setIsMounted] = useState<boolean>(false)
 
   // Initialize breakpoint states to prevent layout shift
   const [isDesktop, setIsDesktop] = useState<boolean>(() => {
@@ -128,6 +130,11 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
     immediate: !isDesktop, // Don't animate on initial render if not desktop (prevents shift)
   })
 
+  // Set mounted state after initial render to show content
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   // Hide admin bar when component mounts
   useEffect(() => {
     const adminBar = document.querySelector('.admin-bar') as HTMLElement
@@ -157,9 +164,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
       {/* TAB PANEL ANIMATIONS: Work on all breakpoints - Fixed in place */}
       <animated.div
         className={cn(
-          'fixed left-0 w-3/4 bg-peach-cream rounded-r-2xl shadow-[4px_0_12px_rgba(232,153,122,0.3)] z-50 flex flex-col',
-          isTablet ? 'w-1/2' : '',
-          isDesktop ? 'lg:w-[calc(100%/6)]' : '',
+          'fixed left-0 w-3/4 md:w-1/2 lg:w-[calc(100%/6)] bg-peach-cream rounded-r-2xl shadow-[4px_0_12px_rgba(232,153,122,0.3)] z-50 flex flex-col',
         )}
         style={{
           ...panelSpring,
@@ -207,57 +212,69 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
 
       {/* Right Panel - Tab Content */}
       {/* TAB CONTENT ANIMATIONS: Desktop has width animations, all breakpoints scroll normally */}
-      {isDesktop ? (
-        <animated.div
-          className="relative ml-[calc(100%/6+(100%-100%/6)*0.125)] bg-porcelain [&_*]:!text-espresso"
-          style={{
-            transform: contentSpring.x.to((x) => `translateX(${x}vw)`),
-            width: contentSpring.widthPercent.to(
-              (w: number) => `calc((100% - 100% / 6) * ${w / 100})`,
-            ),
-            // Prevent layout shift by setting initial width
-            minWidth: isPanelOpen
-              ? `calc((100% - 100% / 6) * 0.75)`
-              : `calc((100% - 100% / 6) * ${(75 + (panelWidth25Percent / (100 - panelWidthPercent)) * 75) / 100})`,
-          }}
-        >
-          {React.Children.map(children, (child, index) => {
-            const tab = tabs[index]
-            if (!tab) return null
-            return (
-              <div
-                key={tab.id}
-                className={cn({
-                  hidden: activeTabId !== tab.id,
-                })}
+      {isMounted && (
+        <>
+          {isDesktop ? (
+            <div className="relative ml-[calc(100%/6+(100%-100%/6)*0.125)] flex min-h-screen">
+              <animated.div
+                className="relative bg-porcelain [&_*]:!text-espresso"
+                style={{
+                  transform: contentSpring.x.to((x) => `translateX(${x}vw)`),
+                  width: contentSpring.widthPercent.to(
+                    (w: number) => `calc((100% - 100% / 6) * ${w / 100})`,
+                  ),
+                }}
               >
-                {child}
+                {React.Children.map(children, (child, index) => {
+                  const tab = tabs[index]
+                  if (!tab) return null
+                  return (
+                    <div
+                      key={tab.id}
+                      className={cn({
+                        hidden: activeTabId !== tab.id,
+                      })}
+                    >
+                      {child}
+                    </div>
+                  )
+                })}
+              </animated.div>
+              <div
+                className="flex-shrink-0 w-[400px] h-screen relative"
+                style={{ minHeight: '100vh' }}
+              >
+                <Disc isMounted={isMounted} />
               </div>
-            )
-          })}
-        </animated.div>
-      ) : (
-        <div
-          className={cn(
-            'bg-porcelain [&_*]:!text-espresso',
-            isMobile || isTablet ? 'w-[95%] mx-auto mt-[3vh]' : 'w-[90%] mx-auto',
+            </div>
+          ) : (
+            <div
+              className={cn(
+                'bg-porcelain [&_*]:!text-espresso',
+                isMobile
+                  ? 'w-[95%] mx-auto mt-[4vh]'
+                  : isTablet
+                    ? 'w-[95%] mx-auto mt-[3vh]'
+                    : 'w-[90%] mx-auto',
+              )}
+            >
+              {React.Children.map(children, (child, index) => {
+                const tab = tabs[index]
+                if (!tab) return null
+                return (
+                  <div
+                    key={tab.id}
+                    className={cn({
+                      hidden: activeTabId !== tab.id,
+                    })}
+                  >
+                    {child}
+                  </div>
+                )
+              })}
+            </div>
           )}
-        >
-          {React.Children.map(children, (child, index) => {
-            const tab = tabs[index]
-            if (!tab) return null
-            return (
-              <div
-                key={tab.id}
-                className={cn({
-                  hidden: activeTabId !== tab.id,
-                })}
-              >
-                {child}
-              </div>
-            )
-          })}
-        </div>
+        </>
       )}
     </>
   )
