@@ -191,7 +191,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SideTabPanel)[];
+  layout: (AnimationBlock | CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SideTabPanel)[];
   meta?: {
     title?: string | null;
     /**
@@ -404,6 +404,17 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AnimationBlock".
+ */
+export interface AnimationBlock {
+  animation: 'cube';
+  alignment: 'left' | 'center' | 'right';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'animationBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -772,7 +783,7 @@ export interface SideTabPanel {
             label: string;
           };
         };
-        content?: (ContentBlock | MediaBlock)[] | null;
+        content?: (AnimationBlock | ContentBlock | MediaBlock)[] | null;
         id?: string | null;
       }[]
     | null;
@@ -1066,6 +1077,7 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        animationBlock?: T | AnimationBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1087,6 +1099,16 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AnimationBlock_select".
+ */
+export interface AnimationBlockSelect<T extends boolean = true> {
+  animation?: T;
+  alignment?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1197,6 +1219,7 @@ export interface SideTabPanelSelect<T extends boolean = true> {
         content?:
           | T
           | {
+              animationBlock?: T | AnimationBlockSelect<T>;
               content?: T | ContentBlockSelect<T>;
               mediaBlock?: T | MediaBlockSelect<T>;
             };

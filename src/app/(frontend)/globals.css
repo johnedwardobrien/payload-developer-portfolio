@@ -16,6 +16,7 @@
   :root {
     --background: 20 100% 97%; /* porcelain */
     --foreground: 27 45% 16%; /* espresso */
+    --text: #3D2817; /* espresso */
 
     --card: 240 5% 96%;
     --card-foreground: 222.2 84% 4.9%;
@@ -62,6 +63,7 @@
   [data-theme='dark'] {
     --background: 0 0% 0%;
     --foreground: 210 40% 98%;
+    --text: 210 40% 98%;
 
     --card: 0 0% 4%;
     --card-foreground: 210 40% 98%;

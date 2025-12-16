@@ -1,6 +1,7 @@
 import type { Block, Field } from 'payload'
 
 import { link } from '@/fields/link'
+import { AnimationBlock } from '@/blocks/AnimationBlock/config'
 import { Content } from '@/blocks/Content/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
 
@@ -33,7 +34,7 @@ const tabButtons: Field[] = [
     name: 'content',
     type: 'blocks',
     label: 'Tab Content',
-    blocks: [Content, MediaBlock],
+    blocks: [AnimationBlock, Content, MediaBlock],
   },
 ]
 
