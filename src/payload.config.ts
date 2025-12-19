@@ -14,6 +14,7 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { ChatHeader } from './ChatHeader/config'
+import { ChatFooter } from './ChatFooter/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -78,7 +79,7 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, ChatHeader],
+  globals: [Header, Footer, ChatHeader, ChatFooter],
   plugins: [
     ...plugins,
     vercelBlobStorage({
