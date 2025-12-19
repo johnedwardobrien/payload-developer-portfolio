@@ -195,7 +195,16 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (AnimationBlock | CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SideTabPanel)[];
+  layout: (
+    | AnimationBlock
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | SideTabPanel
+    | ChatWindow
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -797,6 +806,27 @@ export interface SideTabPanel {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChatWindow".
+ */
+export interface ChatWindow {
+  helpText?: string | null;
+  placeholders?: Placeholder[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'chatWindow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Placeholder".
+ */
+export interface Placeholder {
+  textInput?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'placeholder';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1088,6 +1118,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         sideTabPanel?: T | SideTabPanelSelect<T>;
+        chatWindow?: T | ChatWindowSelect<T>;
       };
   meta?:
     | T
@@ -1229,6 +1260,29 @@ export interface SideTabPanelSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChatWindow_select".
+ */
+export interface ChatWindowSelect<T extends boolean = true> {
+  helpText?: T;
+  placeholders?:
+    | T
+    | {
+        placeholder?: T | PlaceholderSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Placeholder_select".
+ */
+export interface PlaceholderSelect<T extends boolean = true> {
+  textInput?: T;
   id?: T;
   blockName?: T;
 }

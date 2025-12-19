@@ -9,6 +9,7 @@ import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { SideTabPanel } from '../../blocks/SideTabPanel/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { ChatWindow } from '../../blocks/ChatWindow/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -82,6 +83,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Archive,
                 FormBlock,
                 SideTabPanel,
+                ChatWindow,
               ],
               required: true,
               admin: {
