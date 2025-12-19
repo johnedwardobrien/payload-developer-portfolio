@@ -116,7 +116,7 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Type your message..."
-          className="flex-1 h-20"
+          className="flex-1 h-20 chat-window-textarea"
         />
         <Button type="submit" disabled={!inputValue.trim()}>
           Send
