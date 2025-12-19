@@ -213,7 +213,8 @@ export interface Page {
     image?: (number | null) | Media;
     description?: string | null;
   };
-  pageLayout?: ('full' | 'empty') | null;
+  header?: ('main' | 'chat' | 'empty') | null;
+  footer?: ('main' | 'chat' | 'empty') | null;
   publishedAt?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -1127,7 +1128,8 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  pageLayout?: T;
+  header?: T;
+  footer?: T;
   publishedAt?: T;
   generateSlug?: T;
   slug?: T;

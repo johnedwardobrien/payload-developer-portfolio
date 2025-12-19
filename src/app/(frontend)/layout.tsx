@@ -8,7 +8,10 @@ import React, { cache } from 'react'
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
+import { ChatHeader } from '@/ChatHeader/Component'
+import { ChatFooter } from '@/ChatFooter/Component'
 import { Providers } from '@/providers'
+import type { PageHeaderType, PageFooterType } from '@/collections/Pages/types'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode, headers } from 'next/headers'
@@ -61,15 +64,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     }
   }
 
-  // Try to get page data to check pageLayout
-  let shouldShowHeaderFooter = true
+  // Try to get page data to check header and footer settings
+  let headerType: PageHeaderType | undefined
+  let footerType: PageFooterType | undefined
   try {
     const page = await queryPageByPathname(pathname)
-    if (page?.pageLayout === 'empty') {
-      shouldShowHeaderFooter = false
+    if (page?.header) {
+      headerType = page?.header
+    }
+    if (page?.footer) {
+      footerType = page?.footer
     }
   } catch {
-    // If page doesn't exist or error, default to showing header/footer
+    // If page doesn't exist or error, default to showing header/footer with main versions
     // This is expected for non-page routes (like /posts, /search, etc.)
   }
 
@@ -88,9 +95,29 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
 
-          {shouldShowHeaderFooter && <Header />}
+          {(() => {
+            switch (headerType) {
+              case 'chat':
+                return <ChatHeader />
+              case 'empty':
+                return null
+              case 'main':
+              default:
+                return <Header />
+            }
+          })()}
           {children}
-          {shouldShowHeaderFooter && <Footer />}
+          {(() => {
+            switch (footerType) {
+              case 'chat':
+                return <ChatFooter />
+              case 'empty':
+                return null
+              case 'main':
+              default:
+                return <Footer />
+            }
+          })()}
         </Providers>
       </body>
     </html>

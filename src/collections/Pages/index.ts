@@ -124,20 +124,44 @@ export const Pages: CollectionConfig<'pages'> = {
           label: 'Settings',
           fields: [
             {
-              name: 'pageLayout',
+              name: 'header',
               type: 'select',
-              label: 'Layout',
+              label: 'Header',
               options: [
                 {
-                  label: 'Full Layout',
-                  value: 'full',
+                  label: 'Main Header',
+                  value: 'main',
                 },
                 {
-                  label: 'Empty Page',
+                  label: 'Chat Header',
+                  value: 'chat',
+                },
+                {
+                  label: 'Empty',
                   value: 'empty',
                 },
               ],
-              defaultValue: 'full',
+              defaultValue: 'main',
+            },
+            {
+              name: 'footer',
+              type: 'select',
+              label: 'Footer',
+              options: [
+                {
+                  label: 'Main Footer',
+                  value: 'main',
+                },
+                {
+                  label: 'Chat Footer',
+                  value: 'chat',
+                },
+                {
+                  label: 'Empty',
+                  value: 'empty',
+                },
+              ],
+              defaultValue: 'main',
             },
           ],
         },
