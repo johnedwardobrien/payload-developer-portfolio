@@ -6,6 +6,7 @@ export const revalidateChatHeader: GlobalAfterChangeHook = ({ doc, req: { payloa
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating chatHeader`)
 
+    // @ts-ignore - revalidateTag type mismatch
     revalidateTag('global_chatHeader')
   }
 

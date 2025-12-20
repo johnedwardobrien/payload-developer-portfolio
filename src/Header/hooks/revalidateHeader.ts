@@ -6,6 +6,7 @@ export const revalidateHeader: GlobalAfterChangeHook = ({ doc, req: { payload, c
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating header`)
 
+    // @ts-ignore - revalidateTag type mismatch
     revalidateTag('global_header')
   }
 

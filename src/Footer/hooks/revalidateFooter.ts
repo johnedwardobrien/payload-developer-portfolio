@@ -6,6 +6,7 @@ export const revalidateFooter: GlobalAfterChangeHook = ({ doc, req: { payload, c
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating footer`)
 
+    // @ts-ignore - revalidateTag type mismatch
     revalidateTag('global_footer')
   }
 
