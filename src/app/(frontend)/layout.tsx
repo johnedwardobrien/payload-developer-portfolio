@@ -72,6 +72,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     if (page?.header) {
       headerType = page?.header
     }
+
     if (page?.footer) {
       footerType = page?.footer
     }
@@ -102,8 +103,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               case 'empty':
                 return null
               case 'main':
-              default:
                 return <Header />
+              default:
+                return null
             }
           })()}
           {children}
@@ -114,8 +116,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               case 'empty':
                 return null
               case 'main':
-              default:
                 return <Footer />
+              default:
+                return null
             }
           })()}
         </Providers>

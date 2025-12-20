@@ -80,9 +80,9 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
       </animated.div>
       <animated.div
         style={contentSpring}
-        className={cn(`grid w-screen h-screen bg-porcelain text-espresso`)}
+        className={cn(`grid w-full h-auto bg-porcelain text-espresso`)}
       >
-        <div className={`flex flex-col h-full w-full bg-porcelain`}></div>
+        <div className={`flex flex-col h-auto w-full bg-porcelain`}></div>
         <div className={cn(`flex flex-col bg-porcelain`)}>
           {React.Children.map(children, (child, index) => {
             return (
