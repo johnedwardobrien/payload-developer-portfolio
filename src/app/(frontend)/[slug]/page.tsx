@@ -63,18 +63,17 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout, pageLayout } = page
-  const isEmptyLayout = pageLayout === 'empty'
+  const { hero, layout } = page
 
   return (
-    <article className={isEmptyLayout ? '' : 'pt-16 pb-24'}>
+    <article className="pt-16 pb-24">
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 
       {draft && <LivePreviewListener />}
 
-      {!isEmptyLayout && <RenderHero {...hero} />}
+      <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
     </article>
   )
