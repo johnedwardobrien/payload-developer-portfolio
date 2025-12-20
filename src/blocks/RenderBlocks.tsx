@@ -10,6 +10,7 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { SideTabPanel } from '@/blocks/SideTabPanel/Component'
 import { ChatWindow } from '@/blocks/ChatWindow/Component'
+import { ContentChat } from '@/blocks/ContentChat/Component'
 
 const blockComponents = {
   animationBlock: AnimationBlock,
@@ -20,6 +21,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   sideTabPanel: SideTabPanel,
   chatWindow: ChatWindow,
+  contentChat: ContentChat,
 }
 
 export const RenderBlocks: React.FC<{

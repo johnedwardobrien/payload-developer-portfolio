@@ -204,6 +204,7 @@ export interface Page {
     | FormBlock
     | SideTabPanel
     | ChatWindow
+    | ContentChat
   )[];
   meta?: {
     title?: string | null;
@@ -831,6 +832,20 @@ export interface Placeholder {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentChat".
+ */
+export interface ContentChat {
+  helpText?: string | null;
+  pineconeIndex: string;
+  promptContext: string;
+  promptInstructions: string;
+  placeholders?: Placeholder[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentChat';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1123,6 +1138,7 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         sideTabPanel?: T | SideTabPanelSelect<T>;
         chatWindow?: T | ChatWindowSelect<T>;
+        contentChat?: T | ContentChatSelect<T>;
       };
   meta?:
     | T
@@ -1291,6 +1307,23 @@ export interface ChatWindowSelect<T extends boolean = true> {
  */
 export interface PlaceholderSelect<T extends boolean = true> {
   textInput?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentChat_select".
+ */
+export interface ContentChatSelect<T extends boolean = true> {
+  helpText?: T;
+  pineconeIndex?: T;
+  promptContext?: T;
+  promptInstructions?: T;
+  placeholders?:
+    | T
+    | {
+        placeholder?: T | PlaceholderSelect<T>;
+      };
   id?: T;
   blockName?: T;
 }

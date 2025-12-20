@@ -13,19 +13,6 @@
     font-weight: unset;
   }
 
-  .chat-window-textarea {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    resize: none;
-    outline: none;
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
-  }
-
   :root {
     --background: 20 100% 97%; /* porcelain */
     --foreground: 27 45% 16%; /* espresso */
