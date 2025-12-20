@@ -1,17 +1,9 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
-import { Input } from '@/components/ui/input'
+import React, { useState, useEffect } from 'react'
+import { useSpring, animated } from 'react-spring'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/utilities/ui'
-
-type Message = {
-  id: string
-  text: string
-  role: 'user' | 'assistant'
-  timestamp: Date
-}
 
 type ContentChatClientProps = {
   helpText?: string | null
@@ -27,13 +19,33 @@ export const ContentChatClient: React.FC<ContentChatClientProps> = ({
   promptContext,
   promptInstructions,
 }) => {
-  const [isChatStarted, setIsChatStarted] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
+  const [showForm, setShowForm] = useState(true)
+  const [showSpinner, setShowSpinner] = useState(false)
+  const [showResponse, setShowResponse] = useState(false)
+  const [responseText, setResponseText] = useState('')
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const chatEndRef = useRef<HTMLDivElement>(null)
-  const chatContainerRef = useRef<HTMLDivElement>(null)
+
+  const FADE_DURATION = 1000 // 1 second
+
+  // Form fade animation
+  const formSpring = useSpring({
+    opacity: showForm ? 1 : 0,
+    config: { duration: FADE_DURATION },
+  })
+
+  // Spinner fade animation
+  const spinnerSpring = useSpring({
+    opacity: showSpinner ? 1 : 0,
+    config: { duration: FADE_DURATION },
+  })
+
+  // Answer fade animation
+  const answerSpring = useSpring({
+    opacity: showResponse ? 1 : 0,
+    config: { duration: FADE_DURATION },
+  })
 
   useEffect(() => {
     // Prevent page scroll when ContentChat is mounted
@@ -47,31 +59,24 @@ export const ContentChatClient: React.FC<ContentChatClientProps> = ({
     }
   }, [])
 
-  const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  useEffect(() => {
-    if (isChatStarted) {
-      scrollToBottom()
-    }
-  }, [messages, isChatStarted])
-
-  const handleInitialSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const trimmedValue = inputValue.trim()
     if (trimmedValue) {
-      const newMessage: Message = {
-        id: Date.now().toString(),
-        text: trimmedValue,
-        role: 'user',
-        timestamp: new Date(),
-      }
-      setMessages([newMessage])
-      setIsChatStarted(true)
-      setInputValue('')
-      setIsLoading(true)
       setError(null)
+
+      // Step 1: Immediately disable textarea and submit button
+      setIsLoading(true)
+
+      // Step 2: After 500ms, fade out the form
+      setTimeout(() => {
+        setShowForm(false)
+
+        // Step 3: Immediately fade in the spinner after fade out completes
+        setTimeout(() => {
+          setShowSpinner(true)
+        }, FADE_DURATION)
+      }, 500)
 
       try {
         // Call content-target chat API
@@ -95,75 +100,36 @@ export const ContentChatClient: React.FC<ContentChatClientProps> = ({
         const data = await response.json()
 
         if (data.response) {
-          const assistantMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            text: data.response,
-            role: 'assistant',
-            timestamp: new Date(),
-          }
-          setMessages((prev) => [...prev, assistantMessage])
+          // Step 4: When results are in, fade out spinner and fade in results
+          setShowSpinner(false)
+          setTimeout(() => {
+            setResponseText(data.response)
+            setShowResponse(true)
+            setIsLoading(false)
+            setInputValue('')
+          }, FADE_DURATION)
         }
       } catch (error) {
         console.error('Error fetching chat response:', error)
         setError('Failed to get response. Please try again.')
-      } finally {
+        setShowSpinner(false)
         setIsLoading(false)
+        // Reset to form view on error
+        setTimeout(() => {
+          setShowForm(true)
+        }, FADE_DURATION)
       }
     }
   }
 
-  const handleChatSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const trimmedValue = inputValue.trim()
-    if (trimmedValue) {
-      const newMessage: Message = {
-        id: Date.now().toString(),
-        text: trimmedValue,
-        role: 'user',
-        timestamp: new Date(),
-      }
-      setMessages((prev) => [...prev, newMessage])
+  const handleNewQuery = () => {
+    setShowResponse(false)
+    setTimeout(() => {
+      setResponseText('')
       setInputValue('')
-      setIsLoading(true)
       setError(null)
-
-      try {
-        // Call content-target chat API
-        const response = await fetch('/api/chat/content-target', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            pineconeIndex,
-            promptContext,
-            promptInstructions,
-            message: trimmedValue,
-          }),
-        })
-
-        if (!response.ok) {
-          throw new Error('Failed to get response')
-        }
-
-        const data = await response.json()
-
-        if (data.response) {
-          const assistantMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            text: data.response,
-            role: 'assistant',
-            timestamp: new Date(),
-          }
-          setMessages((prev) => [...prev, assistantMessage])
-        }
-      } catch (error) {
-        console.error('Error fetching chat response:', error)
-        setError('Failed to get response. Please try again.')
-      } finally {
-        setIsLoading(false)
-      }
-    }
+      setShowForm(true)
+    }, FADE_DURATION)
   }
 
   // Validate required fields
@@ -183,113 +149,109 @@ export const ContentChatClient: React.FC<ContentChatClientProps> = ({
     )
   }
 
-  if (!isChatStarted) {
-    return (
-      <div
-        className="fixed inset-0 w-full flex items-center justify-center"
-        style={{ backgroundColor: '#FFDDC1' }}
-      >
-        <div className="w-[95%] md:w-[85%] lg:w-[75%] h-[95%] md:h-[75%] mx-auto flex items-center justify-center">
-          <form
-            onSubmit={handleInitialSubmit}
-            className="flex flex-col gap-4 w-full max-w-md md:max-w-none"
-          >
-            {helpText && <p className="text-sm text-muted-foreground mb-4">{helpText}</p>}
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col md:flex-row gap-2">
-                <Input
-                  type="text"
+  return (
+    <div
+      className="fixed inset-0 w-full flex items-center justify-center overflow-auto"
+      style={{ backgroundColor: '#FFDDC1' }}
+    >
+      {/* Form View */}
+      {showForm && (
+        <animated.div
+          style={{
+            ...formSpring,
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <div className="w-[95%] md:w-[85%] lg:w-[75%] h-[95%] md:h-[75%] mx-auto flex items-center justify-center">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full items-center">
+              {helpText && <p className="text-sm text-muted-foreground mb-4">{helpText}</p>}
+              <div className="flex flex-col gap-2 w-full items-center">
+                <Textarea
                   value={inputValue}
                   onChange={(e) => {
                     setInputValue(e.target.value)
                     setError(null)
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault()
+                      handleSubmit(e as unknown as React.FormEvent)
+                    }
+                  }}
                   placeholder="Type your message..."
-                  className="flex-1 border-0"
+                  className="w-full h-[250px] md:h-[250px] lg:h-[200px] border-0 resize-none overflow-auto text-[1.2rem]"
+                  disabled={isLoading}
                 />
-                <Button type="submit" className="bg-muted text-espresso hover:bg-muted/80">
+                <Button
+                  type="submit"
+                  className="bg-muted text-espresso hover:bg-muted/80 text-[1.25rem]"
+                  disabled={isLoading}
+                >
                   Submit
                 </Button>
+                {error && <p className="text-xs text-red-500 px-2">{error}</p>}
               </div>
-              {error && <p className="text-xs text-red-500 px-2">{error}</p>}
-            </div>
-          </form>
-        </div>
-      </div>
-    )
-  }
+            </form>
+          </div>
+        </animated.div>
+      )}
 
-  return (
-    <div
-      className="fixed inset-0 w-full flex items-center justify-center"
-      style={{ backgroundColor: '#FFDDC1' }}
-    >
-      {/* Chat Messages Area */}
-      <div className="w-[95%] md:w-[85%] lg:w-[75%] h-[95%] md:h-[75%] mx-auto flex flex-col">
-        <div
-          ref={chatContainerRef}
-          className="flex-1 overflow-y-auto space-y-4 px-2 pt-4 bg-white rounded-lg"
+      {/* Spinner View */}
+      {showSpinner && (
+        <animated.div
+          style={{
+            ...spinnerSpring,
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={cn('flex', message.role === 'user' ? 'justify-end' : 'justify-start')}
-            >
-              <div
-                className={cn(
-                  'max-w-[80%] rounded-lg px-4 py-2',
-                  message.role === 'user'
-                    ? 'bg-muted text-espresso'
-                    : 'bg-warm-sand/25 text-espresso',
-                )}
-              >
-                <p className="text-sm whitespace-pre-wrap text-espresso">{message.text}</p>
-              </div>
-            </div>
-          ))}
-          {isLoading && (
-            <div className="flex justify-start px-2">
-              <div className="w-5 h-5 border-2 border-warm-sand border-t-transparent rounded-full animate-spin" />
-            </div>
-          )}
-          <div ref={chatEndRef} />
-        </div>
+          <div className="w-80 h-80 border-8 border-[#FF8C42] border-t-transparent rounded-full animate-spin" />
+        </animated.div>
+      )}
 
-        {/* Chat Input at Bottom */}
-        <div>
-          <form onSubmit={handleChatSubmit} className="flex gap-2 pt-2">
-            <div className="flex-1 relative">
-              <Textarea
-                value={inputValue}
-                onChange={(e) => {
-                  if (e.target.value.length <= 500) {
-                    setInputValue(e.target.value)
-                    setError(null)
-                  }
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault()
-                    handleChatSubmit(e as unknown as React.FormEvent)
-                  }
-                }}
-                placeholder="Type your message..."
-                className="h-50 chat-window-textarea border-0"
-                maxLength={500}
+      {/* Answer View */}
+      {showResponse && (
+        <animated.div
+          style={{
+            ...answerSpring,
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+          }}
+        >
+          <style>
+            {`
+              .content-chat-results .citation {
+                font-size: min(9vw, 2.2rem) !important;
+              }
+            `}
+          </style>
+          <div className="w-[95%] md:w-[85%] lg:w-[75%] mx-auto flex flex-col items-center gap-6 py-8 mt-[10%] md:mt-[3%] lg:mt-[3%]">
+            <div className="w-full max-w-4xl bg-white rounded-lg p-8 md:p-12 content-chat-results">
+              <div
+                className="font-medium text-espresso whitespace-pre-wrap"
+                style={{ fontSize: 'min(7vw, 1.8rem)' }}
+                dangerouslySetInnerHTML={{ __html: responseText }}
               />
-              {inputValue.length >= 450 && (
-                <span className="absolute top-full left-3 mt-1 text-xs text-muted-foreground">
-                  {inputValue.length} / 500
-                </span>
-              )}
             </div>
-            <Button type="submit" className="bg-muted text-espresso hover:bg-muted/80">
-              Send
+            <Button onClick={handleNewQuery} className="bg-muted text-espresso hover:bg-muted/80">
+              New Query
             </Button>
-          </form>
-          {error && <p className="text-xs text-red-500 mt-2 px-2">{error}</p>}
-        </div>
-      </div>
+          </div>
+        </animated.div>
+      )}
     </div>
   )
 }

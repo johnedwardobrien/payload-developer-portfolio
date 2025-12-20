@@ -22,26 +22,12 @@ export const ContentChat: Block = {
       type: 'textarea',
       label: 'Prompt Context',
       required: true,
-      admin: {
-        rows: 15,
-        style: {
-          height: '300px',
-          marginBottom: '5rem',
-        },
-      },
     },
     {
       name: 'promptInstructions',
       type: 'textarea',
       label: 'Prompt Instructions',
       required: true,
-      admin: {
-        rows: 15,
-        style: {
-          height: '300px',
-          marginBottom: '5rem',
-        },
-      },
     },
     {
       name: 'placeholders',

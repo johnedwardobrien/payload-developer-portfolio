@@ -1,0 +1,13 @@
+/* Custom Payload Admin Styles */
+
+/* Reset textarea default styling and make it scroll */
+textarea {
+  resize: none !important;
+  overflow: auto !important;
+  box-sizing: border-box !important;
+  height: 300px !important;
+  min-height: 300px !important;
+  max-height: 300px !important;
+  margin-bottom: 2% !important;
+}
+
