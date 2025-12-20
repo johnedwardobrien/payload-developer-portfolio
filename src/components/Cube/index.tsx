@@ -118,7 +118,7 @@ export default function SpinningCube() {
     })
 
     // Add spheres at each vertex to create smooth knuckle joints
-    const vertices = [
+    const vertices: [number, number, number][] = [
       [-1, -1, -1],
       [1, -1, -1],
       [1, -1, 1],
