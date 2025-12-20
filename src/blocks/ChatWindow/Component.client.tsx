@@ -22,6 +22,8 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
   const [isChatStarted, setIsChatStarted] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const chatEndRef = useRef<HTMLDivElement>(null)
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
@@ -60,15 +62,40 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
       setMessages([newMessage])
       setIsChatStarted(true)
       setInputValue('')
+      setIsLoading(true)
+      setError(null)
 
-      // Call chat API
-      fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: trimmedValue }),
-      })
+      try {
+        // Call chat API
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: trimmedValue }),
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to get response')
+        }
+
+        const data = await response.json()
+
+        if (data.response) {
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            text: data.response,
+            role: 'assistant',
+            timestamp: new Date(),
+          }
+          setMessages((prev) => [...prev, assistantMessage])
+        }
+      } catch (error) {
+        console.error('Error fetching chat response:', error)
+        setError('Failed to get response. Please try again.')
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
@@ -84,15 +111,40 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
       }
       setMessages((prev) => [...prev, newMessage])
       setInputValue('')
+      setIsLoading(true)
+      setError(null)
 
-      // Call chat API
-      fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: trimmedValue }),
-      })
+      try {
+        // Call chat API
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: trimmedValue }),
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to get response')
+        }
+
+        const data = await response.json()
+
+        if (data.response) {
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            text: data.response,
+            role: 'assistant',
+            timestamp: new Date(),
+          }
+          setMessages((prev) => [...prev, assistantMessage])
+        }
+      } catch (error) {
+        console.error('Error fetching chat response:', error)
+        setError('Failed to get response. Please try again.')
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
@@ -108,17 +160,21 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
             className="flex flex-col gap-4 w-full max-w-md md:max-w-none"
           >
             {helpText && <p className="text-sm text-muted-foreground mb-4">{helpText}</p>}
-            <div className="flex flex-col md:flex-row gap-2">
-              <Input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Type your message..."
-                className="flex-1"
-              />
-              <Button type="submit" disabled={!inputValue.trim()}>
-                Submit
-              </Button>
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col md:flex-row gap-2">
+                <Input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => {
+                    setInputValue(e.target.value)
+                    setError(null)
+                  }}
+                  placeholder="Type your message..."
+                  className="flex-1 border-0"
+                />
+                <Button type="submit">Submit</Button>
+              </div>
+              {error && <p className="text-xs text-red-500 px-2">{error}</p>}
             </div>
           </form>
         </div>
@@ -135,7 +191,7 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
       <div className="w-[95%] md:w-[85%] lg:w-[75%] h-[95%] md:h-[75%] mx-auto flex flex-col">
         <div
           ref={chatContainerRef}
-          className="flex-1 overflow-y-auto space-y-4 pr-2 pt-4 bg-white rounded-lg"
+          className="flex-1 overflow-y-auto space-y-4 px-2 pt-4 bg-white rounded-lg"
         >
           {messages.map((message) => (
             <div
@@ -147,29 +203,41 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
                   'max-w-[80%] rounded-lg px-4 py-2',
                   message.role === 'user'
                     ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-muted-foreground',
+                    : 'bg-warm-sand/25 text-espresso',
                 )}
               >
                 <p className="text-sm whitespace-pre-wrap">{message.text}</p>
               </div>
             </div>
           ))}
+          {isLoading && (
+            <div className="flex justify-start px-2">
+              <div className="w-5 h-5 border-2 border-warm-sand border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
           <div ref={chatEndRef} />
         </div>
 
         {/* Chat Input at Bottom */}
         <div>
-          <form onSubmit={handleChatSubmit} className="flex gap-2 pt-2 border-t border-border">
+          <form onSubmit={handleChatSubmit} className="flex gap-2 pt-2">
             <div className="flex-1 relative">
               <Textarea
                 value={inputValue}
                 onChange={(e) => {
                   if (e.target.value.length <= 500) {
                     setInputValue(e.target.value)
+                    setError(null)
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault()
+                    handleChatSubmit(e as unknown as React.FormEvent)
                   }
                 }}
                 placeholder="Type your message..."
-                className="h-50 chat-window-textarea"
+                className="h-50 chat-window-textarea border-0"
                 maxLength={500}
               />
               {inputValue.length >= 450 && (
@@ -178,10 +246,9 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
                 </span>
               )}
             </div>
-            <Button type="submit" disabled={!inputValue.trim()}>
-              Send
-            </Button>
+            <Button type="submit">Send</Button>
           </form>
+          {error && <p className="text-xs text-red-500 mt-2 px-2">{error}</p>}
         </div>
       </div>
     </div>
