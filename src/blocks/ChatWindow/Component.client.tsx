@@ -47,32 +47,52 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
     }
   }, [messages, isChatStarted])
 
-  const handleInitialSubmit = (e: React.FormEvent) => {
+  const handleInitialSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (inputValue.trim()) {
+    const trimmedValue = inputValue.trim()
+    if (trimmedValue) {
       const newMessage: Message = {
         id: Date.now().toString(),
-        text: inputValue.trim(),
+        text: trimmedValue,
         role: 'user',
         timestamp: new Date(),
       }
       setMessages([newMessage])
       setIsChatStarted(true)
       setInputValue('')
+
+      // Call chat API
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: trimmedValue }),
+      })
     }
   }
 
-  const handleChatSubmit = (e: React.FormEvent) => {
+  const handleChatSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (inputValue.trim()) {
+    const trimmedValue = inputValue.trim()
+    if (trimmedValue) {
       const newMessage: Message = {
         id: Date.now().toString(),
-        text: inputValue.trim(),
+        text: trimmedValue,
         role: 'user',
         timestamp: new Date(),
       }
       setMessages((prev) => [...prev, newMessage])
       setInputValue('')
+
+      // Call chat API
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: trimmedValue }),
+      })
     }
   }
 
