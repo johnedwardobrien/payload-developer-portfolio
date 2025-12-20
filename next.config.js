@@ -12,9 +12,9 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**'
-      }
-    ]
+        hostname: '**',
+      },
+    ],
     // remotePatterns: [
     //   ...[NEXT_PUBLIC_SERVER_URL, 'https://www.johnobrien.dev'].map((item) => {
     //     const url = new URL(item)
@@ -26,6 +26,7 @@ const nextConfig = {
     //   }),
     // ],
   },
+  turbopack: {},
   reactStrictMode: true,
   redirects,
 }
