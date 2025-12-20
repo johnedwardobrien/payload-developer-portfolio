@@ -15,10 +15,18 @@ type Message = {
 
 type ChatWindowClientProps = {
   helpText?: string | null
+  pineconeIndex?: string | null
+  promptContext?: string | null
+  promptInstructions?: string | null
   placeholders?: unknown[] | null
 }
 
-export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) => {
+export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
+  helpText,
+  pineconeIndex,
+  promptContext,
+  promptInstructions,
+}) => {
   const [isChatStarted, setIsChatStarted] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
@@ -66,13 +74,18 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
       setError(null)
 
       try {
-        // Call chat API
-        const response = await fetch('/api/chat', {
+        // Call character dialogue chat API
+        const response = await fetch('/api/chat/character-dialogue', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ message: trimmedValue }),
+          body: JSON.stringify({
+            pineconeIndex,
+            promptContext,
+            promptInstructions,
+            message: trimmedValue,
+          }),
         })
 
         if (!response.ok) {
@@ -115,13 +128,18 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
       setError(null)
 
       try {
-        // Call chat API
-        const response = await fetch('/api/chat', {
+        // Call character dialogue chat API
+        const response = await fetch('/api/chat/character-dialogue', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ message: trimmedValue }),
+          body: JSON.stringify({
+            pineconeIndex,
+            promptContext,
+            promptInstructions,
+            message: trimmedValue,
+          }),
         })
 
         if (!response.ok) {
@@ -148,6 +166,23 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
     }
   }
 
+  // Validate required fields
+  if (!pineconeIndex || !promptContext || !promptInstructions) {
+    return (
+      <div
+        className="fixed inset-0 w-full flex items-center justify-center"
+        style={{ backgroundColor: '#FFDDC1' }}
+      >
+        <div className="text-center p-8">
+          <p className="text-red-500">
+            Error: Chat window configuration is incomplete. Please configure Pinecone Index, Prompt
+            Context, and Prompt Instructions.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   if (!isChatStarted) {
     return (
       <div
@@ -172,7 +207,9 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
                   placeholder="Type your message..."
                   className="flex-1 border-0"
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit" className="bg-muted text-espresso hover:bg-muted/80">
+                  Submit
+                </Button>
               </div>
               {error && <p className="text-xs text-red-500 px-2">{error}</p>}
             </div>
@@ -202,11 +239,11 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
                 className={cn(
                   'max-w-[80%] rounded-lg px-4 py-2',
                   message.role === 'user'
-                    ? 'bg-primary text-primary-foreground'
+                    ? 'bg-muted text-espresso'
                     : 'bg-warm-sand/25 text-espresso',
                 )}
               >
-                <p className="text-sm whitespace-pre-wrap">{message.text}</p>
+                <p className="text-sm whitespace-pre-wrap text-espresso">{message.text}</p>
               </div>
             </div>
           ))}
@@ -246,7 +283,9 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText }) 
                 </span>
               )}
             </div>
-            <Button type="submit">Send</Button>
+            <Button type="submit" className="bg-muted text-espresso hover:bg-muted/80">
+              Send
+            </Button>
           </form>
           {error && <p className="text-xs text-red-500 mt-2 px-2">{error}</p>}
         </div>

@@ -811,6 +811,9 @@ export interface SideTabPanel {
  */
 export interface ChatWindow {
   helpText?: string | null;
+  pineconeIndex: string;
+  promptContext: string;
+  promptInstructions: string;
   placeholders?: Placeholder[] | null;
   id?: string | null;
   blockName?: string | null;
@@ -1271,6 +1274,9 @@ export interface SideTabPanelSelect<T extends boolean = true> {
  */
 export interface ChatWindowSelect<T extends boolean = true> {
   helpText?: T;
+  pineconeIndex?: T;
+  promptContext?: T;
+  promptInstructions?: T;
   placeholders?:
     | T
     | {
