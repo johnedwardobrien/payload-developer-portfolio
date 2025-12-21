@@ -72,7 +72,6 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
-    yachtParallax: YachtParallax;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -89,7 +88,6 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    yachtParallax: YachtParallaxSelect<false> | YachtParallaxSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -207,6 +205,7 @@ export interface Page {
     | SideTabPanel
     | ChatWindow
     | ContentChat
+    | YachtParallax
   )[];
   meta?: {
     title?: string | null;
@@ -848,11 +847,9 @@ export interface ContentChat {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "yachtParallax".
+ * via the `definition` "YachtParallax".
  */
 export interface YachtParallax {
-  id: number;
-  title: string;
   blocks?:
     | (
         | TopHeroWithIcons
@@ -863,13 +860,9 @@ export interface YachtParallax {
         | CTAButtons
       )[]
     | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'yachtParallax';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1206,10 +1199,6 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
-        relationTo: 'yachtParallax';
-        value: number | YachtParallax;
-      } | null)
-    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1311,6 +1300,7 @@ export interface PagesSelect<T extends boolean = true> {
         sideTabPanel?: T | SideTabPanelSelect<T>;
         chatWindow?: T | ChatWindowSelect<T>;
         contentChat?: T | ContentChatSelect<T>;
+        yachtParallax?: T | YachtParallaxSelect<T>;
       };
   meta?:
     | T
@@ -1501,6 +1491,178 @@ export interface ContentChatSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "YachtParallax_select".
+ */
+export interface YachtParallaxSelect<T extends boolean = true> {
+  blocks?:
+    | T
+    | {
+        topHeroWithIcons?: T | TopHeroWithIconsSelect<T>;
+        videoSideScroller?: T | VideoSideScrollerSelect<T>;
+        layeredCards?: T | LayeredCardsSelect<T>;
+        eventSideScroller?: T | EventSideScrollerSelect<T>;
+        threeCardAcrossWithBackground?: T | ThreeCardAcrossWithBackgroundSelect<T>;
+        ctaButtons?: T | CTAButtonsSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TopHeroWithIcons_select".
+ */
+export interface TopHeroWithIconsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  featuredImageButtonText?: T;
+  inputPlaceholders?:
+    | T
+    | {
+        placeholder?: T | PlaceholderSelect<T>;
+      };
+  heroImage?: T;
+  heroFeatured?: T;
+  icons?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoSideScroller_select".
+ */
+export interface VideoSideScrollerSelect<T extends boolean = true> {
+  videoLayout?: T;
+  title?: T;
+  subtitle?: T;
+  buttonText1?: T;
+  buttonText2?: T;
+  nextWindowText?: T;
+  videos?:
+    | T
+    | {
+        videoCards?: T | VideoCardsSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoCards_select".
+ */
+export interface VideoCardsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  videos?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayeredCards_select".
+ */
+export interface LayeredCardsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  buttonText?: T;
+  cards?:
+    | T
+    | {
+        layeredCard?: T | LayeredCardSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayeredCard_select".
+ */
+export interface LayeredCardSelect<T extends boolean = true> {
+  title?: T;
+  buttonText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventSideScroller_select".
+ */
+export interface EventSideScrollerSelect<T extends boolean = true> {
+  title?: T;
+  buttonText?: T;
+  events?:
+    | T
+    | {
+        eventCard?: T | EventCardSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventCard_select".
+ */
+export interface EventCardSelect<T extends boolean = true> {
+  title?: T;
+  fromDate?: T;
+  toDate?: T;
+  linkText?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeCardAcrossWithBackground_select".
+ */
+export interface ThreeCardAcrossWithBackgroundSelect<T extends boolean = true> {
+  title?: T;
+  mainBackground?: T;
+  cards?:
+    | T
+    | {
+        threeCard?: T | ThreeCardSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeCard_select".
+ */
+export interface ThreeCardSelect<T extends boolean = true> {
+  title?: T;
+  buttonText?: T;
+  backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTAButtons_select".
+ */
+export interface CTAButtonsSelect<T extends boolean = true> {
+  title?: T;
+  backgroundImage?: T;
+  iconButtons?:
+    | T
+    | {
+        iconButton?: T | IconButtonSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton_select".
+ */
+export interface IconButtonSelect<T extends boolean = true> {
+  title?: T;
+  icon?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -1668,181 +1830,6 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "yachtParallax_select".
- */
-export interface YachtParallaxSelect<T extends boolean = true> {
-  title?: T;
-  blocks?:
-    | T
-    | {
-        topHeroWithIcons?: T | TopHeroWithIconsSelect<T>;
-        videoSideScroller?: T | VideoSideScrollerSelect<T>;
-        layeredCards?: T | LayeredCardsSelect<T>;
-        eventSideScroller?: T | EventSideScrollerSelect<T>;
-        threeCardAcrossWithBackground?: T | ThreeCardAcrossWithBackgroundSelect<T>;
-        ctaButtons?: T | CTAButtonsSelect<T>;
-      };
-  generateSlug?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TopHeroWithIcons_select".
- */
-export interface TopHeroWithIconsSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  featuredImageButtonText?: T;
-  inputPlaceholders?:
-    | T
-    | {
-        placeholder?: T | PlaceholderSelect<T>;
-      };
-  heroImage?: T;
-  heroFeatured?: T;
-  icons?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoSideScroller_select".
- */
-export interface VideoSideScrollerSelect<T extends boolean = true> {
-  videoLayout?: T;
-  title?: T;
-  subtitle?: T;
-  buttonText1?: T;
-  buttonText2?: T;
-  nextWindowText?: T;
-  videos?:
-    | T
-    | {
-        videoCards?: T | VideoCardsSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoCards_select".
- */
-export interface VideoCardsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  videos?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LayeredCards_select".
- */
-export interface LayeredCardsSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  buttonText?: T;
-  cards?:
-    | T
-    | {
-        layeredCard?: T | LayeredCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LayeredCard_select".
- */
-export interface LayeredCardSelect<T extends boolean = true> {
-  title?: T;
-  buttonText?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EventSideScroller_select".
- */
-export interface EventSideScrollerSelect<T extends boolean = true> {
-  title?: T;
-  buttonText?: T;
-  events?:
-    | T
-    | {
-        eventCard?: T | EventCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EventCard_select".
- */
-export interface EventCardSelect<T extends boolean = true> {
-  title?: T;
-  fromDate?: T;
-  toDate?: T;
-  linkText?: T;
-  image?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ThreeCardAcrossWithBackground_select".
- */
-export interface ThreeCardAcrossWithBackgroundSelect<T extends boolean = true> {
-  title?: T;
-  mainBackground?: T;
-  cards?:
-    | T
-    | {
-        threeCard?: T | ThreeCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ThreeCard_select".
- */
-export interface ThreeCardSelect<T extends boolean = true> {
-  title?: T;
-  buttonText?: T;
-  backgroundImage?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTAButtons_select".
- */
-export interface CTAButtonsSelect<T extends boolean = true> {
-  title?: T;
-  backgroundImage?: T;
-  iconButtons?:
-    | T
-    | {
-        iconButton?: T | IconButtonSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconButton_select".
- */
-export interface IconButtonSelect<T extends boolean = true> {
-  title?: T;
-  icon?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

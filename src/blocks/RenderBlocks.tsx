@@ -11,6 +11,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { SideTabPanel } from '@/blocks/SideTabPanel/Component'
 import { ChatWindow } from '@/blocks/ChatWindow/Component'
 import { ContentChat } from '@/blocks/ContentChat/Component'
+import { YachtParallax } from '@/blocks/YachtParallax/Component'
 
 const blockComponents = {
   animationBlock: AnimationBlock,
@@ -22,6 +23,7 @@ const blockComponents = {
   sideTabPanel: SideTabPanel,
   chatWindow: ChatWindow,
   contentChat: ContentChat,
+  yachtParallax: YachtParallax,
 }
 
 export const RenderBlocks: React.FC<{
@@ -41,10 +43,14 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType]
 
             if (Block) {
-              // SideTabPanel should not have margin as it fills the viewport
+              // SideTabPanel and YachtParallax should not have margin as they fill the viewport
               const isSideTabPanel = blockType === 'sideTabPanel'
+              const isYachtParallax = blockType === 'yachtParallax'
               return (
-                <div className={isSideTabPanel ? '' : 'my-16'} key={`${index}-block`}>
+                <div
+                  className={isSideTabPanel || isYachtParallax ? '' : 'my-16'}
+                  key={`${index}-block`}
+                >
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>

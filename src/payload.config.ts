@@ -11,7 +11,6 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
-import { YachtParallax } from './collections/YachtParallax'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { ChatHeader } from './ChatHeader/config'
@@ -78,7 +77,7 @@ export default buildConfig({
     },
     prodMigrations: migrations,
   }),
-  collections: [Pages, Posts, Media, Categories, Users, YachtParallax],
+  collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, ChatHeader, ChatFooter],
   plugins: [

@@ -11,6 +11,7 @@ import { SideTabPanel } from '../../blocks/SideTabPanel/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { ChatWindow } from '../../blocks/ChatWindow/config'
 import { ContentChat } from '../../blocks/ContentChat/config'
+import { YachtParallax } from '../../blocks/YachtParallax/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -86,6 +87,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 SideTabPanel,
                 ChatWindow,
                 ContentChat,
+                YachtParallax,
               ],
               required: true,
               admin: {
