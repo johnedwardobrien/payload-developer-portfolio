@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    yachtParallax: YachtParallax;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    yachtParallax: YachtParallaxSelect<false> | YachtParallaxSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -846,6 +848,172 @@ export interface ContentChat {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "yachtParallax".
+ */
+export interface YachtParallax {
+  id: number;
+  title: string;
+  blocks?:
+    | (
+        | TopHeroWithIcons
+        | VideoSideScroller
+        | LayeredCards
+        | EventSideScroller
+        | ThreeCardAcrossWithBackground
+        | CTAButtons
+      )[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TopHeroWithIcons".
+ */
+export interface TopHeroWithIcons {
+  title?: string | null;
+  subtitle?: string | null;
+  featuredImageButtonText?: string | null;
+  inputPlaceholders?: Placeholder[] | null;
+  heroImage?: (number | null) | Media;
+  heroFeatured?: (number | null) | Media;
+  icons?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'topHeroWithIcons';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoSideScroller".
+ */
+export interface VideoSideScroller {
+  videoLayout?: ('grid' | 'singleGrowShrink' | 'layeredCards') | null;
+  title?: string | null;
+  subtitle?: string | null;
+  buttonText1?: string | null;
+  buttonText2?: string | null;
+  nextWindowText?: string | null;
+  videos?: VideoCards[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'videoSideScroller';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoCards".
+ */
+export interface VideoCards {
+  title?: string | null;
+  description?: string | null;
+  videos?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'videoCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayeredCards".
+ */
+export interface LayeredCards {
+  title?: string | null;
+  subtitle?: string | null;
+  buttonText?: string | null;
+  cards?: LayeredCard[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'layeredCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayeredCard".
+ */
+export interface LayeredCard {
+  title?: string | null;
+  buttonText?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'layeredCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventSideScroller".
+ */
+export interface EventSideScroller {
+  title?: string | null;
+  buttonText?: string | null;
+  events?: EventCard[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventSideScroller';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventCard".
+ */
+export interface EventCard {
+  title?: string | null;
+  fromDate?: string | null;
+  toDate?: string | null;
+  linkText?: string | null;
+  image?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeCardAcrossWithBackground".
+ */
+export interface ThreeCardAcrossWithBackground {
+  title?: string | null;
+  mainBackground?: (number | null) | Media;
+  cards?: ThreeCard[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'threeCardAcrossWithBackground';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeCard".
+ */
+export interface ThreeCard {
+  title?: string | null;
+  buttonText?: string | null;
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'threeCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTAButtons".
+ */
+export interface CTAButtons {
+  title?: string | null;
+  backgroundImage?: (number | null) | Media;
+  iconButtons?: IconButton[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaButtons';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton".
+ */
+export interface IconButton {
+  title?: string | null;
+  icon?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'iconButton';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1036,6 +1204,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'yachtParallax';
+        value: number | YachtParallax;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1496,6 +1668,181 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "yachtParallax_select".
+ */
+export interface YachtParallaxSelect<T extends boolean = true> {
+  title?: T;
+  blocks?:
+    | T
+    | {
+        topHeroWithIcons?: T | TopHeroWithIconsSelect<T>;
+        videoSideScroller?: T | VideoSideScrollerSelect<T>;
+        layeredCards?: T | LayeredCardsSelect<T>;
+        eventSideScroller?: T | EventSideScrollerSelect<T>;
+        threeCardAcrossWithBackground?: T | ThreeCardAcrossWithBackgroundSelect<T>;
+        ctaButtons?: T | CTAButtonsSelect<T>;
+      };
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TopHeroWithIcons_select".
+ */
+export interface TopHeroWithIconsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  featuredImageButtonText?: T;
+  inputPlaceholders?:
+    | T
+    | {
+        placeholder?: T | PlaceholderSelect<T>;
+      };
+  heroImage?: T;
+  heroFeatured?: T;
+  icons?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoSideScroller_select".
+ */
+export interface VideoSideScrollerSelect<T extends boolean = true> {
+  videoLayout?: T;
+  title?: T;
+  subtitle?: T;
+  buttonText1?: T;
+  buttonText2?: T;
+  nextWindowText?: T;
+  videos?:
+    | T
+    | {
+        videoCards?: T | VideoCardsSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoCards_select".
+ */
+export interface VideoCardsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  videos?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayeredCards_select".
+ */
+export interface LayeredCardsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  buttonText?: T;
+  cards?:
+    | T
+    | {
+        layeredCard?: T | LayeredCardSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayeredCard_select".
+ */
+export interface LayeredCardSelect<T extends boolean = true> {
+  title?: T;
+  buttonText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventSideScroller_select".
+ */
+export interface EventSideScrollerSelect<T extends boolean = true> {
+  title?: T;
+  buttonText?: T;
+  events?:
+    | T
+    | {
+        eventCard?: T | EventCardSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventCard_select".
+ */
+export interface EventCardSelect<T extends boolean = true> {
+  title?: T;
+  fromDate?: T;
+  toDate?: T;
+  linkText?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeCardAcrossWithBackground_select".
+ */
+export interface ThreeCardAcrossWithBackgroundSelect<T extends boolean = true> {
+  title?: T;
+  mainBackground?: T;
+  cards?:
+    | T
+    | {
+        threeCard?: T | ThreeCardSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeCard_select".
+ */
+export interface ThreeCardSelect<T extends boolean = true> {
+  title?: T;
+  buttonText?: T;
+  backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTAButtons_select".
+ */
+export interface CTAButtonsSelect<T extends boolean = true> {
+  title?: T;
+  backgroundImage?: T;
+  iconButtons?:
+    | T
+    | {
+        iconButton?: T | IconButtonSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton_select".
+ */
+export interface IconButtonSelect<T extends boolean = true> {
+  title?: T;
+  icon?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
