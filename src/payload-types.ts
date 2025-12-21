@@ -875,10 +875,21 @@ export interface TopHeroWithIcons {
   inputPlaceholders?: Placeholder[] | null;
   heroImage?: (number | null) | Media;
   heroFeatured?: (number | null) | Media;
-  icons?: (number | null) | Media;
+  icons?: IconButton[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'topHeroWithIcons';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton".
+ */
+export interface IconButton {
+  title?: string | null;
+  icon?: 'placeholder' | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'iconButton';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -993,17 +1004,6 @@ export interface CTAButtons {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ctaButtons';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconButton".
- */
-export interface IconButton {
-  title?: string | null;
-  icon?: 'placeholder' | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'iconButton';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1522,7 +1522,21 @@ export interface TopHeroWithIconsSelect<T extends boolean = true> {
       };
   heroImage?: T;
   heroFeatured?: T;
-  icons?: T;
+  icons?:
+    | T
+    | {
+        iconButton?: T | IconButtonSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton_select".
+ */
+export interface IconButtonSelect<T extends boolean = true> {
+  title?: T;
+  icon?: T;
   id?: T;
   blockName?: T;
 }
@@ -1648,16 +1662,6 @@ export interface CTAButtonsSelect<T extends boolean = true> {
     | {
         iconButton?: T | IconButtonSelect<T>;
       };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconButton_select".
- */
-export interface IconButtonSelect<T extends boolean = true> {
-  title?: T;
-  icon?: T;
   id?: T;
   blockName?: T;
 }
