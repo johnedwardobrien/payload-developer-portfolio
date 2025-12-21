@@ -308,7 +308,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   DROP TABLE "yacht_parallax_blocks_icon_button" CASCADE;
   DROP TABLE "yacht_parallax_blocks_cta_buttons" CASCADE;
   DROP TABLE "yacht_parallax" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_yacht_parallax_fk";
   
   DROP INDEX "payload_locked_documents_rels_yacht_parallax_id_idx";
   ALTER TABLE "pages_blocks_top_hero_with_icons" ADD CONSTRAINT "pages_blocks_top_hero_with_icons_hero_image_id_media_id_fk" FOREIGN KEY ("hero_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
