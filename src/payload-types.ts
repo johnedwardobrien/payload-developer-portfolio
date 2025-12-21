@@ -1007,7 +1007,7 @@ export interface CTAButtons {
  */
 export interface IconButton {
   title?: string | null;
-  icon?: string | null;
+  icon?: 'placeholder' | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'iconButton';

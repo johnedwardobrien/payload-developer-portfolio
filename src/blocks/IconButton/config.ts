@@ -13,7 +13,12 @@ export const IconButton: Block = {
       name: 'icon',
       type: 'select',
       label: 'Icon',
-      options: [],
+      options: [
+        {
+          label: 'Placeholder',
+          value: 'placeholder',
+        },
+      ],
     },
   ],
 }
