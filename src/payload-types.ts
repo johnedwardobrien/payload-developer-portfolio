@@ -871,6 +871,8 @@ export interface YachtParallax {
 export interface TopHeroWithIcons {
   title?: string | null;
   subtitle?: string | null;
+  featuredImageTitle?: string | null;
+  featuredImageSubtitle?: string | null;
   featuredImageButtonText?: string | null;
   inputPlaceholders?: Placeholder[] | null;
   heroImage?: (number | null) | Media;
@@ -1514,6 +1516,8 @@ export interface YachtParallaxSelect<T extends boolean = true> {
 export interface TopHeroWithIconsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  featuredImageTitle?: T;
+  featuredImageSubtitle?: T;
   featuredImageButtonText?: T;
   inputPlaceholders?:
     | T
