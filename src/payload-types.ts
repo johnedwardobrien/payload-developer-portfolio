@@ -1007,7 +1007,6 @@ export interface CTAButtons {
  */
 export interface IconButton {
   title?: string | null;
-  icon?: 'placeholder' | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'iconButton';
@@ -1840,7 +1839,6 @@ export interface CTAButtonsSelect<T extends boolean = true> {
  */
 export interface IconButtonSelect<T extends boolean = true> {
   title?: T;
-  icon?: T;
   id?: T;
   blockName?: T;
 }

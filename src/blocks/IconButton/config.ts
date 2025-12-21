@@ -9,16 +9,16 @@ export const IconButton: Block = {
       type: 'text',
       label: 'Title',
     },
-    {
-      name: 'icon',
-      type: 'select',
-      label: 'Icon',
-      options: [
-        {
-          label: 'Placeholder',
-          value: 'placeholder',
-        },
-      ],
-    },
+    // {
+    //   name: 'icon',
+    //   type: 'select',
+    //   label: 'Icon',
+    //   options: [
+    //     {
+    //       label: 'Placeholder',
+    //       value: 'placeholder',
+    //     },
+    //   ],
+    // },
   ],
 }
