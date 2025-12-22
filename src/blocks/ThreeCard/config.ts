@@ -23,7 +23,7 @@ export const ThreeCard: Block = {
       label: 'Background Media',
     },
     {
-      name: 'cards',
+      name: 'standardCards',
       type: 'blocks',
       label: 'Cards',
       blocks: [StandardCard],

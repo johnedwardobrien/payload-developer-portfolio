@@ -7,7 +7,7 @@ export const ThreeCardAcrossWithBackground: Block = {
   interfaceName: 'ThreeCardAcrossWithBackground',
   fields: [
     {
-      name: 'cards',
+      name: 'threeCards',
       type: 'blocks',
       label: 'Cards',
       blocks: [ThreeCard],

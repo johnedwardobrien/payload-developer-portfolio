@@ -967,7 +967,7 @@ export interface EventCard {
  * via the `definition` "ThreeCardAcrossWithBackground".
  */
 export interface ThreeCardAcrossWithBackground {
-  cards?: ThreeCard[] | null;
+  threeCards?: ThreeCard[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'threeCardAcrossWithBackground';
@@ -980,7 +980,7 @@ export interface ThreeCard {
   title?: string | null;
   subtitle?: string | null;
   backgroundMedia?: (number | null) | Media;
-  cards?: StandardCard[] | null;
+  standardCards?: StandardCard[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'threeCard';
@@ -1615,7 +1615,7 @@ export interface EventCardSelect<T extends boolean = true> {
  * via the `definition` "ThreeCardAcrossWithBackground_select".
  */
 export interface ThreeCardAcrossWithBackgroundSelect<T extends boolean = true> {
-  cards?:
+  threeCards?:
     | T
     | {
         threeCard?: T | ThreeCardSelect<T>;
@@ -1631,7 +1631,7 @@ export interface ThreeCardSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   backgroundMedia?: T;
-  cards?:
+  standardCards?:
     | T
     | {
         standardCard?: T | StandardCardSelect<T>;
