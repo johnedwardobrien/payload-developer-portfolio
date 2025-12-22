@@ -969,22 +969,10 @@ export interface EventCard {
 export interface ThreeCardAcrossWithBackground {
   title?: string | null;
   mainBackground?: (number | null) | Media;
-  cards?: ThreeCard[] | null;
+  cards?: StandardCard[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'threeCardAcrossWithBackground';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ThreeCard".
- */
-export interface ThreeCard {
-  title?: string | null;
-  buttonText?: string | null;
-  backgroundImage?: (number | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'threeCard';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1621,19 +1609,8 @@ export interface ThreeCardAcrossWithBackgroundSelect<T extends boolean = true> {
   cards?:
     | T
     | {
-        threeCard?: T | ThreeCardSelect<T>;
+        standardCard?: T | StandardCardSelect<T>;
       };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ThreeCard_select".
- */
-export interface ThreeCardSelect<T extends boolean = true> {
-  title?: T;
-  buttonText?: T;
-  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
