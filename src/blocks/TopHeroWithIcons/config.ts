@@ -12,26 +12,26 @@ export const TopHeroWithIcons: Block = {
       type: 'text',
       label: 'Title',
     },
-	{
-		name: 'subtitle',
-		type: 'text',
-		label: 'Subtitle',
-	},
-	{
-		name: 'featuredImageTitle',
-		type: 'text',
-		label: 'Featured Image Title',
-	},
-	{
-		name: 'featuredImageSubtitle',
-		type: 'text',
-		label: 'Featured Image Subtitle',
-	},
-	{
-		name: 'featuredImageButtonText',
-		type: 'text',
-		label: 'Featured Image Button Text',
-	},
+    {
+      name: 'subtitle',
+      type: 'text',
+      label: 'Subtitle',
+    },
+    {
+      name: 'featuredImageTitle',
+      type: 'text',
+      label: 'Featured Image Title',
+    },
+    {
+      name: 'featuredImageSubtitle',
+      type: 'text',
+      label: 'Featured Image Subtitle',
+    },
+    {
+      name: 'featuredImageButtonText',
+      type: 'text',
+      label: 'Featured Image Button Text',
+    },
     {
       name: 'inputPlaceholders',
       type: 'blocks',

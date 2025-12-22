@@ -941,6 +941,7 @@ export interface LayeredCards {
 export interface LayeredCard {
   title?: string | null;
   buttonText?: string | null;
+  image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'layeredCard';
@@ -1597,6 +1598,7 @@ export interface LayeredCardsSelect<T extends boolean = true> {
 export interface LayeredCardSelect<T extends boolean = true> {
   title?: T;
   buttonText?: T;
+  image?: T;
   id?: T;
   blockName?: T;
 }

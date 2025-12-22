@@ -14,5 +14,11 @@ export const LayeredCard: Block = {
       type: 'text',
       label: 'Button Text',
     },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Image',
+    },
   ],
 }
