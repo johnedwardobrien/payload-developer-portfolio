@@ -10,6 +10,11 @@ export const StandardCard: Block = {
       label: 'Title',
     },
     {
+      name: 'subtitle',
+      type: 'text',
+      label: 'Subtitle',
+    },
+    {
       name: 'description',
       type: 'textarea',
       label: 'Description',
@@ -20,16 +25,21 @@ export const StandardCard: Block = {
       label: 'Button Text',
     },
     {
+      name: 'date',
+      type: 'date',
+      label: 'Date',
+    },
+    {
       name: 'backgroundImage',
       type: 'upload',
       relationTo: 'media',
-      label: 'Background Image',
+      label: 'Background Media',
     },
     {
       name: 'videos',
       type: 'upload',
       relationTo: 'media',
-      label: 'Videos',
+      label: 'Video',
     },
   ],
 }

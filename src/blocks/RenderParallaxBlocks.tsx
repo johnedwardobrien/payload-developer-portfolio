@@ -8,6 +8,7 @@ import { LayeredCards } from '@/blocks/LayeredCards/Component'
 import { EventSideScroller } from '@/blocks/EventSideScroller/Component'
 import { ThreeCardAcrossWithBackground } from '@/blocks/ThreeCardAcrossWithBackground/Component'
 import { CTAButtons } from '@/blocks/CTAButtons/Component'
+import { ClickSlider } from '@/blocks/ClickSlider/Component'
 
 const blockComponents = {
   topHeroWithIcons: TopHeroWithIcons,
@@ -16,6 +17,7 @@ const blockComponents = {
   eventSideScroller: EventSideScroller,
   threeCardAcrossWithBackground: ThreeCardAcrossWithBackground,
   ctaButtons: CTAButtons,
+  clickSlider: ClickSlider,
 }
 
 export const RenderParallaxBlocks: React.FC<{

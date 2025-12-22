@@ -6,6 +6,7 @@ import { LayeredCards } from '../LayeredCards/config'
 import { EventSideScroller } from '../EventSideScroller/config'
 import { ThreeCardAcrossWithBackground } from '../ThreeCardAcrossWithBackground/config'
 import { CTAButtons } from '../CTAButtons/config'
+import { ClickSlider } from '../ClickSlider/config'
 
 export const YachtParallax: Block = {
   slug: 'yachtParallax',
@@ -22,6 +23,7 @@ export const YachtParallax: Block = {
         EventSideScroller,
         ThreeCardAcrossWithBackground,
         CTAButtons,
+        ClickSlider,
       ],
       admin: {
         initCollapsed: true,
