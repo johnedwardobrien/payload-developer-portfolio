@@ -858,6 +858,7 @@ export interface YachtParallax {
         | EventSideScroller
         | ThreeCardAcrossWithBackground
         | CTAButtons
+        | ClickSlider
       )[]
     | null;
   id?: string | null;
@@ -915,8 +916,10 @@ export interface VideoSideScroller {
  */
 export interface StandardCard {
   title?: string | null;
+  subtitle?: string | null;
   description?: string | null;
   buttonText?: string | null;
+  date?: string | null;
   backgroundImage?: (number | null) | Media;
   videos?: (number | null) | Media;
   id?: string | null;
@@ -996,6 +999,18 @@ export interface CTAButtons {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ctaButtons';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClickSlider".
+ */
+export interface ClickSlider {
+  title?: string | null;
+  buttonText?: string | null;
+  cards?: StandardCard[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'clickSlider';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1495,6 +1510,7 @@ export interface YachtParallaxSelect<T extends boolean = true> {
         eventSideScroller?: T | EventSideScrollerSelect<T>;
         threeCardAcrossWithBackground?: T | ThreeCardAcrossWithBackgroundSelect<T>;
         ctaButtons?: T | CTAButtonsSelect<T>;
+        clickSlider?: T | ClickSliderSelect<T>;
       };
   id?: T;
   blockName?: T;
@@ -1559,8 +1575,10 @@ export interface VideoSideScrollerSelect<T extends boolean = true> {
  */
 export interface StandardCardSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
   description?: T;
   buttonText?: T;
+  date?: T;
   backgroundImage?: T;
   videos?: T;
   id?: T;
@@ -1650,6 +1668,21 @@ export interface CTAButtonsSelect<T extends boolean = true> {
     | T
     | {
         iconButton?: T | IconButtonSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClickSlider_select".
+ */
+export interface ClickSliderSelect<T extends boolean = true> {
+  title?: T;
+  buttonText?: T;
+  cards?:
+    | T
+    | {
+        standardCard?: T | StandardCardSelect<T>;
       };
   id?: T;
   blockName?: T;
