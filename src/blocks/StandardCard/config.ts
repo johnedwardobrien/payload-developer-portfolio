@@ -20,12 +20,6 @@ export const StandardCard: Block = {
       label: 'Button Text',
     },
     {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
-      label: 'Image',
-    },
-    {
       name: 'backgroundImage',
       type: 'upload',
       relationTo: 'media',

@@ -942,7 +942,6 @@ export interface StandardCard {
   title?: string | null;
   description?: string | null;
   buttonText?: string | null;
-  image?: (number | null) | Media;
   backgroundImage?: (number | null) | Media;
   videos?: (number | null) | Media;
   id?: string | null;
@@ -1602,7 +1601,6 @@ export interface StandardCardSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   buttonText?: T;
-  image?: T;
   backgroundImage?: T;
   videos?: T;
   id?: T;
