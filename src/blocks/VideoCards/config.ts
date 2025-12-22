@@ -11,7 +11,7 @@ export const VideoCards: Block = {
     },
     {
       name: 'description',
-      type: 'text',
+      type: 'textarea',
       label: 'Description',
     },
     {
