@@ -904,35 +904,10 @@ export interface VideoSideScroller {
   buttonText1?: string | null;
   buttonText2?: string | null;
   nextWindowText?: string | null;
-  videos?: VideoCards[] | null;
+  videos?: StandardCard[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'videoSideScroller';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoCards".
- */
-export interface VideoCards {
-  title?: string | null;
-  description?: string | null;
-  videos?: (number | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'videoCards';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LayeredCards".
- */
-export interface LayeredCards {
-  title?: string | null;
-  subtitle?: string | null;
-  buttonText?: string | null;
-  cards?: StandardCard[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'layeredCards';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -947,6 +922,19 @@ export interface StandardCard {
   id?: string | null;
   blockName?: string | null;
   blockType: 'standardCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayeredCards".
+ */
+export interface LayeredCards {
+  title?: string | null;
+  subtitle?: string | null;
+  buttonText?: string | null;
+  cards?: StandardCard[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'layeredCards';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1561,18 +1549,20 @@ export interface VideoSideScrollerSelect<T extends boolean = true> {
   videos?:
     | T
     | {
-        videoCards?: T | VideoCardsSelect<T>;
+        standardCard?: T | StandardCardSelect<T>;
       };
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoCards_select".
+ * via the `definition` "StandardCard_select".
  */
-export interface VideoCardsSelect<T extends boolean = true> {
+export interface StandardCardSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  buttonText?: T;
+  backgroundImage?: T;
   videos?: T;
   id?: T;
   blockName?: T;
@@ -1590,19 +1580,6 @@ export interface LayeredCardsSelect<T extends boolean = true> {
     | {
         standardCard?: T | StandardCardSelect<T>;
       };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StandardCard_select".
- */
-export interface StandardCardSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  buttonText?: T;
-  backgroundImage?: T;
-  videos?: T;
   id?: T;
   blockName?: T;
 }

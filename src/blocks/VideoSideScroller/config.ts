@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { VideoCards } from '../VideoCards/config'
+import { StandardCard } from '../StandardCard/config'
 
 export const VideoSideScroller: Block = {
   slug: 'videoSideScroller',
@@ -54,7 +54,7 @@ export const VideoSideScroller: Block = {
       name: 'videos',
       type: 'blocks',
       label: 'Videos',
-      blocks: [VideoCards],
+      blocks: [StandardCard],
     },
   ],
 }
