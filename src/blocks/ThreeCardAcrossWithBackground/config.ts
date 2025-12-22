@@ -12,6 +12,11 @@ export const ThreeCardAcrossWithBackground: Block = {
       label: 'Title',
     },
     {
+      name: 'subtitle',
+      type: 'text',
+      label: 'Subtitle',
+    },
+    {
       name: 'mainBackground',
       type: 'upload',
       relationTo: 'media',

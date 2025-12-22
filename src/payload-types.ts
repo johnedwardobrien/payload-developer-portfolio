@@ -968,6 +968,7 @@ export interface EventCard {
  */
 export interface ThreeCardAcrossWithBackground {
   title?: string | null;
+  subtitle?: string | null;
   mainBackground?: (number | null) | Media;
   cards?: StandardCard[] | null;
   id?: string | null;
@@ -1605,6 +1606,7 @@ export interface EventCardSelect<T extends boolean = true> {
  */
 export interface ThreeCardAcrossWithBackgroundSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
   mainBackground?: T;
   cards?:
     | T
