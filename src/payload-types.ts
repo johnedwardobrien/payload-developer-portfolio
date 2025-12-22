@@ -929,22 +929,25 @@ export interface LayeredCards {
   title?: string | null;
   subtitle?: string | null;
   buttonText?: string | null;
-  cards?: LayeredCard[] | null;
+  cards?: StandardCard[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'layeredCards';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LayeredCard".
+ * via the `definition` "StandardCard".
  */
-export interface LayeredCard {
+export interface StandardCard {
   title?: string | null;
+  description?: string | null;
   buttonText?: string | null;
   image?: (number | null) | Media;
+  backgroundImage?: (number | null) | Media;
+  videos?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'layeredCard';
+  blockType: 'standardCard';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1586,19 +1589,22 @@ export interface LayeredCardsSelect<T extends boolean = true> {
   cards?:
     | T
     | {
-        layeredCard?: T | LayeredCardSelect<T>;
+        standardCard?: T | StandardCardSelect<T>;
       };
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LayeredCard_select".
+ * via the `definition` "StandardCard_select".
  */
-export interface LayeredCardSelect<T extends boolean = true> {
+export interface StandardCardSelect<T extends boolean = true> {
   title?: T;
+  description?: T;
   buttonText?: T;
   image?: T;
+  backgroundImage?: T;
+  videos?: T;
   id?: T;
   blockName?: T;
 }

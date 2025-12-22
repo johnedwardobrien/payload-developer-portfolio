@@ -5,8 +5,8 @@ type Props = {
   [key: string]: unknown
 }
 
-export const LayeredCard: React.FC<Props> = (props) => {
-  console.log('LayeredCard data:', props)
+export const StandardCard: React.FC<Props> = (props) => {
+  console.log('StandardCard data:', props)
 
   return <></>
 }

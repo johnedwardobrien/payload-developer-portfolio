@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { LayeredCard } from '../LayeredCard/config'
+import { StandardCard } from '../StandardCard/config'
 
 export const LayeredCards: Block = {
   slug: 'layeredCards',
@@ -25,7 +25,7 @@ export const LayeredCards: Block = {
       name: 'cards',
       type: 'blocks',
       label: 'Cards',
-      blocks: [LayeredCard],
+      blocks: [StandardCard],
     },
   ],
 }
