@@ -6,7 +6,5 @@ type Props = {
 }
 
 export const CTAButtons: React.FC<Props> = (props) => {
-  console.log('CTAButtons data:', props)
-
   return <></>
 }

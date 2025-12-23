@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import { Figtree, Plus_Jakarta_Sans } from 'next/font/google'
 import React, { cache } from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -20,6 +21,18 @@ import configPromise from '@payload-config'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+
+const FigtreeFont = Figtree({
+  variable: '--yb-font-body',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const PlusJakartaSansFont = Plus_Jakarta_Sans({
+  variable: '--yb-font-header',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 const queryPageByPathname = cache(async (pathname: string) => {
   const { isEnabled: draft } = await draftMode()
@@ -67,6 +80,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // Try to get page data to check header and footer settings
   let headerType: PageHeaderType | undefined
   let footerType: PageFooterType | undefined
+  let theme: string | undefined
   try {
     const page = await queryPageByPathname(pathname)
     if (page?.header) {
@@ -76,13 +90,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     if (page?.footer) {
       footerType = page?.footer
     }
+
+    if (page?.theme) {
+      theme = page.theme
+    }
   } catch {
     // If page doesn't exist or error, default to showing header/footer with main versions
     // This is expected for non-page routes (like /posts, /search, etc.)
   }
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(
+        GeistSans.variable,
+        GeistMono.variable,
+        FigtreeFont.variable,
+        PlusJakartaSansFont.variable,
+      )}
+      lang="en"
+      suppressHydrationWarning
+      data-custom-theme={theme || undefined}
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />

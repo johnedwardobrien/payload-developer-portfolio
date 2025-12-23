@@ -6,7 +6,5 @@ type Props = {
 }
 
 export const ThreeCardAcrossWithBackground: React.FC<Props> = (props) => {
-  console.log('ThreeCardAcrossWithBackground data:', props)
-
   return <></>
 }

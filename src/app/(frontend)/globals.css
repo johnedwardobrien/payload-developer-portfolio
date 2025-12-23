@@ -108,12 +108,12 @@
     --error: 10 39% 43%;
   }
 
-  [data-theme='default'] {
+  [data-custom-theme='default'] {
     /* Default theme uses root variables, no overrides needed */
     /* Intentionally empty - inherits from :root */
   }
 
-  [data-theme='chatWindow'] {
+  [data-custom-theme='chat-window'] {
     /* Chat Window theme variables can be customized here */
     --background: 20 100% 97%; /* porcelain */
     --foreground: 27 45% 16%; /* espresso */
@@ -125,6 +125,9 @@
     --tw-ring-offset-shadow: none;
     --tw-ring-shadow: none;
     box-shadow: none;
+  }
+  [data-custom-theme='yacht-bazaar'] {
+    
   }
 }
 

@@ -6,8 +6,6 @@ type Props = {
 }
 
 export const VideoSideScroller: React.FC<Props> = (props) => {
-  console.log('VideoSideScroller data:', props)
-
   return <></>
 }
 

@@ -167,6 +167,25 @@ export const Pages: CollectionConfig<'pages'> = {
               ],
               defaultValue: 'main',
             },
+            {
+              name: 'theme',
+              type: 'select',
+              label: 'Theme',
+              options: [
+                {
+                  label: 'None',
+                  value: 'none',
+                },
+                {
+                  label: 'Chat Window',
+                  value: 'chat-window',
+                },
+                {
+                  label: 'Yacht Bazaar',
+                  value: 'yacht-bazaar',
+                },
+              ],
+            },
           ],
         },
       ],

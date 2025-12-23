@@ -6,8 +6,6 @@ type Props = {
 }
 
 export const ClickSlider: React.FC<Props> = (props) => {
-  console.log('ClickSlider data:', props)
-
   return <></>
 }
 

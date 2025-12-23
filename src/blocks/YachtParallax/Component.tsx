@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { ParallaxProvider } from 'react-scroll-parallax'
 
 import { RenderParallaxBlocks } from '@/blocks/RenderParallaxBlocks'
 
@@ -11,13 +12,15 @@ type Props = {
 }
 
 export const YachtParallax: React.FC<Props> = (props) => {
-  console.log('YachtParallax data:', props)
-
   const { blocks } = props
 
   if (!blocks || !Array.isArray(blocks) || blocks.length === 0) {
     return <></>
   }
 
-  return <RenderParallaxBlocks blocks={blocks as never} />
+  return (
+    <ParallaxProvider>
+      <RenderParallaxBlocks blocks={blocks as never} />
+    </ParallaxProvider>
+  )
 }

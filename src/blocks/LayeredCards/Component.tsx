@@ -6,7 +6,5 @@ type Props = {
 }
 
 export const LayeredCards: React.FC<Props> = (props) => {
-  console.log('LayeredCards data:', props)
-
   return <></>
 }
