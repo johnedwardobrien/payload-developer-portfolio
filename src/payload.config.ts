@@ -1,4 +1,4 @@
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 
 import sharp from 'sharp' // sharp-import
@@ -82,12 +82,29 @@ export default buildConfig({
   globals: [Header, Footer, ChatHeader, ChatFooter],
   plugins: [
     ...plugins,
-    vercelBlobStorage({
-      clientUploads: true,
+    s3Storage({
       collections: {
-        media: true,
+        media: {
+          prefix: 'media',
+          disablePayloadAccessControl: true,
+          generateFileURL: ({ filename, prefix }) => {
+            const cloudfrontUrl = (process.env.NEXT_PUBLIC_CLOUDFRONT_URL || '').replace(/\/$/, '')
+            if (prefix) {
+              return `${cloudfrontUrl}/${prefix}/${filename}`
+            }
+            return `${cloudfrontUrl}/${filename}`
+          },
+        },
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME || '',
+      config: {
+        credentials: {
+          accessKeyId: process.env.NEXT_PUBLIC_MY_AWS_ACCESS_KEY || '',
+          secretAccessKey: process.env.NEXT_PUBLIC_MY_AWS_SECRET_ACCESS_KEY || '',
+        },
+        region: process.env.AWS_REGION || process.env.NEXT_PUBLIC_AWS_REGION || 'us-east-1',
+      },
+      clientUploads: true,
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,
