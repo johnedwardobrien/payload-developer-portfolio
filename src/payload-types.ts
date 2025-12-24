@@ -854,13 +854,14 @@ export interface ContentChat {
 export interface YachtParallax {
   blocks?:
     | (
-        | TopHeroWithIcons
+        | TopHero
         | VideoSideScroller
         | LayeredCards
         | EventSideScroller
         | ThreeCardAcrossWithBackground
         | CTAButtons
         | ClickSlider
+        | IconBanner
       )[]
     | null;
   id?: string | null;
@@ -869,9 +870,9 @@ export interface YachtParallax {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TopHeroWithIcons".
+ * via the `definition` "TopHero".
  */
-export interface TopHeroWithIcons {
+export interface TopHero {
   title?: string | null;
   subtitle?: string | null;
   featuredImageTitle?: string | null;
@@ -880,21 +881,9 @@ export interface TopHeroWithIcons {
   inputPlaceholders?: Placeholder[] | null;
   heroImage?: (string | null) | Media;
   heroFeatured?: (string | null) | Media;
-  icons?: IconButton[] | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'topHeroWithIcons';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconButton".
- */
-export interface IconButton {
-  title?: string | null;
-  icon?: ('spring' | 'summer' | 'autumn' | 'winter') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'iconButton';
+  blockType: 'topHero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1004,6 +993,17 @@ export interface CTAButtons {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton".
+ */
+export interface IconButton {
+  title?: string | null;
+  icon?: ('spring' | 'summer' | 'autumn' | 'winter') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'iconButton';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ClickSlider".
  */
 export interface ClickSlider {
@@ -1013,6 +1013,16 @@ export interface ClickSlider {
   id?: string | null;
   blockName?: string | null;
   blockType: 'clickSlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconBanner".
+ */
+export interface IconBanner {
+  icons?: IconButton[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'iconBanner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1507,22 +1517,23 @@ export interface YachtParallaxSelect<T extends boolean = true> {
   blocks?:
     | T
     | {
-        topHeroWithIcons?: T | TopHeroWithIconsSelect<T>;
+        topHero?: T | TopHeroSelect<T>;
         videoSideScroller?: T | VideoSideScrollerSelect<T>;
         layeredCards?: T | LayeredCardsSelect<T>;
         eventSideScroller?: T | EventSideScrollerSelect<T>;
         threeCardAcrossWithBackground?: T | ThreeCardAcrossWithBackgroundSelect<T>;
         ctaButtons?: T | CTAButtonsSelect<T>;
         clickSlider?: T | ClickSliderSelect<T>;
+        iconBanner?: T | IconBannerSelect<T>;
       };
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TopHeroWithIcons_select".
+ * via the `definition` "TopHero_select".
  */
-export interface TopHeroWithIconsSelect<T extends boolean = true> {
+export interface TopHeroSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   featuredImageTitle?: T;
@@ -1535,21 +1546,6 @@ export interface TopHeroWithIconsSelect<T extends boolean = true> {
       };
   heroImage?: T;
   heroFeatured?: T;
-  icons?:
-    | T
-    | {
-        iconButton?: T | IconButtonSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconButton_select".
- */
-export interface IconButtonSelect<T extends boolean = true> {
-  title?: T;
-  icon?: T;
   id?: T;
   blockName?: T;
 }
@@ -1677,6 +1673,16 @@ export interface CTAButtonsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton_select".
+ */
+export interface IconButtonSelect<T extends boolean = true> {
+  title?: T;
+  icon?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ClickSlider_select".
  */
 export interface ClickSliderSelect<T extends boolean = true> {
@@ -1686,6 +1692,19 @@ export interface ClickSliderSelect<T extends boolean = true> {
     | T
     | {
         standardCard?: T | StandardCardSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconBanner_select".
+ */
+export interface IconBannerSelect<T extends boolean = true> {
+  icons?:
+    | T
+    | {
+        iconButton?: T | IconButtonSelect<T>;
       };
   id?: T;
   blockName?: T;
