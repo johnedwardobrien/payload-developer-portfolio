@@ -1,5 +1,5 @@
 import { s3Storage } from '@payloadcms/storage-s3'
-import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -18,7 +18,6 @@ import { ChatFooter } from './ChatFooter/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
-import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -71,11 +70,8 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  db: vercelPostgresAdapter({
-    pool: {
-      connectionString: process.env.NEON_POSTGRES_URL || '',
-    },
-    prodMigrations: migrations,
+  db: mongooseAdapter({
+    url: process.env.MONGODB_URI || '',
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),

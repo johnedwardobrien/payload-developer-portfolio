@@ -88,13 +88,12 @@ export const Media: CollectionConfig = {
   },
   upload: {
     adminThumbnail: ({ doc }) => {
-      // console.log(doc)
       if (doc.isVideoThumbnail) {
       }
       if (doc.videoThumbnailFilename) {
-        return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}${doc.videoThumbnailFilename}`
+        return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}${doc.prefix}/${doc.videoThumbnailFilename}`
       }
-      return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}${doc.filename}`
+      return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}${doc.prefix}/${doc.filename}`
     },
     focalPoint: true,
     imageSizes: [
