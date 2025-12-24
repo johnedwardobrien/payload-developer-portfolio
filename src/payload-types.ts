@@ -891,7 +891,7 @@ export interface TopHeroWithIcons {
  */
 export interface IconButton {
   title?: string | null;
-  icon?: 'placeholder' | null;
+  icon?: ('spring' | 'summer' | 'autumn' | 'winter') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'iconButton';

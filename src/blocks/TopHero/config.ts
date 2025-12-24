@@ -1,11 +1,10 @@
 import type { Block } from 'payload'
 
 import { Placeholder } from '../Placeholder/config'
-import { IconButton } from '../IconButton/config'
 
-export const TopHeroWithIcons: Block = {
-  slug: 'topHeroWithIcons',
-  interfaceName: 'TopHeroWithIcons',
+export const TopHero: Block = {
+  slug: 'topHero',
+  interfaceName: 'TopHero',
   fields: [
     {
       name: 'title',
@@ -49,12 +48,6 @@ export const TopHeroWithIcons: Block = {
       type: 'upload',
       relationTo: 'media',
       label: 'Hero Featured',
-    },
-    {
-      name: 'icons',
-      type: 'blocks',
-      label: 'Icons',
-      blocks: [IconButton],
     },
   ],
 }

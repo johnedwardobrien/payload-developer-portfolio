@@ -15,8 +15,20 @@ export const IconButton: Block = {
       label: 'Icon',
       options: [
         {
-          label: 'Placeholder',
-          value: 'placeholder',
+          label: 'Spring',
+          value: 'spring',
+        },
+        {
+          label: 'Summer',
+          value: 'summer',
+        },
+        {
+          label: 'Autumn',
+          value: 'autumn',
+        },
+        {
+          label: 'Winter',
+          value: 'winter',
         },
       ],
     },

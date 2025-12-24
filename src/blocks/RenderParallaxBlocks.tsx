@@ -2,22 +2,24 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 
-import { TopHeroWithIcons } from '@/blocks/TopHeroWithIcons/Component'
+import { TopHero } from '@/blocks/TopHero/Component'
 import { VideoSideScroller } from '@/blocks/VideoSideScroller/Component'
 import { LayeredCards } from '@/blocks/LayeredCards/Component'
 import { EventSideScroller } from '@/blocks/EventSideScroller/Component'
 import { ThreeCardAcrossWithBackground } from '@/blocks/ThreeCardAcrossWithBackground/Component'
 import { CTAButtons } from '@/blocks/CTAButtons/Component'
 import { ClickSlider } from '@/blocks/ClickSlider/Component'
+import { IconBanner } from '@/blocks/IconBanner/Component'
 
 const blockComponents = {
-  topHeroWithIcons: TopHeroWithIcons,
+  topHero: TopHero,
   videoSideScroller: VideoSideScroller,
   layeredCards: LayeredCards,
   eventSideScroller: EventSideScroller,
   threeCardAcrossWithBackground: ThreeCardAcrossWithBackground,
   ctaButtons: CTAButtons,
   clickSlider: ClickSlider,
+  iconBanner: IconBanner,
 }
 
 export const RenderParallaxBlocks: React.FC<{

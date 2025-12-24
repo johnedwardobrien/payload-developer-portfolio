@@ -3,16 +3,17 @@
 import React from 'react'
 import { Parallax } from 'react-scroll-parallax'
 
-import type { TopHeroWithIcons as TopHeroWithIconsType } from '@/payload-types'
-
 import { Media } from '@/components/Media'
 
 type Props = {
   disableInnerContainer?: boolean
-} & TopHeroWithIconsType &
-  React.ComponentProps<typeof Parallax>
+  title?: string
+  subtitle?: string
+  heroImage?: any
+  [key: string]: unknown
+} & React.ComponentProps<typeof Parallax>
 
-export const TopHeroWithIcons: React.FC<Props> = (props) => {
+export const TopHero: React.FC<Props> = (props) => {
   const {
     title,
     subtitle,
