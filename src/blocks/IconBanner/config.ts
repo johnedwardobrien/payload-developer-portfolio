@@ -7,6 +7,16 @@ export const IconBanner: Block = {
   interfaceName: 'IconBanner',
   fields: [
     {
+      name: 'title',
+      type: 'text',
+      label: 'Title',
+    },
+    {
+      name: 'subtitle',
+      type: 'text',
+      label: 'Subtitle',
+    },
+    {
       name: 'icons',
       type: 'blocks',
       label: 'Icons',

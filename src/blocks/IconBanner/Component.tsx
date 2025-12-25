@@ -13,6 +13,8 @@ export const seasonIcons = {
 
 type Props = {
   disableInnerContainer?: boolean
+  title?: string
+  subtitle?: string
   icons?: Array<{
     blockType?: string
     icon?: string
@@ -22,7 +24,7 @@ type Props = {
 }
 
 export const IconBanner: React.FC<Props> = (props) => {
-  const { icons } = props
+  const { title, subtitle, icons } = props
 
   if (!icons || !Array.isArray(icons) || icons.length === 0) {
     return null
@@ -30,6 +32,12 @@ export const IconBanner: React.FC<Props> = (props) => {
 
   return (
     <div className="icon-banner">
+      {(title || subtitle) && (
+        <div className="icon-banner-header">
+          {title && <h2 className="icon-banner-title">{title}</h2>}
+          {subtitle && <p className="icon-banner-subtitle">{subtitle}</p>}
+        </div>
+      )}
       {icons.map((iconBlock, index) => {
         if (typeof iconBlock === 'object' && iconBlock.blockType === 'iconButton') {
           const { icon, title } = iconBlock

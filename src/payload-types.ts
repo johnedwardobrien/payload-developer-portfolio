@@ -1019,6 +1019,8 @@ export interface ClickSlider {
  * via the `definition` "IconBanner".
  */
 export interface IconBanner {
+  title?: string | null;
+  subtitle?: string | null;
   icons?: IconButton[] | null;
   id?: string | null;
   blockName?: string | null;
@@ -1701,6 +1703,8 @@ export interface ClickSliderSelect<T extends boolean = true> {
  * via the `definition` "IconBanner_select".
  */
 export interface IconBannerSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
   icons?:
     | T
     | {
