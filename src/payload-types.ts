@@ -997,7 +997,20 @@ export interface CTAButtons {
  */
 export interface IconButton {
   title?: string | null;
-  icon?: ('spring' | 'summer' | 'autumn' | 'winter') | null;
+  icon?:
+    | (
+        | 'spring'
+        | 'summer'
+        | 'autumn'
+        | 'winter'
+        | 'anchor'
+        | 'ship'
+        | 'compass'
+        | 'lifeRing'
+        | 'waterWaves'
+        | 'binoculars'
+      )
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'iconButton';

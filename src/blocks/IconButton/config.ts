@@ -30,6 +30,30 @@ export const IconButton: Block = {
           label: 'Winter',
           value: 'winter',
         },
+        {
+          label: 'Anchor',
+          value: 'anchor',
+        },
+        {
+          label: 'Ship',
+          value: 'ship',
+        },
+        {
+          label: 'Compass',
+          value: 'compass',
+        },
+        {
+          label: 'Life Ring',
+          value: 'lifeRing',
+        },
+        {
+          label: 'Water Waves',
+          value: 'waterWaves',
+        },
+        {
+          label: 'Binoculars',
+          value: 'binoculars',
+        },
       ],
     },
   ],

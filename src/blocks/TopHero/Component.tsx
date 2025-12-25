@@ -17,7 +17,7 @@ export const TopHero: React.FC<Props> = (props) => {
 	const { title, subtitle, heroImage, disableInnerContainer: _disableInnerContainer } = props
 	return (
 		<div
-			className="absolute w-full h-screen rounded-b-full"
+			className="w-full h-screen rounded-b-full"
 		>
 			{heroImage && typeof heroImage === 'object' && (
 				<div className="absolute inset-0 -z-10">

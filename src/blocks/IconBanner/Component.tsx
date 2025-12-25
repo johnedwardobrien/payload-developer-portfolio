@@ -1,7 +1,18 @@
 'use client'
 
 import React from 'react'
-import { FaSeedling, FaSun, FaLeaf, FaSnowflake } from 'react-icons/fa'
+import {
+  FaSeedling,
+  FaSun,
+  FaLeaf,
+  FaSnowflake,
+  FaAnchor,
+  FaShip,
+  FaCompass,
+  FaLifeRing,
+  FaSwimmingPool,
+  FaBinoculars,
+} from 'react-icons/fa'
 
 // Icon mapping object for IconButton icon select values
 export const seasonIcons = {
@@ -9,6 +20,12 @@ export const seasonIcons = {
   summer: FaSun,
   autumn: FaLeaf,
   winter: FaSnowflake,
+  anchor: FaAnchor,
+  ship: FaShip,
+  compass: FaCompass,
+  lifeRing: FaLifeRing,
+  waterWaves: FaSwimmingPool,
+  binoculars: FaBinoculars,
 } as const
 
 type Props = {
