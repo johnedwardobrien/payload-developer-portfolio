@@ -43,12 +43,8 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType]
 
             if (Block) {
-              // SideTabPanel and YachtParallax should not have margin as they fill the viewport
-              const isSideTabPanel = blockType === 'sideTabPanel'
-              const isYachtParallax = blockType === 'yachtParallax'
               return (
                 <div
-                  className={isSideTabPanel || isYachtParallax ? '' : 'my-16'}
                   key={`${index}-block`}
                 >
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}

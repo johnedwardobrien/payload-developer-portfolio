@@ -39,12 +39,8 @@ export const RenderParallaxBlocks: React.FC<{
             const Block = blockComponents[blockType as keyof typeof blockComponents]
 
             if (Block) {
-              return (
-                <div className="my-16" key={`${index}-block`}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
-                </div>
-              )
+              //@ts-expect-error
+              return <Block key={block.id} {...block} disableInnerContainer />
             }
           }
           return null

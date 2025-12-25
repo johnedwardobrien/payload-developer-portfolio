@@ -6,7 +6,7 @@ import { GeistSans } from 'geist/font/sans'
 import { Figtree, Plus_Jakarta_Sans } from 'next/font/google'
 import React, { cache } from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
+// import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { ChatHeader } from '@/ChatHeader/Component'
@@ -118,11 +118,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar
+          {/* <AdminBar
             adminBarProps={{
               preview: isEnabled,
             }}
-          />
+          /> */}
 
           {(() => {
             switch (headerType) {
