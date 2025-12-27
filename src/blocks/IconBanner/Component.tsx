@@ -48,28 +48,35 @@ export const IconBanner: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="icon-banner">
+    <div className="flex h-[50vh] flex-col items-center justify-center">
       {(title || subtitle) && (
-        <div className="icon-banner-header">
-          {title && <h2 className="icon-banner-title">{title}</h2>}
-          {subtitle && <p className="icon-banner-subtitle">{subtitle}</p>}
+        <div className="flex flex-col items-center">
+          {title && <h2 className="text-heading-2 font-semibold">{title}</h2>}
+          {subtitle && <p className="icon-banner-subtitle mt-[1.4rem]">{subtitle}</p>}
         </div>
       )}
-      {icons.map((iconBlock, index) => {
-        if (typeof iconBlock === 'object' && iconBlock.blockType === 'iconButton') {
-          const { icon, title } = iconBlock
-          const IconComponent =
-            icon && icon in seasonIcons ? seasonIcons[icon as keyof typeof seasonIcons] : null
+      <div className={`flex flex-row items-center gap-4 ${title || subtitle ? 'mt-[1.4rem]' : ''}`}>
+        {icons.map((iconBlock, index) => {
+          if (typeof iconBlock === 'object' && iconBlock.blockType === 'iconButton') {
+            const { icon, title } = iconBlock
+            const IconComponent =
+              icon && icon in seasonIcons ? seasonIcons[icon as keyof typeof seasonIcons] : null
 
-          return (
-            <div key={iconBlock.id || index} className="icon-button-item">
-              {IconComponent && <IconComponent className="icon" />}
-              {title && <span className="icon-title">{title}</span>}
-            </div>
-          )
-        }
-        return null
-      })}
+            return (
+              <div
+                key={iconBlock.id || index}
+                className="flex flex-col items-center justify-center rounded-lg border border-border bg-card p-6 shadow-sm"
+              >
+                {IconComponent && <IconComponent className="mb-4 h-8 w-8 text-foreground" />}
+                {title && (
+                  <span className="text-center text-sm font-medium text-foreground">{title}</span>
+                )}
+              </div>
+            )
+          }
+          return null
+        })}
+      </div>
     </div>
   )
 }

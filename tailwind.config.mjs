@@ -102,6 +102,9 @@ const config = {
         'deep-umber': '#6B4735',
         espresso: '#3D2817',
       },
+      fontSize: {
+        'heading-2': ['clamp(2.5rem, 2.5vw + 1.5rem, 3.75rem)', { lineHeight: '1.2' }],
+      },
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
         sans: ['var(--font-geist-sans)'],
