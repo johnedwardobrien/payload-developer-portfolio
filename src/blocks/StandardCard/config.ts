@@ -30,16 +30,10 @@ export const StandardCard: Block = {
       label: 'Date',
     },
     {
-      name: 'backgroundImage',
+      name: 'backgroundMedia',
       type: 'upload',
       relationTo: 'media',
       label: 'Background Media',
-    },
-    {
-      name: 'videos',
-      type: 'upload',
-      relationTo: 'media',
-      label: 'Video',
     },
   ],
 }

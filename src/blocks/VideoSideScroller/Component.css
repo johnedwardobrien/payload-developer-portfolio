@@ -1,0 +1,63 @@
+/* VideoSideScroller Grid Styles */
+
+/* Outer Grid: 1 column at mobile, 2 columns at tablet and desktop */
+.video-side-scroller-grid-outer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 48rem) {
+  .video-side-scroller-grid-outer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Inner Grid: 2 columns at mobile, 1 column at tablet, 2 columns at desktop */
+.video-side-scroller-grid-inner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  grid-auto-rows: 132px;
+}
+
+/* Tablet: 1 column, 300svh height */
+@media (min-width: 48rem) {
+  .video-side-scroller-grid-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    grid-auto-rows: 1fr;
+    height: 600svh;
+  }
+}
+
+/* Desktop: 2 columns, 59vw width, 350svh height */
+@media (min-width: 64rem) {
+  .video-side-scroller-grid-inner {
+    grid-template-columns: repeat(2, 1fr);
+    width: 59vw;
+    height: 350svh;
+  }
+}
+
+/* Media Container: padding and grid span */
+.media-cont {
+  padding: 12px;
+  grid-column: span 1;
+  grid-row: span 1;
+  min-height: 0;
+}
+
+@media (min-width: 48rem) {
+  .media-cont {
+    padding: 20px;
+    grid-row: span 2;
+  }
+}
+
+@media (min-width: 64rem) {
+  .media-cont {
+    padding: 32px;
+  }
+}
+

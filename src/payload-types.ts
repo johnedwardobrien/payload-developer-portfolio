@@ -911,8 +911,7 @@ export interface StandardCard {
   description?: string | null;
   buttonText?: string | null;
   date?: string | null;
-  backgroundImage?: (string | null) | Media;
-  videos?: (string | null) | Media;
+  backgroundMedia?: (string | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'standardCard';
@@ -1593,8 +1592,7 @@ export interface StandardCardSelect<T extends boolean = true> {
   description?: T;
   buttonText?: T;
   date?: T;
-  backgroundImage?: T;
-  videos?: T;
+  backgroundMedia?: T;
   id?: T;
   blockName?: T;
 }
