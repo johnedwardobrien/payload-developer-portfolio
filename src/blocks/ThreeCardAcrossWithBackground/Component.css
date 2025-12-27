@@ -1,0 +1,10 @@
+.three-card {
+  height: 75vh;
+  width: 95%;
+  margin: 1.25rem auto; /* my-5 equivalent */
+}
+
+.content {
+  padding: 32px 28px;
+}
+
