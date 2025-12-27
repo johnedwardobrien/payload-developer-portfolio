@@ -38,21 +38,25 @@
 .layered-cards-wrapper {
   position: relative;
   width: 100%;
-  height: 70vh;
+  min-height: calc(60vh + 4rem);
+  padding-bottom: 6rem;
   overflow: visible;
   touch-action: pan-y;
 }
 
 .layered-card-item {
   position: absolute;
-  width: calc(100% - 2rem);
+  width: calc((100% - 2rem) * 0.9);
   height: 60vh;
-  bottom: 0;
-  right: 1rem;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.4s;
-  transform-origin: bottom right;
+  top: 0;
+  left: 50%;
+  transform-origin: top center;
   pointer-events: auto;
-  will-change: transform, z-index;
+  cursor: grab;
+}
+
+.layered-card-item:active {
+  cursor: grabbing;
 }
 
 /* Tablet and Desktop: Full screen width and height */

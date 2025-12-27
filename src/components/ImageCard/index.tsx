@@ -19,7 +19,10 @@ export const ImageCard: React.FC<Props> = ({ card }) => {
         <Media
           htmlElement="div"
           className="absolute inset-0 w-full h-full"
+          fill
           resource={backgroundMedia}
+          pictureClassName="absolute inset-0 w-full h-full"
+          imgClassName="object-cover"
           videoClassName="absolute inset-0 w-full h-full object-cover"
         />
       )}
