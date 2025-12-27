@@ -1,0 +1,23 @@
+/* VideoCard Styles */
+
+/* Media Container: padding and grid span */
+.video-card.media-cont {
+  padding: 12px;
+  grid-column: span 1;
+  grid-row: span 1;
+  min-height: 0;
+}
+
+@media (min-width: 48rem) {
+  .video-card.media-cont {
+    padding: 20px;
+    grid-row: span 2;
+  }
+}
+
+@media (min-width: 64rem) {
+  .video-card.media-cont {
+    padding: 32px;
+  }
+}
+

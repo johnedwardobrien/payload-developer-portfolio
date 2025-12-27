@@ -4,17 +4,21 @@
 .video-side-scroller-grid-outer {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
 }
 
 @media (min-width: 48rem) {
   .video-side-scroller-grid-outer {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  /* Grow-shrink-layout: 1fr 1.16fr columns at tablet and desktop */
+  .video-side-scroller-grid-outer.grow-shrink-outer {
+    grid-template-columns: 1fr 1.16fr;
+  }
 }
 
-/* Inner Grid: 2 columns at mobile, 1 column at tablet, 2 columns at desktop */
-.video-side-scroller-grid-inner {
+/* Grid Layout: 2 columns at mobile, 1 column at tablet, 2 columns at desktop */
+.video-side-scroller-grid-inner.grid-layout {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
@@ -23,7 +27,7 @@
 
 /* Tablet: 1 column, 300svh height */
 @media (min-width: 48rem) {
-  .video-side-scroller-grid-inner {
+  .video-side-scroller-grid-inner.grid-layout {
     grid-template-columns: 1fr;
     gap: 24px;
     grid-auto-rows: 1fr;
@@ -33,31 +37,23 @@
 
 /* Desktop: 2 columns, 59vw width, 350svh height */
 @media (min-width: 64rem) {
-  .video-side-scroller-grid-inner {
+  .video-side-scroller-grid-inner.grid-layout {
     grid-template-columns: repeat(2, 1fr);
     width: 59vw;
     height: 350svh;
   }
 }
 
-/* Media Container: padding and grid span */
-.media-cont {
-  padding: 12px;
-  grid-column: span 1;
-  grid-row: span 1;
-  min-height: 0;
+/* Grow/Shrink Layout: flex container with videos taking full width/height */
+.video-side-scroller-grid-inner.grow-shrink-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
-@media (min-width: 48rem) {
-  .media-cont {
-    padding: 20px;
-    grid-row: span 2;
-  }
-}
-
-@media (min-width: 64rem) {
-  .media-cont {
-    padding: 32px;
-  }
+/* Videos in grow-shrink-layout take full width with aspect ratio 762/410 */
+.video-side-scroller-grid-inner.grow-shrink-layout .video-card {
+  width: 100%;
+  aspect-ratio: 762 / 410;
 }
 
