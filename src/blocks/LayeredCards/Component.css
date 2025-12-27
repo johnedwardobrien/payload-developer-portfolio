@@ -59,7 +59,7 @@
   cursor: grabbing;
 }
 
-/* Tablet and Desktop: Completely separate from mobile - full width, stacked, no overflow */
+/* Tablet and Desktop: Simple layout - cards take up space, no absolute positioning */
 @media (min-width: 768px) {
   .layered-cards-header {
     flex-direction: row;
@@ -71,37 +71,34 @@
 
   .layered-cards-wrapper {
     /* Reset mobile styles */
-    position: relative !important;
+    position: static !important;
     min-height: auto !important;
     padding-bottom: 0 !important;
     overflow: visible !important;
     touch-action: auto !important;
     
-    /* Tablet/Desktop styles */
-    height: calc(100vh - 64px);
+    /* Tablet/Desktop: Simple flex layout */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    align-items: center;
-    justify-content: flex-start;
+    padding: 0 1rem;
+    width: 100%;
   }
 
   .layered-card-item {
-    /* Reset mobile absolute positioning */
-    position: relative !important;
+    /* Reset mobile absolute positioning - make cards take up space */
+    position: static !important;
     top: auto !important;
     left: auto !important;
+    transform: none !important;
     transform-origin: center !important;
     cursor: default !important;
     
-    /* Tablet/Desktop styles */
-    flex: 0 0 calc(100vh - 64px);
+    /* Tablet/Desktop: Cards take up natural space */
     width: 100%;
     max-width: 100%;
-    height: calc(100vh - 64px);
+    height: auto;
+    min-height: 400px;
     opacity: 1 !important;
   }
 
