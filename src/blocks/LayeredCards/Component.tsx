@@ -97,49 +97,72 @@ export const LayeredCards: React.FC<Props> = (props) => {
         {validCards.map((card, index) => {
           const isActive = index === currentIndex
 
-          // Calculate stack position for infinite scroll
-          // Show cards that come before the current one in the sequence, stacked behind
+          // At tablet/desktop, show all cards; at mobile, use stacking logic
           let stackPosition = 0
           let shouldShow = false
 
-          if (!isActive) {
-            // Calculate the difference considering infinite scroll wrapping
-            let diff = index - currentIndex
+          if (isMobile) {
+            // Mobile: Calculate stack position for infinite scroll
+            // Show cards that come before the current one in the sequence, stacked behind
+            if (!isActive) {
+              // Calculate the difference considering infinite scroll wrapping
+              let diff = index - currentIndex
 
-            // Normalize diff to handle wrapping (e.g., if current is 0 and index is last, diff should be negative)
-            if (diff > validCards.length / 2) {
-              diff -= validCards.length
-            } else if (diff < -validCards.length / 2) {
-              diff += validCards.length
-            }
+              // Normalize diff to handle wrapping (e.g., if current is 0 and index is last, diff should be negative)
+              if (diff > validCards.length / 2) {
+                diff -= validCards.length
+              } else if (diff < -validCards.length / 2) {
+                diff += validCards.length
+              }
 
-            // Cards that come before in the sequence (negative diff) should be visible behind
-            // Always show the previous 2 cards behind the current one (wrapping around)
-            if (diff < 0) {
-              stackPosition = Math.abs(diff)
-              shouldShow = stackPosition <= 2
-            } else {
-              // For cards that come after, check if they should be shown as "previous" cards
-              // by wrapping around (e.g., if we're at index 0 and there are 3 cards,
-              // card at index 2 should be shown as the first card behind, card 1 as second)
-              const wrappedDiff = diff - validCards.length
-              if (wrappedDiff < 0) {
-                stackPosition = Math.abs(wrappedDiff)
+              // Cards that come before in the sequence (negative diff) should be visible behind
+              // Always show the previous 2 cards behind the current one (wrapping around)
+              if (diff < 0) {
+                stackPosition = Math.abs(diff)
                 shouldShow = stackPosition <= 2
               } else {
-                shouldShow = false
+                // For cards that come after, check if they should be shown as "previous" cards
+                // by wrapping around (e.g., if we're at index 0 and there are 3 cards,
+                // card at index 2 should be shown as the first card behind, card 1 as second)
+                const wrappedDiff = diff - validCards.length
+                if (wrappedDiff < 0) {
+                  stackPosition = Math.abs(wrappedDiff)
+                  shouldShow = stackPosition <= 2
+                } else {
+                  shouldShow = false
+                }
               }
             }
+          } else {
+            // Tablet/Desktop: Show all cards
+            shouldShow = true
           }
 
           // Calculate z-index: active card gets highest, others based on stack position
           const zIndex = isActive ? 10 : shouldShow ? Math.max(1, 10 - stackPosition) : 0
 
-          // Calculate transform values for motion
-          const offsetX = shouldShow ? 12 * stackPosition : 0
-          const offsetY = shouldShow ? 24 * stackPosition : 0
+          // Calculate transform values for motion (mobile only)
+          const offsetX = isMobile && shouldShow ? 12 * stackPosition : 0
+          const offsetY = isMobile && shouldShow ? 24 * stackPosition : 0
           // All cards same size - no scaling
           const scale = 1
+
+          // Only apply mobile transforms and animations on mobile
+          const mobileStyle = isMobile
+            ? {
+                x: isActive ? activeCardX : `calc(-50% + ${offsetX}px)`,
+              }
+            : {}
+
+          const mobileAnimate = isMobile
+            ? {
+                y: offsetY,
+                scale: scale,
+                opacity: shouldShow || isActive ? 1 : 0,
+              }
+            : {
+                opacity: 1,
+              }
 
           return (
             <motion.div
@@ -148,31 +171,33 @@ export const LayeredCards: React.FC<Props> = (props) => {
               className={`layered-card-item ${isActive ? 'active' : ''}`}
               style={{
                 zIndex: zIndex,
-                x: isActive ? activeCardX : `calc(-50% + ${offsetX}px)`,
+                ...mobileStyle,
               }}
               initial={false}
-              animate={{
-                y: offsetY,
-                scale: scale,
-                opacity: shouldShow || isActive ? 1 : 0,
-              }}
+              animate={mobileAnimate}
               drag={isActive && isMobile ? 'x' : false}
               dragConstraints={isActive && isMobile ? dragConstraints : undefined}
-              dragElastic={0.1}
-              dragMomentum={false}
-              onDrag={(_, info) => {
-                if (isActive && isMobile) {
-                  x.set(info.offset.x)
-                }
-              }}
+              dragElastic={isMobile ? 0.1 : undefined}
+              dragMomentum={isMobile ? false : undefined}
+              onDrag={
+                isActive && isMobile
+                  ? (_, info) => {
+                      x.set(info.offset.x)
+                    }
+                  : undefined
+              }
               onDragEnd={isActive && isMobile ? handleDragEnd : undefined}
               whileDrag={isActive && isMobile ? { cursor: 'grabbing' } : undefined}
-              transition={{
-                type: 'spring',
-                stiffness: 300,
-                damping: 30,
-                duration: 0.4,
-              }}
+              transition={
+                isMobile
+                  ? {
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 30,
+                      duration: 0.4,
+                    }
+                  : undefined
+              }
             >
               <ImageCard card={card} />
             </motion.div>

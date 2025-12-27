@@ -59,7 +59,7 @@
   cursor: grabbing;
 }
 
-/* Tablet and Desktop: Full screen width and height */
+/* Tablet and Desktop: Completely separate from mobile - full width, stacked, no overflow */
 @media (min-width: 768px) {
   .layered-cards-header {
     flex-direction: row;
@@ -70,24 +70,43 @@
   }
 
   .layered-cards-wrapper {
+    /* Reset mobile styles */
+    position: relative !important;
+    min-height: auto !important;
+    padding-bottom: 0 !important;
+    overflow: visible !important;
+    touch-action: auto !important;
+    
+    /* Tablet/Desktop styles */
     height: calc(100vh - 64px);
     display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    padding: 0 2rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .layered-card-item {
-    position: relative;
-    flex: 0 0 100%;
-    height: 100%;
-    bottom: auto;
-    right: auto;
-    transform: none !important;
+    /* Reset mobile absolute positioning */
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform-origin: center !important;
+    cursor: default !important;
+    
+    /* Tablet/Desktop styles */
+    flex: 0 0 calc(100vh - 64px);
+    width: 100%;
+    max-width: 100%;
+    height: calc(100vh - 64px);
     opacity: 1 !important;
-    scroll-snap-align: start;
+  }
+
+  .layered-card-item:active {
+    cursor: default !important;
   }
 
   .layered-card-item.active,
@@ -101,7 +120,7 @@
 /* Desktop: Ensure full width cards */
 @media (min-width: 1024px) {
   .layered-cards-wrapper {
-    padding: 0 3rem;
+    padding: 0;
   }
 }
 
