@@ -21,10 +21,8 @@ export const Media: React.FC<Props> = (props) => {
           }
         : {})}
     >
-      <div className="relative">
-        {isVideo ? <VideoMedia {...props} /> : <ImageMedia {...props} />}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none z-[1]" aria-hidden="true" />
-      </div>
+      {isVideo ? <VideoMedia {...props} /> : <ImageMedia {...props} />}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none z-[1]" aria-hidden="true" />
     </Tag>
   )
 }
