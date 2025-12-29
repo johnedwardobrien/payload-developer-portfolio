@@ -33,9 +33,8 @@
   background-color: hsl(var(--primary) / 0.9);
 }
 
-
-/* Mobile: Stacked cards with offset (playing cards style) */
-.layered-cards-wrapper {
+/* Mobile: Stacked Cards */
+.stacked-cards-wrapper {
   position: relative;
   width: 100%;
   min-height: calc(60vh + 4rem);
@@ -44,7 +43,7 @@
   touch-action: pan-y;
 }
 
-.layered-card-item {
+.stacked-card-item {
   position: absolute;
   width: calc((100% - 2rem) * 0.9);
   height: 60vh;
@@ -55,69 +54,45 @@
   cursor: grab;
 }
 
-.layered-card-item:active {
+.stacked-card-item:active {
   cursor: grabbing;
 }
 
-/* Tablet and Desktop: Simple layout - cards take up space, no absolute positioning */
+/* Tablet/Desktop: Column Layout */
+.layered-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.layered-card-item {
+  width: 100%;
+  height: calc(100vh - 64px);
+  position: relative;
+}
+
+/* Tablet and Desktop */
 @media (min-width: 768px) {
   .layered-cards-header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
-    margin-bottom: 2rem;
   }
 
   .layered-cards-wrapper {
-    /* Reset mobile styles */
-    position: static !important;
-    min-height: auto !important;
-    padding-bottom: 0 !important;
-    overflow: visible !important;
-    touch-action: auto !important;
-    
-    /* Tablet/Desktop: Simple flex layout */
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 0 1rem;
-    width: 100%;
-  }
-
-  .layered-card-item {
-    /* Reset mobile absolute positioning - make cards take up space */
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-    transform-origin: center !important;
-    cursor: default !important;
-    
-    /* Tablet/Desktop: Cards take up natural space */
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    min-height: 400px;
-    opacity: 1 !important;
-  }
-
-  .layered-card-item:active {
-    cursor: default !important;
-  }
-
-  .layered-card-item.active,
-  .layered-card-item.swiped-left,
-  .layered-card-item.swiped-right {
-    transform: none !important;
-    opacity: 1 !important;
+    padding: 0 2rem;
   }
 }
 
-/* Desktop: Ensure full width cards */
+/* Desktop */
 @media (min-width: 1024px) {
   .layered-cards-wrapper {
     padding: 0;
   }
 }
+
+
 
