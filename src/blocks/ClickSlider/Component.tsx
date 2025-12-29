@@ -1,11 +1,260 @@
-import React from 'react'
+'use client'
+
+import React, { useMemo } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import type { Swiper as SwiperType } from 'swiper'
+
+import type { ClickSlider as ClickSliderType } from '@/payload-types'
+
+import { Media } from '@/components/Media'
+import { Button } from '@/components/ui/button'
+import { formatEventDate } from '@/utilities/formatEventDate'
+import 'swiper/css'
+import './Component.css'
 
 type Props = {
   disableInnerContainer?: boolean
-  [key: string]: unknown
-}
+} & ClickSliderType
 
 export const ClickSlider: React.FC<Props> = (props) => {
-  return <></>
-}
+  const { title, buttonText, cards } = props
+  const swiperRef = React.useRef<SwiperType | null>(null)
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  const cursorRef = React.useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = React.useState(0)
+  const [isDesktop, setIsDesktop] = React.useState(false)
 
+  const validCards = useMemo(
+    () => cards?.filter((c) => c.blockType === 'standardCard') || [],
+    [cards],
+  )
+
+  React.useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024)
+    }
+
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => {
+      window.removeEventListener('resize', checkDesktop)
+    }
+  }, [])
+
+  // Custom cursor for desktop with elastic lag effect - only on slides
+  React.useEffect(() => {
+    if (!isDesktop || !cursorRef.current) return
+
+    const cursor = cursorRef.current
+    const swiperContainer = containerRef.current?.querySelector('.click-slider-swiper-container')
+    const slides = swiperContainer?.querySelectorAll('.click-slider-slide')
+
+    let currentX = 0
+    let currentY = 0
+    let targetX = 0
+    let targetY = 0
+    let isHovering = false
+
+    const animate = () => {
+      if (isHovering) {
+        // Elastic lag effect - cursor follows with easing
+        const dx = targetX - currentX
+        const dy = targetY - currentY
+        currentX += dx * 0.15 // Adjust speed (0.15 = lag amount)
+        currentY += dy * 0.15
+
+        cursor.style.left = `${currentX}px`
+        cursor.style.top = `${currentY}px`
+        cursor.style.opacity = '1'
+      } else {
+        cursor.style.opacity = '0'
+      }
+
+      requestAnimationFrame(animate)
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isHovering) {
+        targetX = e.clientX
+        targetY = e.clientY
+      }
+    }
+
+    const handleMouseEnter = (e: Event) => {
+      const mouseEvent = e as MouseEvent
+      isHovering = true
+      cursor.classList.add('hover')
+      targetX = mouseEvent.clientX
+      targetY = mouseEvent.clientY
+      currentX = mouseEvent.clientX
+      currentY = mouseEvent.clientY
+    }
+
+    const handleMouseLeave = () => {
+      isHovering = false
+      cursor.classList.remove('hover')
+    }
+
+    // Initialize cursor position
+    currentX = window.innerWidth / 2
+    currentY = window.innerHeight / 2
+    targetX = currentX
+    targetY = currentY
+
+    animate()
+    document.addEventListener('mousemove', handleMouseMove)
+    slides?.forEach((slide) => {
+      slide.addEventListener('mouseenter', handleMouseEnter as EventListener)
+      slide.addEventListener('mouseleave', handleMouseLeave)
+    })
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      slides?.forEach((slide) => {
+        slide.removeEventListener('mouseenter', handleMouseEnter as EventListener)
+        slide.removeEventListener('mouseleave', handleMouseLeave)
+      })
+    }
+  }, [isDesktop, validCards.length])
+
+  if (!validCards || validCards.length === 0) {
+    return null
+  }
+
+  return (
+    <div ref={containerRef} className="click-slider-container">
+      {/* Custom Cursor - Desktop Only */}
+      {isDesktop && <div ref={cursorRef} className="click-slider-cursor" />}
+      <div className="click-slider-grid">
+        {/* Title and Button - Top Row */}
+        <div className="click-slider-header">
+          {title && <h1 className="click-slider-title text-heading-1">{title}</h1>}
+          {buttonText && (
+            <Button variant="outline" size="default">
+              {buttonText}
+            </Button>
+          )}
+        </div>
+
+        {/* Standard Cards Slider - Bottom Row */}
+        <div className="click-slider-swiper-container">
+          <Swiper
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper
+            }}
+            onSlideChange={(swiper) => {
+              setActiveIndex(swiper.activeIndex)
+            }}
+            initialSlide={0}
+            slidesPerView="auto"
+            spaceBetween={16}
+            breakpoints={{
+              1024: {
+                slidesPerView: 2,
+                spaceBetween: 16,
+                allowTouchMove: false,
+              },
+            }}
+            allowTouchMove={!isDesktop}
+            loop={isDesktop && validCards.length > 2}
+            className="click-slider-swiper"
+          >
+            {validCards.map((card, index) => {
+              if (card.blockType !== 'standardCard') return null
+
+              const {
+                title: cardTitle,
+                subtitle,
+                date,
+                buttonText: cardButtonText,
+                backgroundMedia,
+              } = card
+
+              return (
+                <SwiperSlide key={card.id || index} className="click-slider-slide">
+                  <div
+                    className="click-slider-card"
+                    onClick={() => {
+                      if (isDesktop && swiperRef.current) {
+                        // Advance to next slide on click
+                        swiperRef.current.slideNext()
+                      }
+                    }}
+                    style={{ cursor: isDesktop ? 'none' : 'pointer' }}
+                  >
+                    {/* Background Image */}
+                    {backgroundMedia && typeof backgroundMedia === 'object' && (
+                      <div className="click-slider-card-background">
+                        <Media
+                          resource={backgroundMedia}
+                          fill
+                          className="relative w-full h-full"
+                          imgClassName="object-cover w-full h-full"
+                          pictureClassName="absolute inset-0 w-full h-full"
+                          videoClassName="absolute inset-0 w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+
+                    {/* Content Overlay - Full Center */}
+                    <div className="click-slider-card-content">
+                      <div className="click-slider-card-inner">
+                        {/* Row 1: Subtitle and Date */}
+                        {(subtitle || date) && (
+                          <div className="click-slider-card-row-top">
+                            {subtitle && (
+                              <span className="click-slider-card-subtitle">{subtitle}</span>
+                            )}
+                            {subtitle && date && (
+                              <span className="click-slider-card-separator"> - </span>
+                            )}
+                            {date && (
+                              <span className="click-slider-card-date">
+                                {formatEventDate(date)}
+                              </span>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Row 2: Title */}
+                        {cardTitle && (
+                          <div className="click-slider-card-row-middle">
+                            <h2 className="click-slider-card-title text-heading-2">{cardTitle}</h2>
+                          </div>
+                        )}
+
+                        {/* Row 3: Button Text */}
+                        {cardButtonText && (
+                          <div className="click-slider-card-row-bottom">
+                            <span className="click-slider-card-button-text">{cardButtonText}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              )
+            })}
+          </Swiper>
+          {/* Custom Marker - Prepared for click sliding functionality */}
+          {validCards.length > 1 && (
+            <div className="click-slider-marker-container">
+              {validCards.map((_, index) => (
+                <button
+                  key={index}
+                  className={`click-slider-marker ${activeIndex === index ? 'active' : ''}`}
+                  onClick={() => {
+                    if (swiperRef.current) {
+                      swiperRef.current.slideTo(index)
+                    }
+                  }}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}

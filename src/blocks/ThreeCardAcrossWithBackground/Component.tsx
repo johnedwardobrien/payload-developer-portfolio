@@ -3,16 +3,15 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { Swiper as SwiperType } from 'swiper'
-import { FreeMode } from 'swiper/modules'
 
 import type {
   ThreeCardAcrossWithBackground as ThreeCardAcrossWithBackgroundType,
   ThreeCard,
+  Media as MediaType,
 } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import 'swiper/css'
-import 'swiper/css/free-mode'
 import './Component.css'
 
 type Props = {
@@ -27,7 +26,7 @@ export const ThreeCardAcrossWithBackground: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="three-card-outer-container md:hidden">
+    <div className="three-card-outer-container">
       {threeCards.map((card, cardIndex) => {
         if (card.blockType !== 'threeCard') return null
 
@@ -42,6 +41,7 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
   const cardRef = useRef<HTMLDivElement>(null)
   const swiperRef = useRef<SwiperType | null>(null)
   const [standardCardWidth, setStandardCardWidth] = useState(0)
+  const [isDesktop, setIsDesktop] = useState(false)
 
   const validCards = useMemo(
     () => standardCards?.filter((c) => c.blockType === 'standardCard') || [],
@@ -49,13 +49,22 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
   )
 
   useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024) // lg breakpoint (1024px)
+    }
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => window.removeEventListener('resize', checkDesktop)
+  }, [])
+
+  useEffect(() => {
     const updateDimensions = () => {
       if (cardRef.current) {
         const cardRect = cardRef.current.getBoundingClientRect()
         // Slider container is 50% of card height
-        // Standard cards should be 1/2 aspect ratio (width = 2 * height)
+        // Standard cards should be 1:1 aspect ratio (width = height)
         const sliderHeight = cardRect.height / 2
-        const calculatedWidth = sliderHeight * 2
+        const calculatedWidth = sliderHeight
         // Apply max-width constraint of 304px
         const stdCardWidth = Math.min(calculatedWidth, 304)
         setStandardCardWidth(stdCardWidth)
@@ -104,63 +113,100 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
         </div>
       </div>
 
-      {/* Standard Cards Slider - Bottom Half of Card */}
+      {/* Standard Cards - Swiper on Mobile/Tablet, Flex on Desktop */}
       {validCards.length > 0 && (
         <div className="three-card-slider-container absolute left-0 right-0 z-10 overflow-hidden">
-          <Swiper
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper
-            }}
-            modules={[FreeMode]}
-            freeMode={true}
-            slidesPerView="auto"
-            spaceBetween={32}
-            centeredSlides={true}
-            centeredSlidesBounds={true}
-            className="three-card-swiper"
-          >
-            {validCards.map((standardCard, index) => {
-              const { title: cardTitle, buttonText, backgroundMedia: cardMedia } = standardCard
+          {!isDesktop ? (
+            <Swiper
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper
+              }}
+              initialSlide={0}
+              slidesPerView="auto"
+              spaceBetween={28}
+              centeredSlides={true}
+              centeredSlidesBounds={true}
+              slidesOffsetAfter={90}
+              breakpoints={{
+                768: {
+                  // Tablet (768px and up)
+                  slidesOffsetAfter: 150,
+                  slidesOffsetBefore: 90,
+                },
+              }}
+              className="three-card-swiper"
+            >
+              {validCards.map((standardCard, index) => {
+                const { title: cardTitle, buttonText, backgroundMedia: cardMedia } = standardCard
 
-              return (
-                <SwiperSlide
-                  key={standardCard.id || index}
-                  className="three-card-slide"
-                  style={{
-                    width: standardCardWidth > 0 ? `${standardCardWidth}px` : 'auto',
-                  }}
-                >
-                  <div className="three-card-standard-card">
-                    {/* Background Image */}
-                    {cardMedia && typeof cardMedia === 'object' && (
-                      <div className="standard-card-background">
-                        <Media
-                          resource={cardMedia}
-                          fill
-                          className="relative w-full h-full"
-                          imgClassName="object-cover w-full h-full"
-                          pictureClassName="absolute inset-0 w-full h-full"
-                          videoClassName="absolute inset-0 w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
+                return (
+                  <SwiperSlide
+                    key={standardCard.id || index}
+                    className="three-card-slide"
+                    style={{
+                      width: standardCardWidth > 0 ? `${standardCardWidth}px` : 'auto',
+                    }}
+                  >
+                    <StandardCardContent
+                      cardTitle={cardTitle}
+                      buttonText={buttonText}
+                      cardMedia={cardMedia}
+                    />
+                  </SwiperSlide>
+                )
+              })}
+            </Swiper>
+          ) : (
+            <div className="three-card-desktop-flex">
+              {validCards.map((standardCard, index) => {
+                const { title: cardTitle, buttonText, backgroundMedia: cardMedia } = standardCard
 
-                    {/* Content Overlay - Bottom Aligned, Half Height */}
-                    <div className="standard-card-content">
-                      <div className="standard-card-content-inner">
-                        {cardTitle && <h3 className="standard-card-title">{cardTitle}</h3>}
-                        {buttonText && (
-                          <button className="standard-card-button">{buttonText}</button>
-                        )}
-                      </div>
-                    </div>
+                return (
+                  <div key={standardCard.id || index} className="three-card-desktop-card">
+                    <StandardCardContent
+                      cardTitle={cardTitle}
+                      buttonText={buttonText}
+                      cardMedia={cardMedia}
+                    />
                   </div>
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
+                )
+              })}
+            </div>
+          )}
         </div>
       )}
+    </div>
+  )
+}
+
+const StandardCardContent: React.FC<{
+  cardTitle?: string | null
+  buttonText?: string | null
+  cardMedia?: (string | null) | MediaType
+}> = ({ cardTitle, buttonText, cardMedia }) => {
+  return (
+    <div className="three-card-standard-card">
+      {/* Background Image */}
+      {cardMedia && typeof cardMedia === 'object' && (
+        <div className="standard-card-background">
+          <Media
+            resource={cardMedia}
+            fill
+            className="relative w-full h-full"
+            imgClassName="object-cover w-full h-full"
+            pictureClassName="absolute inset-0 w-full h-full"
+            videoClassName="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+      )}
+
+      {/* Content Overlay - Bottom Aligned */}
+      <div className="standard-card-content">
+        <div className="standard-card-content-inner">
+          {cardTitle && <h3 className="standard-card-title">{cardTitle}</h3>}
+          {buttonText && <button className="standard-card-button">{buttonText}</button>}
+        </div>
+      </div>
     </div>
   )
 }

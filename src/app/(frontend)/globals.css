@@ -4,6 +4,25 @@
 
 
 @layer base {
+  .text-heading-1 {
+    font-size: 40px;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .text-heading-1 {
+      font-size: 60px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .text-heading-1 {
+      font-size: 72px;
+    }
+  }
+}
+
+@layer base {
   h1,
   h2,
   h3,

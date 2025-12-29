@@ -4,6 +4,13 @@
   margin: 1.25rem auto; /* my-5 equivalent */
 }
 
+/* Tablet and Desktop: Min-height 800px */
+@media (min-width: 768px) {
+  .three-card {
+    min-height: 800px;
+  }
+}
+
 /* Header with Title and Subtitle - Top of Card */
 .three-card-header {
   padding: 32px 28px;
@@ -42,6 +49,7 @@
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  aspect-ratio: 1 / 1;
 }
 
 .standard-card-background {
@@ -104,5 +112,33 @@
 
 .standard-card-button:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* Desktop Flex Container */
+.three-card-desktop-flex {
+  display: flex;
+  gap: 28px;
+  padding: 0 32px;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.three-card-desktop-card {
+  flex: 1;
+  max-width: 304px;
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 1023px) {
+  .three-card-desktop-flex {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .three-card-swiper {
+    display: none;
+  }
 }
 

@@ -95,6 +95,7 @@ const config = {
         espresso: '#3D2817',
       },
       fontSize: {
+        'heading-1': ['40px', { lineHeight: '1.2' }],
         'heading-2': ['clamp(2.5rem, 2.5vw + 1.5rem, 3.75rem)', { lineHeight: '1.2' }],
       },
       fontFamily: {

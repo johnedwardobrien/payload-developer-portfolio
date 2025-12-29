@@ -1,0 +1,258 @@
+/* ClickSlider Container */
+.click-slider-container {
+  width: 100%;
+  padding: 1.25rem 0;
+}
+
+/* Grid Layout - 1 Column (Mobile and Tablet) */
+.click-slider-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* Header - Title and Button - On Top at Mobile */
+.click-slider-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1rem;
+  order: 1; /* Ensure header is first on mobile */
+}
+
+.click-slider-swiper-container {
+  order: 2; /* Ensure swiper is second on mobile */
+}
+
+/* Desktop: Two Columns - Title/Button Left (1fr), Swiper Right (2fr) */
+@media (min-width: 1024px) {
+  .click-slider-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+  }
+
+  .click-slider-header {
+    align-items: flex-start;
+    justify-content: center;
+    order: unset; /* Reset order for desktop grid */
+  }
+
+  .click-slider-swiper-container {
+    order: unset; /* Reset order for desktop grid */
+  }
+}
+
+/* Swiper Container */
+.click-slider-swiper-container {
+  width: 100%;
+  overflow: hidden;
+  min-height: 200px; /* Ensure container has height on mobile */
+}
+
+.click-slider-swiper {
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.click-slider-slide {
+  height: 50vh;
+  aspect-ratio: 300 / 392; /* Mobile aspect ratio */
+}
+
+/* Standard Card */
+.click-slider-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+/* Tablet: Keep mobile aspect ratio */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .click-slider-slide {
+    aspect-ratio: 300 / 392;
+  }
+}
+
+/* Desktop: Different aspect ratio */
+@media (min-width: 1024px) {
+  .click-slider-slide {
+    height: 100%;
+    aspect-ratio: 432 / 532;
+  }
+}
+
+.click-slider-card-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.click-slider-card-background picture,
+.click-slider-card-background img,
+.click-slider-card-background video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+/* Content Overlay - Fit Content Height, Bottom Aligned */
+.click-slider-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.click-slider-card-inner {
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-sizing: border-box;
+}
+
+/* Row 1: Subtitle and Date */
+.click-slider-card-row-top {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.click-slider-card-subtitle {
+  font-weight: 400;
+}
+
+.click-slider-card-separator {
+  font-weight: 700;
+  margin: 0 4px;
+}
+
+.click-slider-card-date {
+  font-weight: 400;
+}
+
+/* Row 2: Title */
+.click-slider-card-row-middle {
+  display: flex;
+  align-items: center;
+}
+
+.click-slider-card-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Row 3: Button Text */
+.click-slider-card-row-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.click-slider-card-button-text {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-decoration: underline;
+}
+
+/* Custom Marker Container - Prepared for click sliding */
+.click-slider-marker-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.click-slider-marker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  padding: 0;
+}
+
+.click-slider-marker:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.2);
+}
+
+.click-slider-marker.active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.3);
+}
+
+/* Custom Cursor - Desktop Only */
+@media (min-width: 1024px) {
+  .click-slider-container {
+    cursor: none;
+  }
+
+  .click-slider-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(127, 255, 212, 0.3); /* aquamarine */
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 200ms, height 200ms, background 200ms, opacity 200ms;
+    mix-blend-mode: difference;
+    opacity: 0;
+  }
+
+  .click-slider-cursor.hover {
+    width: 60px; /* 40px * 1.5 = 60px (50% increase) */
+    height: 60px;
+    background: rgba(127, 255, 212, 0.6); /* aquamarine */
+  }
+
+  .click-slider-cursor.hover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid rgba(0, 51, 102, 0.9); /* deep ocean blue */
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+  }
+
+  .click-slider-slide {
+    cursor: none;
+  }
+
+  .click-slider-card {
+    cursor: none !important;
+    pointer-events: auto;
+  }
+}
+
