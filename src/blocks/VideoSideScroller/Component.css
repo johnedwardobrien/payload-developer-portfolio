@@ -110,12 +110,37 @@
   touch-action: pan-x;
 }
 
+/* White divs to hide sliding animations at container edges */
+.video-layered-cards-edge-left,
+.video-layered-cards-edge-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1rem;
+  background-color: white;
+  pointer-events: none;
+  z-index: 10000;
+  border-radius: 0.5rem;
+}
+
+.video-layered-cards-edge-left {
+  left: -1rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.video-layered-cards-edge-right {
+  right: -1rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .video-layered-card-image-item {
   position: absolute;
   top: 0;
-  left: 1rem;
-  right: 1rem;
-  width: auto;
+  left: 0;
+  right: 0;
+  width: 100%;
   height: 100%;
   border-radius: 0.5rem;
   overflow: hidden;

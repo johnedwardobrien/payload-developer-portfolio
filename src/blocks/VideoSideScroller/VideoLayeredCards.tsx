@@ -13,11 +13,16 @@ type Props = {
 
 export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPreviousSlidingIn, setIsPreviousSlidingIn] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
+  const prevCardRef = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
+  const prevX = useMotionValue(-1000) // Previous card starts off-screen left
 
   const isLastCard = currentIndex === cards.length - 1
+  const isFirstCard = currentIndex === 0
   const canSwipeLeft = !isLastCard
+  const canSwipeRight = !isFirstCard
 
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (!cardRef.current) return
@@ -27,23 +32,41 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText }) => {
 
     // If dragged left past threshold, swipe to next card
     if (info.offset.x < -threshold && canSwipeLeft) {
-      // Animate card off screen to the left
+      // Animate card off screen to the left - mechanical motion
       animate(x, -1000, {
-        type: 'spring',
-        stiffness: 300,
-        damping: 30,
+        type: 'tween',
+        ease: 'linear',
+        duration: 0.3,
         onComplete: () => {
           // Change to next card and reset position
           setCurrentIndex((prev) => prev + 1)
           x.set(0)
         },
       })
+    }
+    // If dragged right past threshold, swipe to previous card
+    else if (info.offset.x > threshold && canSwipeRight) {
+      // Mark that previous card is sliding in
+      setIsPreviousSlidingIn(true)
+      // Animate previous card sliding in from left - mechanical motion
+      animate(prevX, 0, {
+        type: 'tween',
+        ease: 'linear',
+        duration: 0.3,
+        onComplete: () => {
+          // Change to previous card and reset positions
+          setCurrentIndex((prev) => prev - 1)
+          x.set(0)
+          prevX.set(-1000)
+          setIsPreviousSlidingIn(false)
+        },
+      })
     } else {
-      // Snap back if not dragged far enough
+      // Snap back if not dragged far enough - mechanical motion
       animate(x, 0, {
-        type: 'spring',
-        stiffness: 300,
-        damping: 30,
+        type: 'tween',
+        ease: 'easeOut',
+        duration: 0.2,
       })
     }
   }
@@ -78,38 +101,58 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText }) => {
 
       {/* Layered Images Container */}
       <div className="video-layered-cards-images-container">
+        {/* White divs to hide sliding animations at edges */}
+        <div className="video-layered-cards-edge-left" />
+        <div className="video-layered-cards-edge-right" />
         {cards.map((card, index) => {
           const isActive = index === currentIndex
           const isNextCard = index === currentIndex + 1
-          // Z-index: active card on top, next card below, others hidden
-          const zIndex = isActive ? cards.length + 1 : isNextCard ? cards.length : 0
+          const isPreviousCard = index === currentIndex - 1
+          
+          // Z-index: when previous card is sliding in, it should be on top
+          // Otherwise, active card is always on top
+          const zIndex =
+            isPreviousCard && isPreviousSlidingIn
+              ? cards.length + 2 // Previous card on top when sliding in
+              : isActive
+                ? cards.length + 1 // Active card on top normally
+                : isNextCard || isPreviousCard
+                  ? cards.length // Next/previous cards below
+                  : 0
 
           return (
             <motion.div
               key={card.id || index}
-              ref={isActive ? cardRef : null}
+              ref={isActive ? cardRef : isPreviousCard ? prevCardRef : null}
               className={`video-layered-card-image-item ${isActive ? 'active' : ''}`}
               style={{
                 zIndex,
-                opacity: isActive || isNextCard ? 1 : 0,
-                x: isActive ? x : 0,
+                opacity: isActive || isNextCard || (isPreviousCard && isPreviousSlidingIn) ? 1 : 0,
+                x: isActive ? x : isPreviousCard ? prevX : 0,
                 pointerEvents: isActive ? 'auto' : 'none',
-                cursor: isActive && canSwipeLeft ? 'grab' : 'default',
+                cursor: isActive && (canSwipeLeft || canSwipeRight) ? 'grab' : 'default',
               }}
-              drag={isActive && canSwipeLeft ? 'x' : false}
+              drag={isActive && (canSwipeLeft || canSwipeRight) ? 'x' : false}
               dragConstraints={
-                isActive && canSwipeLeft
+                isActive && (canSwipeLeft || canSwipeRight)
                   ? {
-                      left: -1000,
-                      right: 0,
+                      left: canSwipeLeft ? -1000 : 0,
+                      right: canSwipeRight ? 1000 : 0,
                     }
                   : undefined
               }
-              dragElastic={0.1}
+              dragElastic={0}
               dragMomentum={false}
               onDrag={(_, info) => {
                 if (isActive) {
-                  x.set(info.offset.x)
+                  // Only move card when dragging left (negative offset)
+                  // Right drag doesn't move the card
+                  if (info.offset.x < 0 && canSwipeLeft) {
+                    x.set(info.offset.x)
+                  } else {
+                    // Keep card at 0 when dragging right
+                    x.set(0)
+                  }
                 }
               }}
               onDragEnd={isActive ? handleDragEnd : undefined}
