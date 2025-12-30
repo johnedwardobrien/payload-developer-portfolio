@@ -57,3 +57,95 @@
   aspect-ratio: 762 / 410;
 }
 
+/* Layered Cards Layout */
+.video-side-scroller-layered-outer {
+  width: 100%;
+}
+
+.video-side-scroller-layered-header {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Mobile: Layered Cards Wrapper */
+.video-layered-cards-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Card Title and Description - transitions between template title and button */
+.video-layered-cards-content {
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.video-layered-cards-button-wrapper {
+  padding: 0 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.video-layered-cards-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.video-layered-cards-description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: hsl(var(--foreground) / 0.8);
+}
+
+/* Layered Images Container at Bottom */
+.video-layered-cards-images-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 343 / 360;
+  overflow: hidden;
+  touch-action: pan-x;
+}
+
+.video-layered-card-image-item {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  right: 1rem;
+  width: auto;
+  height: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.video-layered-card-image-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video-layered-card-image-picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-layered-card-image-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-layered-card-image-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
