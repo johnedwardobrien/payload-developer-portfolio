@@ -15,14 +15,17 @@ type Props = {
 export const VideoSideScroller: React.FC<Props> = (props) => {
   const { title, subtitle, videoLayout, videos, buttonText1 } = props
   const [isMobile, setIsMobile] = useState(true)
+  const [isDesktop, setIsDesktop] = useState(false)
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
+    const checkViewport = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 768)
+      setIsDesktop(width >= 1024)
     }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
+    checkViewport()
+    window.addEventListener('resize', checkViewport)
+    return () => window.removeEventListener('resize', checkViewport)
   }, [])
 
   if (!videos || !Array.isArray(videos) || videos.length === 0) {
@@ -44,18 +47,22 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
     return (
       <div className="container my-5">
         <div className="video-side-scroller-layered-outer">
-          {/* Template Title at Top */}
-          <div className="video-side-scroller-layered-header">
-            {title && <h2 className="text-heading-2 font-semibold mb-2">{title}</h2>}
-          </div>
-
-          {/* Mobile: Layered Cards Layout */}
-          {isMobile ? (
-            <VideoLayeredCards cards={validVideos} buttonText={buttonText1} />
-          ) : (
-            /* Tablet/Desktop: Will be implemented later */
-            <div>Tablet/Desktop layout coming soon</div>
+          {/* Mobile/Tablet: Template Title at Top */}
+          {!isDesktop && (
+            <div className="video-side-scroller-layered-header">
+              {title && <h2 className="text-heading-2 font-semibold mb-2">{title}</h2>}
+            </div>
           )}
+
+          {/* Mobile/Tablet: Layered Cards Layout with swipe */}
+          {/* Desktop: Two-column layout */}
+          <VideoLayeredCards
+            cards={validVideos}
+            buttonText={buttonText1}
+            title={title}
+            isMobile={isMobile}
+            isDesktop={isDesktop}
+          />
         </div>
       </div>
     )

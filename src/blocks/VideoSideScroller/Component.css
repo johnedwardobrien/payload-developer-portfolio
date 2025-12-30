@@ -77,6 +77,37 @@
   margin-bottom: 2rem;
 }
 
+/* Desktop: Two-column layout */
+@media (min-width: 64rem) {
+  .video-layered-cards-wrapper.desktop-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+
+  .video-layered-cards-left-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-layered-cards-left-column .video-layered-cards-content {
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .video-layered-cards-left-column .video-layered-cards-button-wrapper {
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .video-layered-cards-images-container.desktop-column {
+    width: 100%;
+    position: relative;
+  }
+}
+
 /* Card Title and Description - transitions between template title and button */
 .video-layered-cards-content {
   margin-bottom: 1rem;

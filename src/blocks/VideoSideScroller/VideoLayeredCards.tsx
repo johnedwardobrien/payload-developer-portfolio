@@ -9,9 +9,12 @@ import { Media } from '@/components/Media'
 type Props = {
   cards: StandardCard[]
   buttonText?: string | null
+  title?: string | null
+  isMobile?: boolean
+  isDesktop?: boolean
 }
 
-export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText }) => {
+export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, isMobile = true, isDesktop = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPreviousSlidingIn, setIsPreviousSlidingIn] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -74,33 +77,74 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText }) => {
   const currentCard = cards[currentIndex]
 
   return (
-    <div className="video-layered-cards-wrapper">
-      {/* Card Title and Description - between template title and button */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          className="video-layered-cards-content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {currentCard?.title && <h3 className="video-layered-cards-title">{currentCard.title}</h3>}
-          {currentCard?.description && (
-            <p className="video-layered-cards-description">{currentCard.description}</p>
+    <div className={`video-layered-cards-wrapper ${isDesktop ? 'desktop-layout' : ''}`}>
+      {/* Desktop: Left Column - Text Content */}
+      {isDesktop && (
+        <div className="video-layered-cards-left-column">
+          {/* Template Title */}
+          {title && (
+            <div className="video-layered-cards-template-title">
+              <h2 className="text-heading-2 font-semibold mb-2">{title}</h2>
+            </div>
           )}
-        </motion.div>
-      </AnimatePresence>
 
-      {/* Button Text below card content */}
-      {buttonText && (
-        <div className="video-layered-cards-button-wrapper">
-          <p className="text-lg">{buttonText}</p>
+          {/* Card Title and Description */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              className="video-layered-cards-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {currentCard?.title && <h3 className="video-layered-cards-title">{currentCard.title}</h3>}
+              {currentCard?.description && (
+                <p className="video-layered-cards-description">{currentCard.description}</p>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Button Text */}
+          {buttonText && (
+            <div className="video-layered-cards-button-wrapper">
+              <p className="text-lg">{buttonText}</p>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Layered Images Container */}
-      <div className="video-layered-cards-images-container">
+      {/* Mobile/Tablet: Card Title and Description - between template title and button */}
+      {!isDesktop && (
+        <>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              className="video-layered-cards-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {currentCard?.title && <h3 className="video-layered-cards-title">{currentCard.title}</h3>}
+              {currentCard?.description && (
+                <p className="video-layered-cards-description">{currentCard.description}</p>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Button Text below card content */}
+          {buttonText && (
+            <div className="video-layered-cards-button-wrapper">
+              <p className="text-lg">{buttonText}</p>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Desktop: Right Column - Layered Images Container */}
+      {/* Mobile/Tablet: Layered Images Container */}
+      <div className={`video-layered-cards-images-container ${isDesktop ? 'desktop-column' : ''}`}>
         {/* White divs to hide sliding animations at edges */}
         <div className="video-layered-cards-edge-left" />
         <div className="video-layered-cards-edge-right" />
@@ -128,11 +172,11 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText }) => {
               style={{
                 zIndex,
                 opacity: isActive || isNextCard || (isPreviousCard && isPreviousSlidingIn) ? 1 : 0,
-                x: isActive ? x : isPreviousCard ? prevX : 0,
-                pointerEvents: isActive ? 'auto' : 'none',
-                cursor: isActive && (canSwipeLeft || canSwipeRight) ? 'grab' : 'default',
+                x: isDesktop ? 0 : isActive ? x : isPreviousCard ? prevX : 0,
+                pointerEvents: isActive && !isDesktop ? 'auto' : 'none',
+                cursor: isActive && !isDesktop && (canSwipeLeft || canSwipeRight) ? 'grab' : 'default',
               }}
-              drag={isActive && (canSwipeLeft || canSwipeRight) ? 'x' : false}
+              drag={isDesktop ? false : isActive && (canSwipeLeft || canSwipeRight) ? 'x' : false}
               dragConstraints={
                 isActive && (canSwipeLeft || canSwipeRight)
                   ? {
