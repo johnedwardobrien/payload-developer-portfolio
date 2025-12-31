@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { RenderParallaxBlocks } from '@/blocks/RenderParallaxBlocks'
 
 type Props = {
   blocks?: unknown[]
@@ -19,7 +19,7 @@ export const ScrollWindow: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <RenderBlocks blocks={blocks as never} />
+      <RenderParallaxBlocks blocks={blocks as never} />
     </div>
   )
 }

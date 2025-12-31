@@ -1,14 +1,13 @@
 import type { Block } from 'payload'
 
-import { AnimationBlock } from '../AnimationBlock/config'
-import { Archive } from '../ArchiveBlock/config'
-import { CallToAction } from '../CallToAction/config'
-import { Content } from '../Content/config'
-import { FormBlock } from '../Form/config'
-import { SideTabPanel } from '../SideTabPanel/config'
-import { MediaBlock } from '../MediaBlock/config'
-import { ChatWindow } from '../ChatWindow/config'
-import { ContentChat } from '../ContentChat/config'
+import { TopHero } from '../TopHero/config'
+import { VideoSideScroller } from '../VideoSideScroller/config'
+import { LayeredCards } from '../LayeredCards/config'
+import { EventSideScroller } from '../EventSideScroller/config'
+import { ThreeCardAcrossWithBackground } from '../ThreeCardAcrossWithBackground/config'
+import { CTAButtons } from '../CTAButtons/config'
+import { ClickSlider } from '../ClickSlider/config'
+import { IconBanner } from '../IconBanner/config'
 
 export const ScrollWindow: Block = {
   slug: 'scrollWindow',
@@ -19,15 +18,14 @@ export const ScrollWindow: Block = {
       type: 'blocks',
       label: 'Scroll Window Blocks',
       blocks: [
-        AnimationBlock,
-        CallToAction,
-        Content,
-        MediaBlock,
-        Archive,
-        FormBlock,
-        SideTabPanel,
-        ChatWindow,
-        ContentChat,
+        TopHero,
+        VideoSideScroller,
+        LayeredCards,
+        EventSideScroller,
+        ThreeCardAcrossWithBackground,
+        CTAButtons,
+        ClickSlider,
+        IconBanner,
       ],
       admin: {
         initCollapsed: true,

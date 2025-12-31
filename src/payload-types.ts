@@ -206,7 +206,6 @@ export interface Page {
     | ChatWindow
     | ContentChat
     | YachtParallax
-    | ScrollWindow
   )[];
   meta?: {
     title?: string | null;
@@ -863,6 +862,7 @@ export interface YachtParallax {
         | CTAButtons
         | ClickSlider
         | IconBanner
+        | ScrollWindow
       )[]
     | null;
   id?: string | null;
@@ -1046,16 +1046,14 @@ export interface IconBanner {
 export interface ScrollWindow {
   blocks?:
     | (
-        | AnimationBlock
-        | CallToActionBlock
-        | ContentBlock
-        | MediaBlock
-        | ArchiveBlock
-        | FormBlock
-        | SideTabPanel
-        | ChatWindow
-        | ContentChat
-        | YachtParallax
+        | TopHero
+        | VideoSideScroller
+        | LayeredCards
+        | EventSideScroller
+        | ThreeCardAcrossWithBackground
+        | CTAButtons
+        | ClickSlider
+        | IconBanner
       )[]
     | null;
   id?: string | null;
@@ -1358,7 +1356,6 @@ export interface PagesSelect<T extends boolean = true> {
         chatWindow?: T | ChatWindowSelect<T>;
         contentChat?: T | ContentChatSelect<T>;
         yachtParallax?: T | YachtParallaxSelect<T>;
-        scrollWindow?: T | ScrollWindowSelect<T>;
       };
   meta?:
     | T
@@ -1564,6 +1561,7 @@ export interface YachtParallaxSelect<T extends boolean = true> {
         ctaButtons?: T | CTAButtonsSelect<T>;
         clickSlider?: T | ClickSliderSelect<T>;
         iconBanner?: T | IconBannerSelect<T>;
+        scrollWindow?: T | ScrollWindowSelect<T>;
       };
   id?: T;
   blockName?: T;
@@ -1757,16 +1755,14 @@ export interface ScrollWindowSelect<T extends boolean = true> {
   blocks?:
     | T
     | {
-        animationBlock?: T | AnimationBlockSelect<T>;
-        cta?: T | CallToActionBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
-        archive?: T | ArchiveBlockSelect<T>;
-        formBlock?: T | FormBlockSelect<T>;
-        sideTabPanel?: T | SideTabPanelSelect<T>;
-        chatWindow?: T | ChatWindowSelect<T>;
-        contentChat?: T | ContentChatSelect<T>;
-        yachtParallax?: T | YachtParallaxSelect<T>;
+        topHero?: T | TopHeroSelect<T>;
+        videoSideScroller?: T | VideoSideScrollerSelect<T>;
+        layeredCards?: T | LayeredCardsSelect<T>;
+        eventSideScroller?: T | EventSideScrollerSelect<T>;
+        threeCardAcrossWithBackground?: T | ThreeCardAcrossWithBackgroundSelect<T>;
+        ctaButtons?: T | CTAButtonsSelect<T>;
+        clickSlider?: T | ClickSliderSelect<T>;
+        iconBanner?: T | IconBannerSelect<T>;
       };
   id?: T;
   blockName?: T;
