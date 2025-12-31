@@ -206,6 +206,7 @@ export interface Page {
     | ChatWindow
     | ContentChat
     | YachtParallax
+    | ScrollWindow
   )[];
   meta?: {
     title?: string | null;
@@ -1040,6 +1041,29 @@ export interface IconBanner {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScrollWindow".
+ */
+export interface ScrollWindow {
+  blocks?:
+    | (
+        | AnimationBlock
+        | CallToActionBlock
+        | ContentBlock
+        | MediaBlock
+        | ArchiveBlock
+        | FormBlock
+        | SideTabPanel
+        | ChatWindow
+        | ContentChat
+        | YachtParallax
+      )[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'scrollWindow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1334,6 +1358,7 @@ export interface PagesSelect<T extends boolean = true> {
         chatWindow?: T | ChatWindowSelect<T>;
         contentChat?: T | ContentChatSelect<T>;
         yachtParallax?: T | YachtParallaxSelect<T>;
+        scrollWindow?: T | ScrollWindowSelect<T>;
       };
   meta?:
     | T
@@ -1720,6 +1745,28 @@ export interface IconBannerSelect<T extends boolean = true> {
     | T
     | {
         iconButton?: T | IconButtonSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScrollWindow_select".
+ */
+export interface ScrollWindowSelect<T extends boolean = true> {
+  blocks?:
+    | T
+    | {
+        animationBlock?: T | AnimationBlockSelect<T>;
+        cta?: T | CallToActionBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        archive?: T | ArchiveBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        sideTabPanel?: T | SideTabPanelSelect<T>;
+        chatWindow?: T | ChatWindowSelect<T>;
+        contentChat?: T | ContentChatSelect<T>;
+        yachtParallax?: T | YachtParallaxSelect<T>;
       };
   id?: T;
   blockName?: T;
