@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, CollectionAfterReadHook } from 'payload'
 
 import { authenticated } from '../access/authenticated'
 import { Placeholder } from '../blocks/Placeholder/config'
@@ -6,6 +6,29 @@ import { StandardCard } from '../blocks/StandardCard/config'
 import { EventCard } from '../blocks/EventCard/config'
 import { ThreeCard } from '../blocks/ThreeCard/config'
 import { IconButton } from '../blocks/IconButton/config'
+
+const blockTypeLabels: Record<string, string> = {
+  topHero: 'Top Hero',
+  videoSideScroller: 'Video Side Scroller',
+  layeredCards: 'Layered Cards',
+  eventSideScroller: 'Event Side Scroller',
+  threeCardAcrossWithBackground: 'Three Card Across With Background',
+  ctaButtons: 'CTA Buttons',
+  clickSlider: 'Click Slider',
+  iconBanner: 'Icon Banner',
+}
+
+const addDisplayTitle: CollectionAfterReadHook = ({ doc }) => {
+  if (doc) {
+    const blockTypeLabel = blockTypeLabels[doc.blockType as string] || doc.blockType
+    if (doc.title) {
+      doc._displayTitle = `${blockTypeLabel} - ${doc.title}`
+    } else {
+      doc._displayTitle = blockTypeLabel || doc.id || 'Untitled'
+    }
+  }
+  return doc
+}
 
 export const YachtParallaxItem: CollectionConfig = {
   slug: 'yacht-parallax-item',
@@ -16,9 +39,12 @@ export const YachtParallaxItem: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    useAsTitle: 'id',
+    useAsTitle: '_displayTitle',
     group: 'Content',
     defaultColumns: ['blockType', 'title'],
+  },
+  hooks: {
+    afterRead: [addDisplayTitle],
   },
   fields: [
     {
@@ -66,6 +92,7 @@ export const YachtParallaxItem: CollectionConfig = {
       name: 'title',
       type: 'text',
       label: 'Title',
+      required: true,
       admin: {
         condition: (_data, siblingData) =>
           [
