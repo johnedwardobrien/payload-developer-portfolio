@@ -9,7 +9,6 @@ import { SideTabPanel } from '../SideTabPanel/config'
 import { MediaBlock } from '../MediaBlock/config'
 import { ChatWindow } from '../ChatWindow/config'
 import { ContentChat } from '../ContentChat/config'
-import { YachtParallax } from '../YachtParallax/config'
 
 export const ScrollWindow: Block = {
   slug: 'scrollWindow',
@@ -29,7 +28,6 @@ export const ScrollWindow: Block = {
         SideTabPanel,
         ChatWindow,
         ContentChat,
-        YachtParallax,
       ],
       admin: {
         initCollapsed: true,
