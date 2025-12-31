@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    'yacht-parallax-item': YachtParallaxItem;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'yacht-parallax-item': YachtParallaxItemSelect<false> | YachtParallaxItemSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -1044,6 +1046,7 @@ export interface IconBanner {
  * via the `definition` "ScrollWindow".
  */
 export interface ScrollWindow {
+  items?: (string | YachtParallaxItem)[] | null;
   blocks?:
     | (
         | TopHero
@@ -1059,6 +1062,44 @@ export interface ScrollWindow {
   id?: string | null;
   blockName?: string | null;
   blockType: 'scrollWindow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "yacht-parallax-item".
+ */
+export interface YachtParallaxItem {
+  id: string;
+  blockType:
+    | 'topHero'
+    | 'videoSideScroller'
+    | 'layeredCards'
+    | 'eventSideScroller'
+    | 'threeCardAcrossWithBackground'
+    | 'ctaButtons'
+    | 'clickSlider'
+    | 'iconBanner';
+  title?: string | null;
+  subtitle?: string | null;
+  buttonText?: string | null;
+  buttonText1?: string | null;
+  buttonText2?: string | null;
+  nextWindowText?: string | null;
+  videoLayout?: ('grid' | 'singleGrowShrink' | 'layeredCards') | null;
+  featuredImageTitle?: string | null;
+  featuredImageSubtitle?: string | null;
+  featuredImageButtonText?: string | null;
+  inputPlaceholders?: Placeholder[] | null;
+  heroImage?: (string | null) | Media;
+  heroFeatured?: (string | null) | Media;
+  videos?: StandardCard[] | null;
+  cards?: StandardCard[] | null;
+  events?: EventCard[] | null;
+  threeCards?: ThreeCard[] | null;
+  backgroundImage?: (string | null) | Media;
+  iconButtons?: IconButton[] | null;
+  icons?: IconButton[] | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1252,6 +1293,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'yacht-parallax-item';
+        value: string | YachtParallaxItem;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1752,6 +1797,7 @@ export interface IconBannerSelect<T extends boolean = true> {
  * via the `definition` "ScrollWindow_select".
  */
 export interface ScrollWindowSelect<T extends boolean = true> {
+  items?: T;
   blocks?:
     | T
     | {
@@ -1937,6 +1983,63 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "yacht-parallax-item_select".
+ */
+export interface YachtParallaxItemSelect<T extends boolean = true> {
+  blockType?: T;
+  title?: T;
+  subtitle?: T;
+  buttonText?: T;
+  buttonText1?: T;
+  buttonText2?: T;
+  nextWindowText?: T;
+  videoLayout?: T;
+  featuredImageTitle?: T;
+  featuredImageSubtitle?: T;
+  featuredImageButtonText?: T;
+  inputPlaceholders?:
+    | T
+    | {
+        placeholder?: T | PlaceholderSelect<T>;
+      };
+  heroImage?: T;
+  heroFeatured?: T;
+  videos?:
+    | T
+    | {
+        standardCard?: T | StandardCardSelect<T>;
+      };
+  cards?:
+    | T
+    | {
+        standardCard?: T | StandardCardSelect<T>;
+      };
+  events?:
+    | T
+    | {
+        eventCard?: T | EventCardSelect<T>;
+      };
+  threeCards?:
+    | T
+    | {
+        threeCard?: T | ThreeCardSelect<T>;
+      };
+  backgroundImage?: T;
+  iconButtons?:
+    | T
+    | {
+        iconButton?: T | IconButtonSelect<T>;
+      };
+  icons?:
+    | T
+    | {
+        iconButton?: T | IconButtonSelect<T>;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

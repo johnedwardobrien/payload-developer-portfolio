@@ -14,6 +14,13 @@ export const ScrollWindow: Block = {
   interfaceName: 'ScrollWindow',
   fields: [
     {
+      name: 'items',
+      type: 'relationship',
+      relationTo: 'yacht-parallax-item',
+      label: 'Yacht Parallax Items',
+      hasMany: true,
+    },
+    {
       name: 'blocks',
       type: 'blocks',
       label: 'Scroll Window Blocks',
