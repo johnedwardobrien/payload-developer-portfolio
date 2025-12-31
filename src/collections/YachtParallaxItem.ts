@@ -18,6 +18,7 @@ export const YachtParallaxItem: CollectionConfig = {
   admin: {
     useAsTitle: 'id',
     group: 'Content',
+    defaultColumns: ['blockType', 'title'],
   },
   fields: [
     {
