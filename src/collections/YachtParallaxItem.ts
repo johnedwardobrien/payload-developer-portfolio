@@ -1,4 +1,4 @@
-import type { CollectionConfig, CollectionAfterReadHook } from 'payload'
+import type { CollectionConfig, CollectionBeforeChangeHook } from 'payload'
 
 import { authenticated } from '../access/authenticated'
 import { Placeholder } from '../blocks/Placeholder/config'
@@ -18,16 +18,23 @@ const blockTypeLabels: Record<string, string> = {
   iconBanner: 'Icon Banner',
 }
 
-const addDisplayTitle: CollectionAfterReadHook = ({ doc }) => {
-  if (doc) {
-    const blockTypeLabel = blockTypeLabels[doc.blockType as string] || doc.blockType
-    if (doc.title) {
-      doc._displayTitle = `${blockTypeLabel} - ${doc.title}`
+const populateDisplayTitle: CollectionBeforeChangeHook = ({ data }) => {
+  if (data) {
+    const blockTypeLabel = blockTypeLabels[data.blockType as string] || data.blockType
+    if (data.title) {
+      // Remove existing prefix if present to avoid duplication
+      const cleanTitle = data.title.includes(' - ')
+        ? data.title.split(' - ').slice(1).join(' - ')
+        : data.title
+
+      // Set title with blockType prefix for relationship field display
+      data.title = `${blockTypeLabel} - ${cleanTitle}`
+      data._displayTitle = `${blockTypeLabel} - ${cleanTitle}`
     } else {
-      doc._displayTitle = blockTypeLabel || doc.id || 'Untitled'
+      data._displayTitle = blockTypeLabel || data.id || 'Untitled'
     }
   }
-  return doc
+  return data
 }
 
 export const YachtParallaxItem: CollectionConfig = {
@@ -39,12 +46,12 @@ export const YachtParallaxItem: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    useAsTitle: '_displayTitle',
+    useAsTitle: 'title',
     group: 'Content',
     defaultColumns: ['blockType', 'title'],
   },
   hooks: {
-    afterRead: [addDisplayTitle],
+    beforeChange: [populateDisplayTitle],
   },
   fields: [
     {
