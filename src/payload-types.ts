@@ -1046,6 +1046,9 @@ export interface IconBanner {
  * via the `definition` "ScrollWindow".
  */
 export interface ScrollWindow {
+  /**
+   * Select Yacht Parallax Items to display in this scroll window
+   */
   items?: (string | YachtParallaxItem)[] | null;
   blocks?:
     | (
@@ -1069,6 +1072,7 @@ export interface ScrollWindow {
  */
 export interface YachtParallaxItem {
   id: string;
+  _displayTitle?: string | null;
   blockType:
     | 'topHero'
     | 'videoSideScroller'
@@ -1989,6 +1993,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "yacht-parallax-item_select".
  */
 export interface YachtParallaxItemSelect<T extends boolean = true> {
+  _displayTitle?: T;
   blockType?: T;
   title?: T;
   subtitle?: T;

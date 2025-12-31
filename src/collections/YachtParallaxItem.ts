@@ -48,6 +48,14 @@ export const YachtParallaxItem: CollectionConfig = {
   },
   fields: [
     {
+      name: '_displayTitle',
+      type: 'text',
+      admin: {
+        readOnly: true,
+        hidden: true,
+      },
+    },
+    {
       name: 'blockType',
       type: 'select',
       label: 'Block Type',
