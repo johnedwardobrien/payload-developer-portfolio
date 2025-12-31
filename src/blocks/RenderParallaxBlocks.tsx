@@ -10,6 +10,7 @@ import { ThreeCardAcrossWithBackground } from '@/blocks/ThreeCardAcrossWithBackg
 import { CTAButtons } from '@/blocks/CTAButtons/Component'
 import { ClickSlider } from '@/blocks/ClickSlider/Component'
 import { IconBanner } from '@/blocks/IconBanner/Component'
+import { ScrollWindow } from '@/blocks/ScrollWindow/Component'
 
 const blockComponents = {
   topHero: TopHero,
@@ -20,6 +21,7 @@ const blockComponents = {
   ctaButtons: CTAButtons,
   clickSlider: ClickSlider,
   iconBanner: IconBanner,
+  scrollWindow: ScrollWindow,
 }
 
 export const RenderParallaxBlocks: React.FC<{

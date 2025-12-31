@@ -8,6 +8,7 @@ import { ThreeCardAcrossWithBackground } from '../ThreeCardAcrossWithBackground/
 import { CTAButtons } from '../CTAButtons/config'
 import { ClickSlider } from '../ClickSlider/config'
 import { IconBanner } from '../IconBanner/config'
+import { ScrollWindow } from '../ScrollWindow/config'
 
 export const YachtParallax: Block = {
   slug: 'yachtParallax',
@@ -26,6 +27,7 @@ export const YachtParallax: Block = {
         CTAButtons,
         ClickSlider,
         IconBanner,
+        ScrollWindow,
       ],
       admin: {
         initCollapsed: true,

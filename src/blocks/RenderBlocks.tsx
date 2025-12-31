@@ -12,7 +12,6 @@ import { SideTabPanel } from '@/blocks/SideTabPanel/Component'
 import { ChatWindow } from '@/blocks/ChatWindow/Component'
 import { ContentChat } from '@/blocks/ContentChat/Component'
 import { YachtParallax } from '@/blocks/YachtParallax/Component'
-import { ScrollWindow } from '@/blocks/ScrollWindow/Component'
 
 const blockComponents = {
   animationBlock: AnimationBlock,
@@ -25,7 +24,6 @@ const blockComponents = {
   chatWindow: ChatWindow,
   contentChat: ContentChat,
   yachtParallax: YachtParallax,
-  scrollWindow: ScrollWindow,
 }
 
 export const RenderBlocks: React.FC<{
