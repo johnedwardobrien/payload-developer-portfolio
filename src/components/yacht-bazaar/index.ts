@@ -1,0 +1,1 @@
+export { RenderYachtParallaxItems } from './RenderYachtParallaxItems'

@@ -2,24 +2,24 @@
 
 import React from 'react'
 
-import { RenderParallaxBlocks } from '@/blocks/RenderParallaxBlocks'
+import type { ScrollWindow as ScrollWindowType } from '@/payload-types'
+
+import { RenderYachtParallaxItems } from '@/components/yacht-bazaar'
 
 type Props = {
-  blocks?: unknown[]
   disableInnerContainer?: boolean
-  [key: string]: unknown
-}
+} & ScrollWindowType
 
 export const ScrollWindow: React.FC<Props> = (props) => {
-  const { blocks } = props
+  const { items } = props
 
-  if (!blocks || !Array.isArray(blocks) || blocks.length === 0) {
+  if (!items || !Array.isArray(items) || items.length === 0) {
     return <></>
   }
 
   return (
     <div>
-      <RenderParallaxBlocks blocks={blocks as never} />
+      <RenderYachtParallaxItems items={items} />
     </div>
   )
 }
