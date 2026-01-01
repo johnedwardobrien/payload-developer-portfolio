@@ -34,6 +34,9 @@ export default buildConfig({
             prefillOnly: true, // Optional: if true, credentials are prefilled but user still clicks login
           }
         : false,
+    auth: {
+      tokenExpiration: 7 * 24 * 60 * 60 * 1000, // 1 week in milliseconds
+    },
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
@@ -76,9 +79,6 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users, YachtParallaxItem],
   cors: [getServerSideURL()].filter(Boolean),
-  auth: {
-    tokenExpiration: 7 * 24 * 60 * 60 * 1000, // 1 week in milliseconds
-  },
   globals: [Header, Footer, ChatHeader, ChatFooter],
   plugins: [
     ...plugins,
