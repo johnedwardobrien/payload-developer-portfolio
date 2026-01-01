@@ -1050,18 +1050,6 @@ export interface ScrollWindow {
    * Select Yacht Parallax Items to display in this scroll window
    */
   items?: (string | YachtParallaxItem)[] | null;
-  blocks?:
-    | (
-        | TopHero
-        | VideoSideScroller
-        | LayeredCards
-        | EventSideScroller
-        | ThreeCardAcrossWithBackground
-        | CTAButtons
-        | ClickSlider
-        | IconBanner
-      )[]
-    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'scrollWindow';
@@ -1802,18 +1790,6 @@ export interface IconBannerSelect<T extends boolean = true> {
  */
 export interface ScrollWindowSelect<T extends boolean = true> {
   items?: T;
-  blocks?:
-    | T
-    | {
-        topHero?: T | TopHeroSelect<T>;
-        videoSideScroller?: T | VideoSideScrollerSelect<T>;
-        layeredCards?: T | LayeredCardsSelect<T>;
-        eventSideScroller?: T | EventSideScrollerSelect<T>;
-        threeCardAcrossWithBackground?: T | ThreeCardAcrossWithBackgroundSelect<T>;
-        ctaButtons?: T | CTAButtonsSelect<T>;
-        clickSlider?: T | ClickSliderSelect<T>;
-        iconBanner?: T | IconBannerSelect<T>;
-      };
   id?: T;
   blockName?: T;
 }
