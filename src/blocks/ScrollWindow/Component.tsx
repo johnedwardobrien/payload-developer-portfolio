@@ -14,6 +14,7 @@ export const ScrollWindow: React.FC<Props> = (props) => {
     return <></>
   }
 
+  // items can be (string | YachtParallaxItem)[], RenderYachtParallaxItems handles this
   return (
     <div data-parallax-window-id={id || ''}>
       <RenderYachtParallaxItems items={items} />

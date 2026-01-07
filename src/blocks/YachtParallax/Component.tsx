@@ -1,25 +1,27 @@
 'use client'
 import React from 'react'
-import { RenderParallaxBlocks } from '@/blocks/RenderParallaxBlocks'
+import type { YachtParallax as YachtParallaxType } from '@/payload-types'
+import { ScrollWindow as ScrollWindowComponent } from '@/blocks/ScrollWindow/Component'
 
 type Props = {
-  blocks?: unknown[]
   disableInnerContainer?: boolean
-  [key: string]: unknown
-}
+} & YachtParallaxType
 
 export const YachtParallax: React.FC<Props> = (props) => {
-  const { blocks } = props
-  if (!blocks || !Array.isArray(blocks) || blocks.length === 0) {
+  const { scrollWindows } = props
+
+  if (!scrollWindows || !Array.isArray(scrollWindows) || scrollWindows.length === 0) {
     return <></>
   }
 
   return (
-    <div
-      // ref={ref}
-      className="yachtParallax"
-    >
-      <RenderParallaxBlocks blocks={blocks as never} />
+    <div className="yachtParallax">
+      {scrollWindows.map((scrollWindow) => {
+        if (typeof scrollWindow === 'string') return null
+        return (
+          <ScrollWindowComponent key={scrollWindow.id} {...scrollWindow} disableInnerContainer />
+        )
+      })}
     </div>
   )
 }
