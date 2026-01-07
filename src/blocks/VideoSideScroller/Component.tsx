@@ -2,15 +2,20 @@
 
 import React, { useState, useEffect } from 'react'
 
-import type { VideoSideScroller as VideoSideScrollerType } from '@/payload-types'
+import type { YachtParallaxItem } from '@/payload-types'
 
 import { VideoCard } from '@/components/VideoCard'
 import { VideoLayeredCards } from './VideoLayeredCards'
 import './Component.css'
 
+type VideoSideScrollerProps = Pick<
+  YachtParallaxItem,
+  'title' | 'subtitle' | 'videoLayout' | 'videos' | 'buttonText1' | 'buttonText2' | 'nextWindowText'
+>
+
 type Props = {
   disableInnerContainer?: boolean
-} & VideoSideScrollerType
+} & VideoSideScrollerProps
 
 export const VideoSideScroller: React.FC<Props> = (props) => {
   const { title, subtitle, videoLayout, videos, buttonText1 } = props

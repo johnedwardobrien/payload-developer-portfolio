@@ -1,15 +1,17 @@
 import React from 'react'
 
-import type { EventSideScroller as EventSideScrollerType } from '@/payload-types'
+import type { YachtParallaxItem } from '@/payload-types'
 
 import { Button } from '@/components/ui/button'
 import { ImageMedia } from '@/components/Media/ImageMedia'
 import { formatEventDate } from '@/utilities/formatEventDate'
 import './Component.css'
 
+type EventSideScrollerProps = Pick<YachtParallaxItem, 'title' | 'buttonText' | 'events'>
+
 type Props = {
   disableInnerContainer?: boolean
-} & EventSideScrollerType
+} & EventSideScrollerProps
 
 export const EventSideScroller: React.FC<Props> = (props) => {
   const { title, buttonText, events } = props

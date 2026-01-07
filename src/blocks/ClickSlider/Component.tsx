@@ -4,7 +4,7 @@ import React, { useMemo } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { Swiper as SwiperType } from 'swiper'
 
-import type { ClickSlider as ClickSliderType } from '@/payload-types'
+import type { YachtParallaxItem } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
@@ -12,9 +12,11 @@ import { formatEventDate } from '@/utilities/formatEventDate'
 import 'swiper/css'
 import './Component.css'
 
+type ClickSliderProps = Pick<YachtParallaxItem, 'title' | 'buttonText' | 'cards'>
+
 type Props = {
   disableInnerContainer?: boolean
-} & ClickSliderType
+} & ClickSliderProps
 
 export const ClickSlider: React.FC<Props> = (props) => {
   const { title, buttonText, cards } = props

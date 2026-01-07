@@ -2,15 +2,17 @@
 
 import React, { useState, useEffect } from 'react'
 
-import type { LayeredCards as LayeredCardsType } from '@/payload-types'
+import type { YachtParallaxItem } from '@/payload-types'
 
 import { StackedCards } from './StackedCards'
 import { LayeredCardsColumn } from './LayeredCardsColumn'
 import './Component.css'
 
+type LayeredCardsProps = Pick<YachtParallaxItem, 'title' | 'subtitle' | 'buttonText' | 'cards'>
+
 type Props = {
   disableInnerContainer?: boolean
-} & LayeredCardsType
+} & LayeredCardsProps
 
 export const LayeredCards: React.FC<Props> = (props) => {
   const { title, buttonText, cards } = props

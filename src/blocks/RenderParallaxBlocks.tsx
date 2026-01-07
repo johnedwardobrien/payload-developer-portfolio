@@ -34,14 +34,14 @@ export const RenderParallaxBlocks: React.FC<{
   if (hasBlocks) {
     return (
       <Fragment>
-        {blocks.map((block, index) => {
+        {blocks.map((block) => {
           const { blockType } = block
 
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType as keyof typeof blockComponents]
 
             if (Block) {
-              //@ts-expect-error
+              // @ts-expect-error - Block components accept various props from YachtParallaxItem
               return <Block key={block.id} {...block} disableInnerContainer />
             }
           }

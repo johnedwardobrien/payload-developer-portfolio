@@ -4,19 +4,17 @@ import React, { useRef, useEffect, useState, useMemo } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { Swiper as SwiperType } from 'swiper'
 
-import type {
-  ThreeCardAcrossWithBackground as ThreeCardAcrossWithBackgroundType,
-  ThreeCard,
-  Media as MediaType,
-} from '@/payload-types'
+import type { YachtParallaxItem, ThreeCard, Media as MediaType } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import 'swiper/css'
 import './Component.css'
 
+type ThreeCardAcrossWithBackgroundProps = Pick<YachtParallaxItem, 'threeCards'>
+
 type Props = {
   disableInnerContainer?: boolean
-} & ThreeCardAcrossWithBackgroundType
+} & ThreeCardAcrossWithBackgroundProps
 
 export const ThreeCardAcrossWithBackground: React.FC<Props> = (props) => {
   const { threeCards } = props

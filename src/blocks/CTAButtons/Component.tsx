@@ -14,7 +14,7 @@ import {
   FaBinoculars,
 } from 'react-icons/fa'
 import { cn } from '@/utilities/ui'
-import type { CTAButtons as CTAButtonsProps } from '@/payload-types'
+import type { YachtParallaxItem } from '@/payload-types'
 
 // Icon mapping object for IconButton icon select values
 const iconMap = {
@@ -29,6 +29,8 @@ const iconMap = {
   waterWaves: FaSwimmingPool,
   binoculars: FaBinoculars,
 } as const
+
+type CTAButtonsProps = Pick<YachtParallaxItem, 'title' | 'iconButtons'>
 
 type Props = {
   disableInnerContainer?: boolean
