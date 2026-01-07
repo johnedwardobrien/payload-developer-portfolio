@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     'yacht-parallax-item': YachtParallaxItem;
+    'scroll-window': ScrollWindow;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -90,6 +91,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'yacht-parallax-item': YachtParallaxItemSelect<false> | YachtParallaxItemSelect<true>;
+    'scroll-window': ScrollWindowSelect<false> | ScrollWindowSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -854,205 +856,27 @@ export interface ContentChat {
  * via the `definition` "YachtParallax".
  */
 export interface YachtParallax {
-  blocks?:
-    | (
-        | TopHero
-        | VideoSideScroller
-        | LayeredCards
-        | EventSideScroller
-        | ThreeCardAcrossWithBackground
-        | CTAButtons
-        | ClickSlider
-        | IconBanner
-        | ScrollWindow
-      )[]
-    | null;
+  /**
+   * Select Scroll Windows to display in this parallax section
+   */
+  scrollWindows?: (string | ScrollWindow)[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'yachtParallax';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TopHero".
- */
-export interface TopHero {
-  title?: string | null;
-  subtitle?: string | null;
-  featuredImageTitle?: string | null;
-  featuredImageSubtitle?: string | null;
-  featuredImageButtonText?: string | null;
-  inputPlaceholders?: Placeholder[] | null;
-  heroImage?: (string | null) | Media;
-  heroFeatured?: (string | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'topHero';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoSideScroller".
- */
-export interface VideoSideScroller {
-  videoLayout?: ('grid' | 'singleGrowShrink' | 'layeredCards') | null;
-  title?: string | null;
-  subtitle?: string | null;
-  buttonText1?: string | null;
-  buttonText2?: string | null;
-  nextWindowText?: string | null;
-  videos?: StandardCard[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'videoSideScroller';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StandardCard".
- */
-export interface StandardCard {
-  title?: string | null;
-  subtitle?: string | null;
-  description?: string | null;
-  buttonText?: string | null;
-  date?: string | null;
-  backgroundMedia?: (string | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'standardCard';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LayeredCards".
- */
-export interface LayeredCards {
-  title?: string | null;
-  subtitle?: string | null;
-  buttonText?: string | null;
-  cards?: StandardCard[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'layeredCards';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EventSideScroller".
- */
-export interface EventSideScroller {
-  title?: string | null;
-  buttonText?: string | null;
-  events?: EventCard[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'eventSideScroller';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EventCard".
- */
-export interface EventCard {
-  title?: string | null;
-  fromDate?: string | null;
-  toDate?: string | null;
-  linkText?: string | null;
-  image?: (string | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'eventCard';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ThreeCardAcrossWithBackground".
- */
-export interface ThreeCardAcrossWithBackground {
-  threeCards?: ThreeCard[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'threeCardAcrossWithBackground';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ThreeCard".
- */
-export interface ThreeCard {
-  title?: string | null;
-  subtitle?: string | null;
-  backgroundMedia?: (string | null) | Media;
-  standardCards?: StandardCard[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'threeCard';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTAButtons".
- */
-export interface CTAButtons {
-  title?: string | null;
-  backgroundImage?: (string | null) | Media;
-  iconButtons?: IconButton[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'ctaButtons';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconButton".
- */
-export interface IconButton {
-  title?: string | null;
-  icon?:
-    | (
-        | 'spring'
-        | 'summer'
-        | 'autumn'
-        | 'winter'
-        | 'anchor'
-        | 'ship'
-        | 'compass'
-        | 'lifeRing'
-        | 'waterWaves'
-        | 'binoculars'
-      )
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'iconButton';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ClickSlider".
- */
-export interface ClickSlider {
-  title?: string | null;
-  buttonText?: string | null;
-  cards?: StandardCard[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'clickSlider';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconBanner".
- */
-export interface IconBanner {
-  title?: string | null;
-  subtitle?: string | null;
-  icons?: IconButton[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'iconBanner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ScrollWindow".
+ * via the `definition` "scroll-window".
  */
 export interface ScrollWindow {
+  id: string;
+  title: string;
   /**
    * Select Yacht Parallax Items to display in this scroll window
    */
   items?: (string | YachtParallaxItem)[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'scrollWindow';
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1092,6 +916,72 @@ export interface YachtParallaxItem {
   icons?: IconButton[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StandardCard".
+ */
+export interface StandardCard {
+  title?: string | null;
+  subtitle?: string | null;
+  description?: string | null;
+  buttonText?: string | null;
+  date?: string | null;
+  backgroundMedia?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'standardCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventCard".
+ */
+export interface EventCard {
+  title?: string | null;
+  fromDate?: string | null;
+  toDate?: string | null;
+  linkText?: string | null;
+  image?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeCard".
+ */
+export interface ThreeCard {
+  title?: string | null;
+  subtitle?: string | null;
+  backgroundMedia?: (string | null) | Media;
+  standardCards?: StandardCard[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'threeCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton".
+ */
+export interface IconButton {
+  title?: string | null;
+  icon?:
+    | (
+        | 'spring'
+        | 'summer'
+        | 'autumn'
+        | 'winter'
+        | 'anchor'
+        | 'ship'
+        | 'compass'
+        | 'lifeRing'
+        | 'waterWaves'
+        | 'binoculars'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'iconButton';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1289,6 +1179,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'yacht-parallax-item';
         value: string | YachtParallaxItem;
+      } | null)
+    | ({
+        relationTo: 'scroll-window';
+        value: string | ScrollWindow;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1587,209 +1481,7 @@ export interface ContentChatSelect<T extends boolean = true> {
  * via the `definition` "YachtParallax_select".
  */
 export interface YachtParallaxSelect<T extends boolean = true> {
-  blocks?:
-    | T
-    | {
-        topHero?: T | TopHeroSelect<T>;
-        videoSideScroller?: T | VideoSideScrollerSelect<T>;
-        layeredCards?: T | LayeredCardsSelect<T>;
-        eventSideScroller?: T | EventSideScrollerSelect<T>;
-        threeCardAcrossWithBackground?: T | ThreeCardAcrossWithBackgroundSelect<T>;
-        ctaButtons?: T | CTAButtonsSelect<T>;
-        clickSlider?: T | ClickSliderSelect<T>;
-        iconBanner?: T | IconBannerSelect<T>;
-        scrollWindow?: T | ScrollWindowSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TopHero_select".
- */
-export interface TopHeroSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  featuredImageTitle?: T;
-  featuredImageSubtitle?: T;
-  featuredImageButtonText?: T;
-  inputPlaceholders?:
-    | T
-    | {
-        placeholder?: T | PlaceholderSelect<T>;
-      };
-  heroImage?: T;
-  heroFeatured?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoSideScroller_select".
- */
-export interface VideoSideScrollerSelect<T extends boolean = true> {
-  videoLayout?: T;
-  title?: T;
-  subtitle?: T;
-  buttonText1?: T;
-  buttonText2?: T;
-  nextWindowText?: T;
-  videos?:
-    | T
-    | {
-        standardCard?: T | StandardCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StandardCard_select".
- */
-export interface StandardCardSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  description?: T;
-  buttonText?: T;
-  date?: T;
-  backgroundMedia?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LayeredCards_select".
- */
-export interface LayeredCardsSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  buttonText?: T;
-  cards?:
-    | T
-    | {
-        standardCard?: T | StandardCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EventSideScroller_select".
- */
-export interface EventSideScrollerSelect<T extends boolean = true> {
-  title?: T;
-  buttonText?: T;
-  events?:
-    | T
-    | {
-        eventCard?: T | EventCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EventCard_select".
- */
-export interface EventCardSelect<T extends boolean = true> {
-  title?: T;
-  fromDate?: T;
-  toDate?: T;
-  linkText?: T;
-  image?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ThreeCardAcrossWithBackground_select".
- */
-export interface ThreeCardAcrossWithBackgroundSelect<T extends boolean = true> {
-  threeCards?:
-    | T
-    | {
-        threeCard?: T | ThreeCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ThreeCard_select".
- */
-export interface ThreeCardSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  backgroundMedia?: T;
-  standardCards?:
-    | T
-    | {
-        standardCard?: T | StandardCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTAButtons_select".
- */
-export interface CTAButtonsSelect<T extends boolean = true> {
-  title?: T;
-  backgroundImage?: T;
-  iconButtons?:
-    | T
-    | {
-        iconButton?: T | IconButtonSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconButton_select".
- */
-export interface IconButtonSelect<T extends boolean = true> {
-  title?: T;
-  icon?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ClickSlider_select".
- */
-export interface ClickSliderSelect<T extends boolean = true> {
-  title?: T;
-  buttonText?: T;
-  cards?:
-    | T
-    | {
-        standardCard?: T | StandardCardSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconBanner_select".
- */
-export interface IconBannerSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  icons?:
-    | T
-    | {
-        iconButton?: T | IconButtonSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ScrollWindow_select".
- */
-export interface ScrollWindowSelect<T extends boolean = true> {
-  items?: T;
+  scrollWindows?: T;
   id?: T;
   blockName?: T;
 }
@@ -2019,6 +1711,69 @@ export interface YachtParallaxItemSelect<T extends boolean = true> {
     | {
         iconButton?: T | IconButtonSelect<T>;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StandardCard_select".
+ */
+export interface StandardCardSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  buttonText?: T;
+  date?: T;
+  backgroundMedia?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventCard_select".
+ */
+export interface EventCardSelect<T extends boolean = true> {
+  title?: T;
+  fromDate?: T;
+  toDate?: T;
+  linkText?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeCard_select".
+ */
+export interface ThreeCardSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  backgroundMedia?: T;
+  standardCards?:
+    | T
+    | {
+        standardCard?: T | StandardCardSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconButton_select".
+ */
+export interface IconButtonSelect<T extends boolean = true> {
+  title?: T;
+  icon?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "scroll-window_select".
+ */
+export interface ScrollWindowSelect<T extends boolean = true> {
+  title?: T;
+  items?: T;
   updatedAt?: T;
   createdAt?: T;
 }

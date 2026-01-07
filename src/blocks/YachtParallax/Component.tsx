@@ -1,7 +1,5 @@
 'use client'
-
 import React from 'react'
-
 import { RenderParallaxBlocks } from '@/blocks/RenderParallaxBlocks'
 
 type Props = {
@@ -12,10 +10,16 @@ type Props = {
 
 export const YachtParallax: React.FC<Props> = (props) => {
   const { blocks } = props
-
   if (!blocks || !Array.isArray(blocks) || blocks.length === 0) {
     return <></>
   }
 
-  return <RenderParallaxBlocks blocks={blocks as never} />
+  return (
+    <div
+      // ref={ref}
+      className="yachtParallax"
+    >
+      <RenderParallaxBlocks blocks={blocks as never} />
+    </div>
+  )
 }
