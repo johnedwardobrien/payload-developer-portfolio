@@ -871,6 +871,7 @@ export interface YachtParallax {
 export interface ScrollWindow {
   id: string;
   title: string;
+  type: 'scrollover' | 'fixed-card-inner-scroll-series' | 'fixed-single-card-lag';
   /**
    * Select Yacht Parallax Items to display in this scroll window
    */
@@ -1773,6 +1774,7 @@ export interface IconButtonSelect<T extends boolean = true> {
  */
 export interface ScrollWindowSelect<T extends boolean = true> {
   title?: T;
+  type?: T;
   items?: T;
   updatedAt?: T;
   createdAt?: T;

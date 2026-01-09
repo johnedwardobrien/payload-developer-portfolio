@@ -2,22 +2,19 @@
 import React from 'react'
 import type { ScrollWindow as ScrollWindowType } from '@/payload-types'
 import { RenderYachtParallaxItems } from '@/components/yacht-bazaar'
+import './Component.css'
 
 type Props = {
   disableInnerContainer?: boolean
+  index?: number
 } & ScrollWindowType
 
 export const ScrollWindow: React.FC<Props> = (props) => {
-  const { id, items } = props
+  const { id, items, index } = props
 
   if (!items || !Array.isArray(items) || items.length === 0) {
     return <></>
   }
 
-  // items can be (string | YachtParallaxItem)[], RenderYachtParallaxItems handles this
-  return (
-    <div data-parallax-window-id={id || ''}>
-      <RenderYachtParallaxItems items={items} />
-    </div>
-  )
+  return <RenderYachtParallaxItems items={items} passIndex />
 }

@@ -21,7 +21,7 @@ export const EventSideScroller: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="container my-5 pb-8">
+    <div className="event-side-scroller container my-5 pb-8">
       <div className="event-side-scroller-grid">
         {/* Event Cards - Left Column */}
         <div className="event-cards-container">

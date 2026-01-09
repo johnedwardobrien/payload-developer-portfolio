@@ -24,8 +24,9 @@ const yachtParallaxItemComponents = {
 
 export const RenderYachtParallaxItems: React.FC<{
   items: (string | YachtParallaxItem)[]
+  passIndex?: boolean
 }> = (props) => {
-  const { items } = props
+  const { items, passIndex } = props
 
   if (!items || !Array.isArray(items) || items.length === 0) {
     return null
@@ -42,7 +43,7 @@ export const RenderYachtParallaxItems: React.FC<{
 
   return (
     <Fragment>
-      {validItems.map((item) => {
+      {validItems.map((item, index) => {
         const { blockType, id } = item
 
         if (blockType && blockType in yachtParallaxItemComponents) {
@@ -50,8 +51,13 @@ export const RenderYachtParallaxItems: React.FC<{
             yachtParallaxItemComponents[blockType as keyof typeof yachtParallaxItemComponents]
 
           if (Component) {
-            //@ts-expect-error - YachtParallaxItem structure matches block structure
-            return <Component key={id || `item-${Math.random()}`} {...item} disableInnerContainer />
+            //@ts-expect-error
+            return <Component
+                  key={id}
+                  {...item}
+                  disableInnerContainer
+                  {...(passIndex && { index: index + 1 })}
+                />
           }
         }
         return null
@@ -59,4 +65,3 @@ export const RenderYachtParallaxItems: React.FC<{
     </Fragment>
   )
 }
-

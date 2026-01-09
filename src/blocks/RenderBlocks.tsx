@@ -44,7 +44,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <div key={`${index}-block`}>
+                <div key={`${index}-block`} className="page-blocks-cont relative">
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>

@@ -86,7 +86,10 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
   }, [])
 
   return (
-    <div ref={cardRef} className="three-card relative overflow-hidden rounded-2xl">
+    <div
+      ref={cardRef}
+      className="three-card-across-with-background relative overflow-hidden rounded-2xl"
+    >
       {/* Background Media - Full Height and Width */}
       {backgroundMedia && typeof backgroundMedia === 'object' && (
         <div className="media absolute inset-0 z-0 w-full h-full rounded-2xl overflow-hidden">

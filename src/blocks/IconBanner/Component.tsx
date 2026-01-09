@@ -48,14 +48,16 @@ export const IconBanner: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center">
+    <div className="icon-banner flex h-[50vh] flex-col items-center justify-center">
       {(title || subtitle) && (
         <div className="flex flex-col items-center">
           {title && <h2 className="text-heading-2 font-semibold">{title}</h2>}
           {subtitle && <p className="icon-banner-subtitle mt-[1.4rem]">{subtitle}</p>}
         </div>
       )}
-      <div className={`flex flex-row flex-wrap items-center justify-center gap-4 px-4 ${title || subtitle ? 'mt-[1.4rem]' : ''}`}>
+      <div
+        className={`flex flex-row flex-wrap items-center justify-center gap-4 px-4 ${title || subtitle ? 'mt-[1.4rem]' : ''}`}
+      >
         {icons.map((iconBlock, index) => {
           if (typeof iconBlock === 'object' && iconBlock.blockType === 'iconButton') {
             const { icon, title } = iconBlock
@@ -67,9 +69,13 @@ export const IconBanner: React.FC<Props> = (props) => {
                 key={iconBlock.id || index}
                 className="flex flex-col items-center justify-center rounded-lg border border-border bg-card p-4 sm:p-6 shadow-sm shrink-0 min-w-0"
               >
-                {IconComponent && <IconComponent className="mb-4 h-6 w-6 sm:h-8 sm:w-8 text-foreground shrink-0" />}
+                {IconComponent && (
+                  <IconComponent className="mb-4 h-6 w-6 sm:h-8 sm:w-8 text-foreground shrink-0" />
+                )}
                 {title && (
-                  <span className="text-center text-xs sm:text-sm font-medium text-foreground">{title}</span>
+                  <span className="text-center text-xs sm:text-sm font-medium text-foreground">
+                    {title}
+                  </span>
                 )}
               </div>
             )

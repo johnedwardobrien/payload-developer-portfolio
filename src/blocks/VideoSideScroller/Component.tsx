@@ -50,7 +50,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   // Layered Cards Layout
   if (isLayeredCardsLayout) {
     return (
-      <div className="container my-5">
+      <div className={`video-side-scroller ${videoLayout} my-5`}>
         <div className="video-side-scroller-layered-outer">
           {/* Mobile/Tablet: Template Title at Top */}
           {!isDesktop && (

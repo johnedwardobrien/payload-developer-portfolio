@@ -42,7 +42,7 @@ export const CTAButtons: React.FC<Props> = ({ title, iconButtons }) => {
   }
 
   return (
-    <div className="container my-8 md:my-12">
+    <div className="cta-buttons container my-8 md:my-12">
       {title && (
         <h2
           className={cn(

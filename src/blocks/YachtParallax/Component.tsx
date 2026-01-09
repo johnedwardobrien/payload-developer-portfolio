@@ -15,13 +15,18 @@ export const YachtParallax: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="yachtParallax">
-      {scrollWindows.map((scrollWindow) => {
+    <>
+      {scrollWindows.map((scrollWindow, index) => {
         if (typeof scrollWindow === 'string') return null
         return (
-          <ScrollWindowComponent key={scrollWindow.id} {...scrollWindow} disableInnerContainer />
+          <ScrollWindowComponent
+            key={scrollWindow.id}
+            {...scrollWindow}
+            disableInnerContainer
+            index={index + 1}
+          />
         )
       })}
-    </div>
+    </>
   )
 }

@@ -23,6 +23,26 @@ export const ScrollWindow: CollectionConfig = {
       required: true,
     },
     {
+      name: 'type',
+      type: 'select',
+      label: 'Type',
+      options: [
+        {
+          label: 'Scrollover',
+          value: 'scrollover',
+        },
+        {
+          label: 'Fixed Card w/ Inner Scroll Series',
+          value: 'fixed-card-inner-scroll-series',
+        },
+        {
+          label: 'Fixed Single Card Lag',
+          value: 'fixed-single-card-lag',
+        },
+      ],
+      required: true,
+    },
+    {
       name: 'items',
       type: 'relationship',
       relationTo: 'yacht-parallax-item',
