@@ -56,7 +56,7 @@ export const RenderYachtParallaxItems: React.FC<{
                   key={id}
                   {...item}
                   disableInnerContainer
-                  {...(passIndex && { index: index + 1 })}
+                  index={index + 1}
                 />
           }
         }

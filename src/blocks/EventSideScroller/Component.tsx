@@ -11,17 +11,18 @@ type EventSideScrollerProps = Pick<YachtParallaxItem, 'title' | 'buttonText' | '
 
 type Props = {
   disableInnerContainer?: boolean
+  index?: number
 } & EventSideScrollerProps
 
 export const EventSideScroller: React.FC<Props> = (props) => {
-  const { title, buttonText, events } = props
+  const { title, buttonText, events, index } = props
 
   if (!events || !Array.isArray(events) || events.length === 0) {
     return null
   }
 
   return (
-    <div className="event-side-scroller container my-5 pb-8">
+    <div className={`event-side-scroller container my-5 pb-8 ${index ? `item-${index}` : ''}`}>
       <div className="event-side-scroller-grid">
         {/* Event Cards - Left Column */}
         <div className="event-cards-container">

@@ -34,15 +34,16 @@ type CTAButtonsProps = Pick<YachtParallaxItem, 'title' | 'iconButtons'>
 
 type Props = {
   disableInnerContainer?: boolean
+  index?: number
 } & CTAButtonsProps
 
-export const CTAButtons: React.FC<Props> = ({ title, iconButtons }) => {
+export const CTAButtons: React.FC<Props> = ({ title, iconButtons, index }) => {
   if (!iconButtons || !Array.isArray(iconButtons) || iconButtons.length === 0) {
     return null
   }
 
   return (
-    <div className="cta-buttons container my-8 md:my-12">
+    <div className={`cta-buttons container my-8 md:my-12 ${index ? `item-${index}` : ''}`}>
       {title && (
         <h2
           className={cn(

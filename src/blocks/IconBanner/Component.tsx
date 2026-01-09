@@ -32,6 +32,7 @@ type Props = {
   disableInnerContainer?: boolean
   title?: string
   subtitle?: string
+  index?: number
   icons?: Array<{
     blockType?: string
     icon?: string
@@ -41,14 +42,14 @@ type Props = {
 }
 
 export const IconBanner: React.FC<Props> = (props) => {
-  const { title, subtitle, icons } = props
+  const { title, subtitle, icons, index } = props
 
   if (!icons || !Array.isArray(icons) || icons.length === 0) {
     return null
   }
 
   return (
-    <div className="icon-banner flex h-[50vh] flex-col items-center justify-center">
+    <div className={`icon-banner flex h-[50vh] flex-col items-center justify-center ${index ? `item-${index}` : ''}`}>
       {(title || subtitle) && (
         <div className="flex flex-col items-center">
           {title && <h2 className="text-heading-2 font-semibold">{title}</h2>}

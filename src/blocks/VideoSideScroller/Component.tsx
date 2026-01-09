@@ -15,10 +15,11 @@ type VideoSideScrollerProps = Pick<
 
 type Props = {
   disableInnerContainer?: boolean
+  index?: number
 } & VideoSideScrollerProps
 
 export const VideoSideScroller: React.FC<Props> = (props) => {
-  const { title, subtitle, videoLayout, videos, buttonText1 } = props
+  const { title, subtitle, videoLayout, videos, buttonText1, index } = props
   const [isMobile, setIsMobile] = useState(true)
   const [isDesktop, setIsDesktop] = useState(false)
 
@@ -50,7 +51,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   // Layered Cards Layout
   if (isLayeredCardsLayout) {
     return (
-      <div className={`video-side-scroller ${videoLayout} my-5`}>
+      <div className={`video-side-scroller ${videoLayout} my-5 ${index ? `item-${index}` : ''}`}>
         <div className="video-side-scroller-layered-outer">
           {/* Mobile/Tablet: Template Title at Top */}
           {!isDesktop && (
@@ -79,7 +80,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="container my-5">
+    <div className={`container my-5 ${index ? `item-${index}` : ''}`}>
       <div
         className={`video-side-scroller-grid-outer ${isSingleLayout ? 'grow-shrink-outer' : ''}`}
       >

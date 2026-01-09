@@ -10,11 +10,18 @@ type Props = {
 } & ScrollWindowType
 
 export const ScrollWindow: React.FC<Props> = (props) => {
-  const { id, items, index } = props
+  const { id, items, index, type } = props
 
   if (!items || !Array.isArray(items) || items.length === 0) {
     return <></>
   }
 
-  return <RenderYachtParallaxItems items={items} passIndex />
+  return (
+    <div
+      data-parallax-window-id={id || ''}
+      className={`scroll-window ${type || ''} ${index ? `window-${index}` : ''}`.trim()}
+    >
+      <RenderYachtParallaxItems items={items} passIndex />
+    </div>
+  )
 }

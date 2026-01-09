@@ -16,10 +16,11 @@ type ClickSliderProps = Pick<YachtParallaxItem, 'title' | 'buttonText' | 'cards'
 
 type Props = {
   disableInnerContainer?: boolean
+  index?: number
 } & ClickSliderProps
 
 export const ClickSlider: React.FC<Props> = (props) => {
-  const { title, buttonText, cards } = props
+  const { title, buttonText, cards, index } = props
   const swiperRef = React.useRef<SwiperType | null>(null)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const cursorRef = React.useRef<HTMLDivElement>(null)
@@ -124,7 +125,7 @@ export const ClickSlider: React.FC<Props> = (props) => {
   }
 
   return (
-    <div ref={containerRef} className="click-slider-container">
+    <div ref={containerRef} className={`click-slider-container ${index ? `item-${index}` : ''}`}>
       {/* Custom Cursor - Desktop Only */}
       {isDesktop && <div ref={cursorRef} className="click-slider-cursor" />}
       <div className="click-slider-grid">
