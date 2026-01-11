@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import type { Parallax } from '@react-spring/parallax'
 
 import { Media } from '@/components/Media'
@@ -11,11 +11,19 @@ type Props = {
   subtitle?: string
   heroImage?: any
   index?: number
+  id?: string
   [key: string]: unknown
 } & React.ComponentProps<typeof Parallax>
 
 export const TopHero: React.FC<Props> = (props) => {
-  const { title, subtitle, heroImage, disableInnerContainer: _disableInnerContainer, index } = props
+  const {
+    title,
+    subtitle,
+    heroImage,
+    disableInnerContainer: _disableInnerContainer,
+    index,
+    id,
+  } = props
   return (
     <div
       className={`top-hero w-full h-screen rounded-b-full relative ${index ? `item-${index}` : ''}`}

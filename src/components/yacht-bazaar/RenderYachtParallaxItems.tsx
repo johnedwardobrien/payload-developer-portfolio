@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import type { YachtParallaxItem } from '@/payload-types'
 
@@ -27,7 +27,7 @@ export const RenderYachtParallaxItems: React.FC<{
   passIndex?: boolean
 }> = (props) => {
   const { items, passIndex } = props
-
+  
   if (!items || !Array.isArray(items) || items.length === 0) {
     return null
   }
@@ -51,13 +51,15 @@ export const RenderYachtParallaxItems: React.FC<{
             yachtParallaxItemComponents[blockType as keyof typeof yachtParallaxItemComponents]
 
           if (Component) {
-            //@ts-expect-error
-            return <Component
-                  key={id}
-                  {...item}
-                  disableInnerContainer
-                  index={index + 1}
-                />
+            return (
+              //@ts-expect-error - Component types may vary, props are spread from item and required props are provided
+              <Component
+                key={id}
+                {...item}
+                disableInnerContainer
+                index={index + 1}
+              />
+            )
           }
         }
         return null

@@ -13,10 +13,11 @@ type LayeredCardsProps = Pick<YachtParallaxItem, 'title' | 'subtitle' | 'buttonT
 type Props = {
   disableInnerContainer?: boolean
   index?: number
+  id?: string
 } & LayeredCardsProps
 
 export const LayeredCards: React.FC<Props> = (props) => {
-  const { title, buttonText, cards, index } = props
+  const { title, buttonText, cards, index, id } = props
   const [isMobile, setIsMobile] = useState(true)
 
   useEffect(() => {
@@ -39,7 +40,9 @@ export const LayeredCards: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className={`layered-cards-container ${index ? `item-${index}` : ''}`}>
+    <div
+      className={`layered-cards-container ${index ? `item-${index}` : ''}`}
+    >
       {/* Header with Title and Button */}
       <div className="layered-cards-header">
         {title && <h2 className="layered-cards-title">{title}</h2>}

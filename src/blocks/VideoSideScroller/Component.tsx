@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import type { YachtParallaxItem } from '@/payload-types'
 
@@ -16,12 +16,14 @@ type VideoSideScrollerProps = Pick<
 type Props = {
   disableInnerContainer?: boolean
   index?: number
+  id?: string
 } & VideoSideScrollerProps
 
 export const VideoSideScroller: React.FC<Props> = (props) => {
-  const { title, subtitle, videoLayout, videos, buttonText1, index } = props
+  const { title, subtitle, videoLayout, videos, buttonText1, index, id } = props
   const [isMobile, setIsMobile] = useState(true)
   const [isDesktop, setIsDesktop] = useState(false)
+  const elementRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const checkViewport = () => {
@@ -51,7 +53,9 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   // Layered Cards Layout
   if (isLayeredCardsLayout) {
     return (
-      <div className={`video-side-scroller ${videoLayout} my-5 ${index ? `item-${index}` : ''}`}>
+      <div
+        className={`video-side-scroller w-full h-screen ${videoLayout} my-5 ${index ? `item-${index}` : ''}`}
+      >
         <div className="video-side-scroller-layered-outer">
           {/* Mobile/Tablet: Template Title at Top */}
           {!isDesktop && (
@@ -80,15 +84,19 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className={`container my-5 ${index ? `item-${index}` : ''}`}>
+    <div
+      className={`video-side-scroller relative container my-5 ${index ? `item-${index}` : ''}`}
+    >
       <div
-        className={`video-side-scroller-grid-outer ${isSingleLayout ? 'grow-shrink-outer' : ''}`}
+        className={`video-side-scroller-grid-outer h-100 ${isSingleLayout ? 'grow-shrink-outer' : ''}`}
       >
         {/* Header Container */}
-        <div className={isGridLayout ? 'mb-8 md:mb-0' : ''}>
-          {title && <h2 className="text-heading-2 font-semibold mb-2">{title}</h2>}
-          {isGridLayout && subtitle && <p className="text-lg">{subtitle}</p>}
-          {isSingleLayout && buttonText1 && <p className="text-lg">{buttonText1}</p>}
+        <div className={isGridLayout ? 'mb-8 md:mb-0 h-screen sticky top-0' : ''}>
+          <div className="inner sticky top-0">
+            {title && <h2 className="text-heading-2 font-semibold mb-2">{title}</h2>}
+            {isGridLayout && subtitle && <p className="text-lg">{subtitle}</p>}
+            {isSingleLayout && buttonText1 && <p className="text-lg">{buttonText1}</p>}
+          </div>
         </div>
 
         {/* Video Container */}

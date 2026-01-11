@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 import type { YachtParallaxItem } from '@/payload-types'
@@ -12,17 +14,20 @@ type EventSideScrollerProps = Pick<YachtParallaxItem, 'title' | 'buttonText' | '
 type Props = {
   disableInnerContainer?: boolean
   index?: number
+  id?: string
 } & EventSideScrollerProps
 
 export const EventSideScroller: React.FC<Props> = (props) => {
-  const { title, buttonText, events, index } = props
+  const { title, buttonText, events, index, id } = props
 
   if (!events || !Array.isArray(events) || events.length === 0) {
     return null
   }
 
   return (
-    <div className={`event-side-scroller container my-5 pb-8 ${index ? `item-${index}` : ''}`}>
+    <div
+      className={`event-side-scroller container my-5 pb-8 ${index ? `item-${index}` : ''}`}
+    >
       <div className="event-side-scroller-grid">
         {/* Event Cards - Left Column */}
         <div className="event-cards-container">
