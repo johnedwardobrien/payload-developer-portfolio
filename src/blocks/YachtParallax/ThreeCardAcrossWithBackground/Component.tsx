@@ -15,17 +15,20 @@ type ThreeCardAcrossWithBackgroundProps = Pick<YachtParallaxItem, 'threeCards'>
 type Props = {
   disableInnerContainer?: boolean
   index?: number
+  id?: string
 } & ThreeCardAcrossWithBackgroundProps
 
 export const ThreeCardAcrossWithBackground: React.FC<Props> = (props) => {
-  const { threeCards, index } = props
+  const { threeCards, index, id } = props
 
   if (!threeCards || threeCards.length === 0) {
     return null
   }
 
   return (
-    <div className={`three-card-outer-container ${index ? `item-${index}` : ''}`}>
+    <div
+      className={`three-card-outer-container ${index ? `item-${index}` : ''}`}
+    >
       {threeCards.map((card, cardIndex) => {
         if (card.blockType !== 'threeCard') return null
 

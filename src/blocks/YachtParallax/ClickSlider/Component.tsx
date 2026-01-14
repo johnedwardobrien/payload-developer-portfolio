@@ -17,10 +17,11 @@ type ClickSliderProps = Pick<YachtParallaxItem, 'title' | 'buttonText' | 'cards'
 type Props = {
   disableInnerContainer?: boolean
   index?: number
+  id?: string
 } & ClickSliderProps
 
 export const ClickSlider: React.FC<Props> = (props) => {
-  const { title, buttonText, cards, index } = props
+  const { title, buttonText, cards, index, id } = props
   const swiperRef = React.useRef<SwiperType | null>(null)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const cursorRef = React.useRef<HTMLDivElement>(null)
@@ -125,10 +126,12 @@ export const ClickSlider: React.FC<Props> = (props) => {
   }
 
   return (
-    <div ref={containerRef} className={`click-slider-container ${index ? `item-${index}` : ''}`}>
+    <div
+      className={`click-slider-container ${index ? `item-${index}` : ''}`}
+    >
       {/* Custom Cursor - Desktop Only */}
       {isDesktop && <div ref={cursorRef} className="click-slider-cursor" />}
-      <div className="click-slider-grid">
+      <div ref={containerRef} className="click-slider-grid">
         {/* Title and Button - Top Row */}
         <div className="click-slider-header">
           {title && <h1 className="click-slider-title text-heading-1">{title}</h1>}
