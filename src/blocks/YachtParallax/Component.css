@@ -2,22 +2,22 @@
 	overflow: clip;
 }
 
-.yacht-parallax-cont > div:first-of-type {
+.yacht-parallax-cont .TopHero {
 	z-index: 500;
 	position: relative;
 }
 
-.yacht-parallax-cont > div:nth-of-type(2) {
+.yacht-parallax-cont .IconBanner {
 	z-index: 499;
 	position: relative;
 }
 
-.yacht-parallax-cont > div:nth-of-type(3) {
+.yacht-parallax-cont .VideoSideScroller.item-1 {
 	position: unset !important;
 }
 
-.yacht-parallax-cont > div:nth-of-type(4) {
-	z-index: 497;
+.yacht-parallax-cont .VideoSideScrollerWrapper {
+	z-index: 500;
 	position: relative;
 }
 
@@ -192,7 +192,23 @@
 	padding-block: 80px 40px;
 	margin-inline: auto;
 	min-width: 100%;
-	z-index: 1;
+}
+
+.yacht-parallax-cont .VideoSideScroller .video-card .video-cont {
+	isolation: isolate;
+	position: absolute;
+	inset: 0;
+	overflow: clip;
+}
+
+.yacht-parallax-cont .VideoSideScroller .video-card .video-cont video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
 }
 
 .yacht-parallax-cont .VideoSideScroller .empty-reveal-cont {
@@ -201,7 +217,7 @@
 	pointer-events: none;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .title-cont {
+.yacht-parallax-cont .VideoSideScroller .outer-cont .top-title-cont {
 	max-width: 344px;
 	text-align: center;
 	overflow-x: hidden;
@@ -211,7 +227,7 @@
 	align-items: center;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .title-cont .title {
+.yacht-parallax-cont .VideoSideScroller .outer-cont .top-title-cont .title {
 	font-family: var(--tw-prose-headings);
 	font-weight: 700;
 	font-size: 48px;
@@ -220,7 +236,7 @@
 	letter-spacing: normal;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .title-cont .subtitle {
+.yacht-parallax-cont .VideoSideScroller .outer-cont .top-title-cont .subtitle {
 	font-family: var(--tw-prose-body);
 	font-weight: 500;
 	font-size: 20px;
@@ -234,6 +250,7 @@
 	overflow-y: auto;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+	margin-block: 32px;
 }
 
 .yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont .cards {
@@ -241,4 +258,61 @@
 	grid-template-columns: repeat(2,1fr);
 	gap: 16px;
 	grid-auto-rows: 132px;
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont .cards .card {
+	grid-row: span 1;
+	position: relative;
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont .cards .card .video-card {
+	--activeClipPath: inset(4px round 13px);
+	position: relative;
+	overflow: clip;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-start;
+	padding: 12px;
+	gap: 10px;
+	background: rgb(224,224,225);
+	border-radius: 16px;
+	height: 100%;
+	width: 100%;
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont .video-card .title {
+	position: relative;
+	color: rgb(255,255,255);
+	text-align: start;
+	font-family: var(--fontHeading);
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 22px;
+	text-decoration: none;
+	letter-spacing: normal;
+}
+
+.yacht-parallax-cont .VideoSideScroller.item-2 {
+	position: relative;
+	overflow: clip;
+	border-radius: 32px;
+	margin-inline: auto;
+	min-width: 100%;
+}
+
+.yacht-parallax-cont .VideoSideScroller.item-2 .top-title-cont {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	padding-block: 48px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(176,237,230);
+}
+
+.yacht-parallax-cont .VideoSideScroller.item-2 .cards-cont {
+	background-color: rgb(176,237,230);
 }

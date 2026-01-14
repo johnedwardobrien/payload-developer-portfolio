@@ -78,29 +78,27 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
 
   if (index === 2) {
     return (
-      <div>
-        <div className={`VideoSideScroller${index ? ` item-${index}` : ''}${windowId}`}>
-          <div
-            className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
-          >
-            <div className={`title-cont`}>
-              {title && <h2 className="title">{title}</h2>}
-              {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
-              {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
-            </div>
-            <div
-              className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
-            >
-              {videos.map((videoCard, index) => {
-                if (videoCard.blockType === 'standardCard') {
-                  return <VideoCard key={videoCard.id || index} card={videoCard} />
-                }
-                return null
-              })}
-            </div>
+      <div
+        className='VideoSideScrollerWrapper'
+      >
+        <div className={`VideoSideScroller${isSingleLayout ? ' grow-shrink' : ''}${index ? ` item-${index}` : ''}${windowId}`}>
+          <div className={`top-title-cont`}>
+            {title && <h2 className="title">{title}</h2>}
+            {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
+            {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
           </div>
-          <div className='empty-reveal-cont'></div>
+          <div
+            className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
+          >
+            {videos.map((videoCard, index) => {
+              if (videoCard.blockType === 'standardCard') {
+                return <VideoCard key={videoCard.id || index} card={videoCard} />
+              }
+              return null
+            })}
+          </div>
         </div>
+        <div className='empty-reveal-cont'></div>
       </div>
     )
   } else {
@@ -109,7 +107,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
         <div
           className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
         >
-          <div className={`title-cont`}>
+          <div className={`top-title-cont`}>
             {title && <h2 className="title">{title}</h2>}
             {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
             {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
@@ -122,7 +120,11 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
             >
               {videos.map((videoCard, index) => {
                 if (videoCard.blockType === 'standardCard') {
-                  return <VideoCard key={videoCard.id || index} card={videoCard} />
+                  return <div
+                    className='card'
+                  >
+                      <VideoCard key={videoCard.id || index} card={videoCard} />
+                    </div>
                 }
                 return null
               })}
