@@ -1,5 +1,7 @@
 /* VideoSideScroller Grid Styles */
-
+.video-side-scroller {
+  position: relative;
+}
 /* Outer Grid: 1 column at mobile, 2 columns at tablet and desktop */
 .video-side-scroller-grid-outer {
   display: grid;
@@ -10,7 +12,7 @@
   .video-side-scroller-grid-outer {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   /* Grow-shrink-layout: 1fr 1.16fr columns at tablet and desktop */
   .video-side-scroller-grid-outer.grow-shrink-outer {
     grid-template-columns: 1fr 1.16fr;

@@ -20,44 +20,33 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
   const cardRef = useRef<HTMLDivElement>(null)
   const prevCardRef = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
-  const prevX = useMotionValue(-1000) // Previous card starts off-screen left
-
+  const prevX = useMotionValue(-1000)
   const isLastCard = currentIndex === cards.length - 1
   const isFirstCard = currentIndex === 0
   const canSwipeLeft = !isLastCard
   const canSwipeRight = !isFirstCard
-
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (!cardRef.current) return
-
     const cardWidth = cardRef.current.offsetWidth
-    const threshold = cardWidth * 0.25 // 1/4 of card width
-
-    // If dragged left past threshold, swipe to next card
+    const threshold = cardWidth * 0.25
     if (info.offset.x < -threshold && canSwipeLeft) {
-      // Animate card off screen to the left - mechanical motion
       animate(x, -1000, {
         type: 'tween',
         ease: 'linear',
         duration: 0.3,
         onComplete: () => {
-          // Change to next card and reset position
           setCurrentIndex((prev) => prev + 1)
           x.set(0)
         },
       })
     }
-    // If dragged right past threshold, swipe to previous card
     else if (info.offset.x > threshold && canSwipeRight) {
-      // Mark that previous card is sliding in
       setIsPreviousSlidingIn(true)
-      // Animate previous card sliding in from left - mechanical motion
       animate(prevX, 0, {
         type: 'tween',
         ease: 'linear',
         duration: 0.3,
         onComplete: () => {
-          // Change to previous card and reset positions
           setCurrentIndex((prev) => prev - 1)
           x.set(0)
           prevX.set(-1000)
@@ -65,7 +54,6 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
         },
       })
     } else {
-      // Snap back if not dragged far enough - mechanical motion
       animate(x, 0, {
         type: 'tween',
         ease: 'easeOut',
@@ -73,9 +61,7 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
       })
     }
   }
-
   const currentCard = cards[currentIndex]
-
   return (
     <div className={`video-layered-cards-wrapper ${isDesktop ? 'desktop-layout' : ''}`}>
       {/* Desktop: Left Column - Text Content */}
@@ -142,26 +128,20 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
         </>
       )}
 
-      {/* Desktop: Right Column - Layered Images Container */}
-      {/* Mobile/Tablet: Layered Images Container */}
       <div className={`video-layered-cards-images-container ${isDesktop ? 'desktop-column' : ''}`}>
-        {/* White divs to hide sliding animations at edges */}
         <div className="video-layered-cards-edge-left" />
         <div className="video-layered-cards-edge-right" />
         {cards.map((card, index) => {
           const isActive = index === currentIndex
           const isNextCard = index === currentIndex + 1
           const isPreviousCard = index === currentIndex - 1
-          
-          // Z-index: when previous card is sliding in, it should be on top
-          // Otherwise, active card is always on top
           const zIndex =
             isPreviousCard && isPreviousSlidingIn
-              ? cards.length + 2 // Previous card on top when sliding in
+              ? cards.length + 2
               : isActive
-                ? cards.length + 1 // Active card on top normally
+                ? cards.length + 1
                 : isNextCard || isPreviousCard
-                  ? cards.length // Next/previous cards below
+                  ? cards.length
                   : 0
 
           return (
@@ -189,12 +169,9 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
               dragMomentum={false}
               onDrag={(_, info) => {
                 if (isActive) {
-                  // Only move card when dragging left (negative offset)
-                  // Right drag doesn't move the card
                   if (info.offset.x < 0 && canSwipeLeft) {
                     x.set(info.offset.x)
                   } else {
-                    // Keep card at 0 when dragging right
                     x.set(0)
                   }
                 }

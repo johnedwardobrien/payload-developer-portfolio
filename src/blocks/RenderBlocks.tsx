@@ -43,12 +43,8 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType]
 
             if (Block) {
-              return (
-                <div key={`${index}-block`} className="page-blocks-cont relative">
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
-                </div>
-              )
+              //@ts-expect-error
+              return <Block {...block} disableInnerContainer />
             }
           }
           return null

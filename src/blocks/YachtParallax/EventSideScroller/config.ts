@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { EventCard } from '../EventCard/config'
+import { EventCard } from '../../EventCard/config'
 
 export const EventSideScroller: Block = {
   slug: 'eventSideScroller',

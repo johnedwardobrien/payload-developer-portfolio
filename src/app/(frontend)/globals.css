@@ -147,7 +147,7 @@
     box-shadow: none;
   }
   [data-custom-theme='yacht-bazaar'] {
-    
+
   }
 }
 
@@ -158,4 +158,10 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+body {
+  overflow-y: auto;
+  position: relative;
+  min-height: 100%;
 }

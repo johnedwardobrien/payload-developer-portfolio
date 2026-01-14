@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { ThreeCard } from '../ThreeCard/config'
+import { ThreeCard } from '../../ThreeCard/config'
 
 export const ThreeCardAcrossWithBackground: Block = {
   slug: 'threeCardAcrossWithBackground',

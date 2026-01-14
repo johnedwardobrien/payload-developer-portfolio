@@ -1,0 +1,244 @@
+.yacht-parallax-cont {
+	overflow: clip;
+}
+
+.yacht-parallax-cont > div:first-of-type {
+	z-index: 500;
+	position: relative;
+}
+
+.yacht-parallax-cont > div:nth-of-type(2) {
+	z-index: 499;
+	position: relative;
+}
+
+.yacht-parallax-cont > div:nth-of-type(3) {
+	position: unset !important;
+}
+
+.yacht-parallax-cont > div:nth-of-type(4) {
+	z-index: 497;
+	position: relative;
+}
+
+.yacht-parallax-cont .TopHero {
+	position: relative;
+	z-index: 2;
+	margin-top: 0;
+	display: grid;
+	grid-template-areas: "stack";
+	height: 100vh;
+	height: 100svh;
+	border-radius: 0 0 32px 32px;
+	overflow: clip;
+	margin-inline: auto;
+	min-width: 100%;
+}
+
+.yacht-parallax-cont .TopHero .bg-mask {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.yacht-parallax-cont .TopHero .media-cont {
+	background-color: white;
+	grid-area: stack;
+	width: 100%;
+	height: 100%;
+	min-height: 700px;
+}
+
+.yacht-parallax-cont .TopHero .media video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.yacht-parallax-cont .TopHero .content {
+	position: relative;
+	margin-inline: auto;
+	min-width: 100%;
+	z-index: 1;
+	overflow-x: clip;
+	grid-area: stack;
+	display: flex;
+	flex-direction: column-reverse;
+	min-width: 100%;
+	max-height: calc(100vh - 30px);
+	max-height: calc(100svh - 30px);
+	padding-inline: 15px;
+	margin-block: 15px;
+	margin-top: 0px;
+}
+
+.yacht-parallax-cont .TopHero .content-left {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	row-gap: 16px;
+	margin-top: auto;
+	color: white;
+}
+
+.yacht-parallax-cont .TopHero .content-left .title {
+	font-family: var(--tw-prose-headings);
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 56px;
+}
+
+.yacht-parallax-cont .TopHero .content-left .subtitle {
+	font-family: var(--tw-prose-body);
+	font-size: 18px;
+	line-height: 22px;
+}
+
+.yacht-parallax-cont .IconBanner {
+	position: relative;
+	background-color: white;
+	margin-inline: auto;
+	min-width: 100%;
+	z-index: 1;
+	overflow-x: clip;
+}
+
+.yacht-parallax-cont .IconBanner .inner-cont {
+	max-width: 1440px;
+	margin-inline: auto;
+	padding-block: 64px;
+	padding-inline: 16px;
+}
+
+.yacht-parallax-cont .IconBanner .title-cont {
+	text-align: center;
+}
+
+.yacht-parallax-cont .IconBanner .title-cont .title {
+	font-family: var(--tw-prose-headings);
+	font-size: 48px;
+	line-height: 56px;
+	font-weight: 700;
+}
+
+.yacht-parallax-cont .IconBanner .title-cont .subtitle {
+	font-family: var(--tw-prose-body);
+	font-size: 18px;
+	line-height: 22px;
+}
+
+.yacht-parallax-cont .IconBanner .icon-cont-outer {
+	margin-top: 24px;
+	display: grid;
+	grid-template-columns: repeat(4,1fr);
+	gap: 8px;
+	max-width: max-content;
+	margin-inline: auto;
+}
+
+.yacht-parallax-cont .IconBanner .icon-cont-outer .icon {
+	padding-block: 16px;
+	padding-inline: 8px;
+	border-radius: 8px;
+	background-color: white;
+	border: 1px solid rgb(224,224,225);
+	cursor: pointer;
+	transition: background-color .3s cubic-bezier(.215,.61,.355,1);
+	font-size: 14px;
+}
+
+.yacht-parallax-cont .IconBanner .icon-cont-outer .icon svg {
+	color: white;
+	width: 48px;
+	height: 48px;
+	padding: 12px;
+	border-radius: 999px;
+	margin-inline: auto;
+	text-align: center;
+}
+.yacht-parallax-cont .IconBanner .icon-cont-outer .icon:nth-child(1) svg {
+	background-color: rgb(136,157,30);
+}
+.yacht-parallax-cont .IconBanner .icon-cont-outer .icon:nth-child(2) svg {
+	background-color: rgb(255, 173, 41);
+}
+.yacht-parallax-cont .IconBanner .icon-cont-outer .icon:nth-child(3) svg {
+	background-color: rgb(114,25,49);
+}
+.yacht-parallax-cont .IconBanner .icon-cont-outer .icon:nth-child(4) svg {
+	background-color: rgb(7,158,165);
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont {
+	z-index: 0;
+	position: sticky;
+	top: 0;
+	margin-top: -100svh;
+	min-height: 100vh;
+	min-height: 100svh;
+	overflow: visible;
+	display: grid;
+	grid-template-columns: 1fr;
+	padding-inline: 16px;
+	padding-block: 80px 40px;
+	margin-inline: auto;
+	min-width: 100%;
+	z-index: 1;
+}
+
+.yacht-parallax-cont .VideoSideScroller .empty-reveal-cont {
+	height: 150vh;
+	height: 150svh;
+	pointer-events: none;
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont .title-cont {
+	max-width: 344px;
+	text-align: center;
+	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
+	align-self: start;
+	align-items: center;
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont .title-cont .title {
+	font-family: var(--tw-prose-headings);
+	font-weight: 700;
+	font-size: 48px;
+	line-height: 52px;
+	text-decoration: none;
+	letter-spacing: normal;
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont .title-cont .subtitle {
+	font-family: var(--tw-prose-body);
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	text-decoration: none;
+	letter-spacing: normal;
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont {
+	position: relative;
+	overflow-y: auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont .cards {
+	display: grid;
+	grid-template-columns: repeat(2,1fr);
+	gap: 16px;
+	grid-auto-rows: 132px;
+}

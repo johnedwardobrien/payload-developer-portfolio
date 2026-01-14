@@ -2,14 +2,14 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 
-import { TopHero } from '@/blocks/TopHero/Component'
-import { VideoSideScroller } from '@/blocks/VideoSideScroller/Component'
-import { LayeredCards } from '@/blocks/LayeredCards/Component'
-import { EventSideScroller } from '@/blocks/EventSideScroller/Component'
-import { ThreeCardAcrossWithBackground } from '@/blocks/ThreeCardAcrossWithBackground/Component'
-import { CTAButtons } from '@/blocks/CTAButtons/Component'
-import { ClickSlider } from '@/blocks/ClickSlider/Component'
-import { IconBanner } from '@/blocks/IconBanner/Component'
+import { TopHero } from '@/blocks/YachtParallax/TopHero/Component'
+import { VideoSideScroller } from '@/blocks/YachtParallax/VideoSideScroller/Component'
+import { LayeredCards } from '@/blocks/YachtParallax/LayeredCards/Component'
+import { EventSideScroller } from '@/blocks/YachtParallax/EventSideScroller/Component'
+import { ThreeCardAcrossWithBackground } from '@/blocks/YachtParallax/ThreeCardAcrossWithBackground/Component'
+import { CTAButtons } from '@/blocks/YachtParallax/CTAButtons/Component'
+import { ClickSlider } from '@/blocks/YachtParallax/ClickSlider/Component'
+import { IconBanner } from '@/blocks/YachtParallax/IconBanner/Component'
 import { ScrollWindow } from '@/blocks/ScrollWindow/Component'
 
 const blockComponents = {

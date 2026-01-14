@@ -17,7 +17,7 @@ export const Media: React.FC<Props> = (props) => {
     <Tag
       {...(htmlElement !== null
         ? {
-            className: cn('relative', className),
+            className: className,
           }
         : {})}
     >

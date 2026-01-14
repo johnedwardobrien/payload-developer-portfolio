@@ -1,0 +1,136 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
+
+import type { YachtParallaxItem } from '@/payload-types'
+
+import { VideoCard } from '@/components/VideoCard'
+import { VideoLayeredCards } from './VideoLayeredCards'
+import './Component.css'
+
+type VideoSideScrollerProps = Pick<
+  YachtParallaxItem,
+  'title' | 'subtitle' | 'videoLayout' | 'videos' | 'buttonText1' | 'buttonText2' | 'nextWindowText'
+>
+
+type Props = {
+  disableInnerContainer?: boolean
+  index?: number
+  windowId?: string
+} & VideoSideScrollerProps
+
+export const VideoSideScroller: React.FC<Props> = (props) => {
+  const { title, subtitle, videoLayout, videos, buttonText1, index, windowId } = props
+  const [isMobile, setIsMobile] = useState(true)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const checkViewport = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 768)
+      setIsDesktop(width >= 1024)
+    }
+    checkViewport()
+    window.addEventListener('resize', checkViewport)
+    return () => window.removeEventListener('resize', checkViewport)
+  }, [])
+
+  if (!videos || !Array.isArray(videos) || videos.length === 0) {
+    return null
+  }
+
+  const validVideos = videos.filter((video) => video.blockType === 'standardCard')
+
+  if (validVideos.length === 0) {
+    return null
+  }
+
+  const isGridLayout = videoLayout === 'grid'
+  const isSingleLayout = videoLayout === 'singleGrowShrink'
+  const isLayeredCardsLayout = videoLayout === 'layeredCards'
+
+  // Layered Cards Layout
+  if (isLayeredCardsLayout) {
+    return (
+      <div className={`VideoSideScroller${` ${videoLayout}`}${index ? ` item-${index}` : ''}${windowId}`}>
+        <div className="outer-cont">
+          {!isDesktop && (
+            <div className="header">
+              {title && <h2 className="">{title}</h2>}
+            </div>
+          )}
+          <VideoLayeredCards
+            cards={validVideos}
+            buttonText={buttonText1}
+            title={title}
+            isMobile={isMobile}
+            isDesktop={isDesktop}
+          />
+        </div>
+      </div>
+    )
+  }
+
+  // Grid and Single Grow/Shrink Layouts
+  if (!isGridLayout && !isSingleLayout) {
+    return null
+  }
+
+  if (index === 2) {
+    return (
+      <div>
+        <div className={`VideoSideScroller${index ? ` item-${index}` : ''}${windowId}`}>
+          <div
+            className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
+          >
+            <div className={`title-cont`}>
+              {title && <h2 className="title">{title}</h2>}
+              {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
+              {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
+            </div>
+            <div
+              className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
+            >
+              {videos.map((videoCard, index) => {
+                if (videoCard.blockType === 'standardCard') {
+                  return <VideoCard key={videoCard.id || index} card={videoCard} />
+                }
+                return null
+              })}
+            </div>
+          </div>
+          <div className='empty-reveal-cont'></div>
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div className={`VideoSideScroller${index ? ` item-${index}` : ''}${windowId}`}>
+        <div
+          className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
+        >
+          <div className={`title-cont`}>
+            {title && <h2 className="title">{title}</h2>}
+            {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
+            {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
+          </div>
+          <div
+            className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
+          >
+            <div
+              className='cards'
+            >
+              {videos.map((videoCard, index) => {
+                if (videoCard.blockType === 'standardCard') {
+                  return <VideoCard key={videoCard.id || index} card={videoCard} />
+                }
+                return null
+              })}
+            </div>
+          </div>
+        </div>
+        <div className='empty-reveal-cont'></div>
+      </div>
+    )
+  }
+}

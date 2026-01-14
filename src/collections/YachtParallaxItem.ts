@@ -22,13 +22,9 @@ const populateDisplayTitle: CollectionBeforeChangeHook = ({ data }) => {
   if (data) {
     const blockTypeLabel = blockTypeLabels[data.blockType as string] || data.blockType
     if (data.title) {
-      // Remove existing prefix if present to avoid duplication
       const cleanTitle = data.title.includes(' - ')
         ? data.title.split(' - ').slice(1).join(' - ')
         : data.title
-
-      // Set title with blockType prefix for relationship field display
-      data.title = `${blockTypeLabel} - ${cleanTitle}`
       data._displayTitle = `${blockTypeLabel} - ${cleanTitle}`
     } else {
       data._displayTitle = blockTypeLabel || data.id || 'Untitled'

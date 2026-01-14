@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { IconButton } from '../IconButton/config'
+import { IconButton } from '../../IconButton/config'
 
 export const CTAButtons: Block = {
   slug: 'ctaButtons',

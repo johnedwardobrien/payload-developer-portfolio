@@ -2,6 +2,7 @@
 import React from 'react'
 import type { YachtParallax as YachtParallaxType } from '@/payload-types'
 import { ScrollWindow as ScrollWindowComponent } from '@/blocks/ScrollWindow/Component'
+import './Component.css'
 
 type Props = {
   disableInnerContainer?: boolean
@@ -15,7 +16,9 @@ export const YachtParallax: React.FC<Props> = (props) => {
   }
 
   return (
-    <>
+    <div
+      className='yacht-parallax-cont'
+    >
       {scrollWindows.map((scrollWindow, index) => {
         if (typeof scrollWindow === 'string') return null
         return (
@@ -27,6 +30,6 @@ export const YachtParallax: React.FC<Props> = (props) => {
           />
         )
       })}
-    </>
+    </div>
   )
 }

@@ -16,12 +16,5 @@ export const ScrollWindow: React.FC<Props> = (props) => {
     return <></>
   }
 
-  return (
-    <div
-      data-parallax-window-id={id || ''}
-      className={`scroll-window ${type || ''} ${index ? `window-${index}` : ''}`.trim()}
-    >
-      <RenderYachtParallaxItems items={items} passIndex />
-    </div>
-  )
+  return <RenderYachtParallaxItems items={items} passIndex windowId={` window-${index}`} />
 }

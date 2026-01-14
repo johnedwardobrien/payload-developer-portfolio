@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { Placeholder } from '../Placeholder/config'
+import { Placeholder } from '../../Placeholder/config'
 
 export const TopHero: Block = {
   slug: 'topHero',

@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { StandardCard } from '../StandardCard/config'
+import { StandardCard } from '../../StandardCard/config'
 
 export const VideoSideScroller: Block = {
   slug: 'videoSideScroller',
