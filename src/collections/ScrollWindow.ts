@@ -51,9 +51,6 @@ export const ScrollWindow: CollectionConfig = {
       admin: {
         description: 'Select Yacht Parallax Items to display in this scroll window',
       },
-      filterOptions: {
-        _displayTitle: { exists: true },
-      },
     },
   ],
   timestamps: true,

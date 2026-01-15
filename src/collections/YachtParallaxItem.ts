@@ -42,7 +42,7 @@ export const YachtParallaxItem: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: '_displayTitle',
     group: 'Content',
     defaultColumns: ['blockType', 'title'],
   },
