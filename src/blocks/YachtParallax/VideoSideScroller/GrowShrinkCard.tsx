@@ -1,31 +1,28 @@
 'use client'
 
-import { useRef } from 'react';
-import { useScroll, useTransform, motion, useMotionValueEvent } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { useScroll, useTransform, motion, useMotionValueEvent, useInView } from 'framer-motion';
 import { StandardCard } from '@/payload-types';
 import { VideoCard } from '@/components/VideoCard';
 
 export const GrowShrinkCard = ({
-	videoCard,
-	ref
+	videoCard
 }: {
 	videoCard: StandardCard
-	ref: any
 }) => {
-  	const { scrollYProgress } = useScroll({
-  	  target: ref,
-  	  offset: ["start end", "end start"]
-  	});
-	useMotionValueEvent(scrollYProgress, "change", (latest) => {
-		console.log(latest);
-	})
-  	const scale = useTransform(scrollYProgress, [0, 1], [1.5, 0.8])
+	const cardRef = useRef<HTMLDivElement>(null);
+
+	const { scrollYProgress } = useScroll({
+		target: cardRef,
+		offset: ["end end", "start start"]
+	});
+	const scale = useTransform(scrollYProgress, [0, .2, .3, 1], [.7, .75, 1, 1]);
 
 	return <motion.div
-		ref={ref}
-		key={videoCard.id}
+		ref={cardRef}
 		className='card'
 		style={{
+			marginBottom: '5%',
 			scale
 		}}
 	>

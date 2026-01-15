@@ -25,7 +25,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   const { title, subtitle, videoLayout, videos, buttonText1, index, windowId } = props
   const [isMobile, setIsMobile] = useState(true)
   const [isDesktop, setIsDesktop] = useState(false)
-  const ref = useRef(null)
+  const containerRef1 = useRef(null)
 
   useEffect(() => {
     const checkViewport = () => {
@@ -86,6 +86,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
       >
         <div
           className={`VideoSideScroller${isSingleLayout ? ' grow-shrink' : ''}${index ? ` item-${index}` : ''}${windowId}`}
+          ref={containerRef1}
         >
           <div
             className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
@@ -97,11 +98,13 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
             </div>
             <div
               className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
-
             >
               {videos.map((videoCard, index) => {
                 if (videoCard.blockType === 'standardCard') {
-                  return <GrowShrinkCard videoCard={videoCard} ref={ref} />
+                  return <GrowShrinkCard
+                    key={videoCard.id}
+                    videoCard={videoCard}
+                  />
                 }
                 return null
               })}
@@ -131,9 +134,10 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
               {videos.map((videoCard, index) => {
                 if (videoCard.blockType === 'standardCard') {
                   return <div
+                      key={videoCard.id || index}
                       className='card'
                     >
-                      <VideoCard key={videoCard.id || index} card={videoCard} />
+                      <VideoCard card={videoCard} />
                     </div>
                 }
                 return null
