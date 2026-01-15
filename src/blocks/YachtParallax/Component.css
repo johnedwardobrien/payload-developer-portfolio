@@ -16,7 +16,7 @@
 	position: unset !important;
 }
 
-.yacht-parallax-cont .VideoSideScrollerWrapper {
+.yacht-parallax-cont .VideoSideScrollerWrapper .VideoSideScroller {
 	z-index: 500;
 	position: relative;
 }
@@ -178,7 +178,7 @@
 	background-color: rgb(7,158,165);
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont {
 	z-index: 0;
 	position: sticky;
 	top: 0;
@@ -217,7 +217,7 @@
 	pointer-events: none;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .top-title-cont {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .top-title-cont {
 	max-width: 344px;
 	text-align: center;
 	overflow-x: hidden;
@@ -227,7 +227,7 @@
 	align-items: center;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .top-title-cont .title {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .top-title-cont .title {
 	font-family: var(--tw-prose-headings);
 	font-weight: 700;
 	font-size: 48px;
@@ -236,7 +236,7 @@
 	letter-spacing: normal;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .top-title-cont .subtitle {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .top-title-cont .subtitle {
 	font-family: var(--tw-prose-body);
 	font-weight: 500;
 	font-size: 20px;
@@ -245,7 +245,7 @@
 	letter-spacing: normal;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont {
 	position: relative;
 	overflow-y: auto;
 	-ms-overflow-style: none;
@@ -253,19 +253,19 @@
 	margin-block: 32px;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont .cards {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards {
 	display: grid;
 	grid-template-columns: repeat(2,1fr);
 	gap: 16px;
 	grid-auto-rows: 132px;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont .cards .card {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards .card {
 	grid-row: span 1;
 	position: relative;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .cards-cont .cards .card .video-card {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards .card .video-card {
 	--activeClipPath: inset(4px round 13px);
 	position: relative;
 	overflow: clip;
@@ -281,7 +281,7 @@
 	width: 100%;
 }
 
-.yacht-parallax-cont .VideoSideScroller .outer-cont .video-card .title {
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .video-card .title {
 	position: relative;
 	color: rgb(255,255,255);
 	text-align: start;
@@ -313,6 +313,29 @@
 	background-color: rgb(176,237,230);
 }
 
+.yacht-parallax-cont .VideoSideScroller.item-2 .top-title-cont .title {
+	font-family: var(--fontHeading);
+	font-weight: 400;
+	font-size: 48px;
+	line-height: 52px;
+	text-decoration: none;
+	letter-spacing: normal;
+	text-align: center;
+}
+
 .yacht-parallax-cont .VideoSideScroller.item-2 .cards-cont {
 	background-color: rgb(176,237,230);
+	position: relative;
+	padding-inline: 16px;
+}
+
+.yacht-parallax-cont .VideoSideScroller.item-2 .cards-cont .card {
+	position: relative;
+	isolation: isolate;
+	aspect-ratio: 762/410;
+	border-radius: 16px;
+	overflow: clip;
+	width: 100%;
+	height: auto;
+	background-color: rgb(var(--lightGray));
 }
