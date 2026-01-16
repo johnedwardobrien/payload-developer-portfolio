@@ -41,12 +41,12 @@ export const LayeredCards: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={`layered-cards-container ${index ? `item-${index}` : ''}`}
+      className={`LayeredCards${index ? ` item-${index}` : ''}`}
     >
       {/* Header with Title and Button */}
-      <div className="layered-cards-header">
-        {title && <h2 className="layered-cards-title">{title}</h2>}
-        {buttonText && <button className="layered-cards-button">{buttonText}</button>}
+      <div className="top-title-cont">
+        {title && <h2 className="title">{title}</h2>}
+        {buttonText && <button>{buttonText}</button>}
       </div>
 
       {/* Mobile: Stacked Swipable Cards */}

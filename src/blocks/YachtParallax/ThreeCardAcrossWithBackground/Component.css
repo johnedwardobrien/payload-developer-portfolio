@@ -1,3 +1,23 @@
+.three-card-outer-container {
+  width: 100%;
+}
+
+.three-card-across-with-background {
+  position: relative;
+  height: 75vh;
+  width: 95%;
+  margin: 1.25rem auto;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+/* Tablet and Desktop: Min-height 800px */
+@media (min-width: 768px) {
+  .three-card-across-with-background {
+    min-height: 800px;
+  }
+}
+
 .three-card {
   height: 75vh;
   width: 95%;

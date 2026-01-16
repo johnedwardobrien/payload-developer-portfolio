@@ -58,8 +58,8 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
       <div className={`VideoSideScroller${` ${videoLayout}`}${index ? ` item-${index}` : ''}${windowId}`}>
         <div className="outer-cont">
           {!isDesktop && (
-            <div className="header">
-              {title && <h2 className="">{title}</h2>}
+            <div className={`top-title-cont`}>
+              {title && <h2 className="title">{title}</h2>}
             </div>
           )}
           <VideoLayeredCards
@@ -108,10 +108,10 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
                 }
                 return null
               })}
+              <div className='card placeholder-card'></div>
             </div>
           </div>
         </div>
-        <div className='empty-reveal-cont'></div>
       </div>
     )
   } else {

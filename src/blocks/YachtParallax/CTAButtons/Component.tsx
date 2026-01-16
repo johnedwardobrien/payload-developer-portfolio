@@ -45,15 +45,15 @@ export const CTAButtons: React.FC<Props> = ({ title, iconButtons, index, id }) =
 
   return (
     <div
-      className={`cta-buttons container my-8 md:my-12 ${index ? `item-${index}` : ''}`}
+      className={`CTAButtons cta-buttons container mb-[12%] ${index ? `item-${index}` : ''}`}
     >
       {title && (
         <h2
           className={cn(
             // Mobile: 48px, center aligned
-            'text-[48px] text-center',
+            'text-[48px] text-left',
             // Tablet: 48px, left aligned
-            'md:text-[48px] md:text-left',
+            'md:text-[48px]',
             // Desktop: 88px, center aligned
             'lg:text-[88px] lg:text-center',
           )}
@@ -78,15 +78,15 @@ export const CTAButtons: React.FC<Props> = ({ title, iconButtons, index, id }) =
               <div
                 key={iconButton.id || index}
                 className={cn(
-                  'flex items-center gap-4 w-full',
+                  'cta-icon-card flex items-center gap-4 w-full',
                   // Mobile: padding 21px 20px, font-size 18px, height 48px
                   'py-[21px] px-5 text-[18px] h-12',
                   // Card styling with background and border
                   'bg-card border border-border rounded',
                 )}
               >
-                {IconComponent && <IconComponent className="w-6 h-6 text-foreground shrink-0" />}
                 {iconTitle && <span className="text-foreground font-medium">{iconTitle}</span>}
+                {IconComponent && <IconComponent className="w-6 h-6 text-foreground shrink-0" />}
               </div>
             )
           }

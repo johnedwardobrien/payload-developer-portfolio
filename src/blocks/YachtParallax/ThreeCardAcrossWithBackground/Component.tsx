@@ -27,7 +27,7 @@ export const ThreeCardAcrossWithBackground: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={`three-card-outer-container ${index ? `item-${index}` : ''}`}
+      className={`ThreeCardAcross three-card-outer-container ${index ? `item-${index}` : ''}`}
     >
       {threeCards.map((card, cardIndex) => {
         if (card.blockType !== 'threeCard') return null

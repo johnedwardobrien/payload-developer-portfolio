@@ -26,11 +26,11 @@ export const EventSideScroller: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={`event-side-scroller container my-5 pb-8 ${index ? `item-${index}` : ''}`}
+      className={`EventSideScroller container pb-8 ${index ? `item-${index}` : ''}`}
     >
-      <div className="event-side-scroller-grid">
+      <div className="grid-cont">
         {/* Event Cards - Left Column */}
-        <div className="event-cards-container">
+        <div className="cards-cont">
           <div className="flex flex-col gap-4">
             {events.map((event, index) => {
               if (event.blockType !== 'eventCard') return null
@@ -50,7 +50,7 @@ export const EventSideScroller: React.FC<Props> = (props) => {
                   )}
 
                   {/* Content Overlay */}
-                  <div className="event-card-content">
+                  <div className="content">
                     <div className="event-card-inner">
                       {/* Row 1: Card Title, aligned left */}
                       {eventTitle && (
@@ -87,11 +87,11 @@ export const EventSideScroller: React.FC<Props> = (props) => {
         {/* Title and Button - Right Column */}
         <div className="event-header-container">
           <div className="flex flex-col gap-4">
-            {title && <h2 className="text-heading-2 font-semibold">{title}</h2>}
+            {title && <h2 className="title text-heading-2 font-semibold">{title}</h2>}
             {buttonText && (
-              <Button variant="outline" size="default">
+              <button>
                 {buttonText}
-              </Button>
+              </button>
             )}
           </div>
         </div>

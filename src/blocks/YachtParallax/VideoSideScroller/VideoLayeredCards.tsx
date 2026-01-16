@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion, PanInfo, useMotionValue, animate, AnimatePresence } from 'framer-motion'
 
 import type { StandardCard } from '@/payload-types'
@@ -17,14 +17,80 @@ type Props = {
 export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, isMobile = true, isDesktop = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPreviousSlidingIn, setIsPreviousSlidingIn] = useState(false)
+  const [titleCards, setTitleCards] = useState(cards.map((card, index) => {
+    return {
+      cardId: card.id,
+      title: card.title,
+      index
+    }
+  }));
+
   const cardRef = useRef<HTMLDivElement>(null)
   const prevCardRef = useRef<HTMLDivElement>(null)
+  const titleCardContRef = useRef<HTMLDivElement>(null)
+  const titleCardRefs = useRef<(HTMLSpanElement | null)[]>([])
   const x = useMotionValue(0)
   const prevX = useMotionValue(-1000)
   const isLastCard = currentIndex === cards.length - 1
   const isFirstCard = currentIndex === 0
   const canSwipeLeft = !isLastCard
   const canSwipeRight = !isFirstCard
+
+  // Scroll active title card into view when index changes
+  useEffect(() => {
+    if (titleCardRefs.current[currentIndex]) {
+      titleCardRefs.current[currentIndex]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      })
+    }
+  }, [currentIndex])
+
+  // Drag scrolling for title card container
+  useEffect(() => {
+    const titleCardCont = titleCardContRef.current
+    if (!titleCardCont) return
+
+    let isDragging = false
+    let startX = 0
+    let scrollLeft = 0
+
+    const handleMouseDown = (e: MouseEvent) => {
+      isDragging = true
+      startX = e.pageX - titleCardCont.offsetLeft
+      scrollLeft = titleCardCont.scrollLeft
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return
+      e.preventDefault()
+      const x = e.pageX - titleCardCont.offsetLeft
+      const walk = (x - startX) * 2
+      titleCardCont.scrollLeft = scrollLeft - walk
+    }
+
+    const handleMouseUp = () => {
+      isDragging = false
+    }
+
+    const handleMouseLeave = () => {
+      isDragging = false
+    }
+
+    titleCardCont.addEventListener('mousedown', handleMouseDown)
+    titleCardCont.addEventListener('mousemove', handleMouseMove)
+    titleCardCont.addEventListener('mouseup', handleMouseUp)
+    titleCardCont.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      titleCardCont.removeEventListener('mousedown', handleMouseDown)
+      titleCardCont.removeEventListener('mousemove', handleMouseMove)
+      titleCardCont.removeEventListener('mouseup', handleMouseUp)
+      titleCardCont.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
+
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (!cardRef.current) return
     const cardWidth = cardRef.current.offsetWidth
@@ -90,12 +156,8 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
               )}
             </motion.div>
           </AnimatePresence>
-
-          {/* Button Text */}
           {buttonText && (
-            <div className="video-layered-cards-button-wrapper">
-              <p className="text-lg">{buttonText}</p>
-            </div>
+            <button>{buttonText}</button>
           )}
         </div>
       )}
@@ -118,12 +180,8 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
               )}
             </motion.div>
           </AnimatePresence>
-
-          {/* Button Text below card content */}
           {buttonText && (
-            <div className="video-layered-cards-button-wrapper">
-              <p className="text-lg">{buttonText}</p>
-            </div>
+            <button>{buttonText}</button>
           )}
         </>
       )}
@@ -193,6 +251,20 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
               )}
             </motion.div>
           )
+        })}
+      </div>
+      <div
+        className='title-card-cont'
+        ref={titleCardContRef}
+      >
+        {titleCards.map(card => {
+          return <span
+            key={card.cardId || card.index}
+            ref={(el) => (titleCardRefs.current[card.index] = el)}
+            className={`title-card${card.index === currentIndex ? ' active' : ''}`}
+          >
+            {`${card.index + 1}. ${card.title}`}
+          </span>
         })}
       </div>
     </div>

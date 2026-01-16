@@ -127,7 +127,7 @@ export const ClickSlider: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={`click-slider-container ${index ? `item-${index}` : ''}`}
+      className={`ClickSlider click-slider-container ${index ? `item-${index}` : ''}`}
     >
       {/* Custom Cursor - Desktop Only */}
       {isDesktop && <div ref={cursorRef} className="click-slider-cursor" />}
@@ -136,9 +136,9 @@ export const ClickSlider: React.FC<Props> = (props) => {
         <div className="click-slider-header">
           {title && <h1 className="click-slider-title text-heading-1">{title}</h1>}
           {buttonText && (
-            <Button variant="outline" size="default">
+            <button>
               {buttonText}
-            </Button>
+            </button>
           )}
         </div>
 
