@@ -7,6 +7,7 @@ import type { YachtParallaxItem } from '@/payload-types'
 import { Button } from '@/components/ui/button'
 import { ImageMedia } from '@/components/Media/ImageMedia'
 import { formatEventDate } from '@/utilities/formatEventDate'
+import { motion } from 'framer-motion'
 import './Component.css'
 
 type EventSideScrollerProps = Pick<YachtParallaxItem, 'title' | 'buttonText' | 'events'>
@@ -38,7 +39,13 @@ export const EventSideScroller: React.FC<Props> = (props) => {
               const { title: eventTitle, fromDate, toDate, linkText, image } = event
 
               return (
-                <div key={event.id || index} className="event-card">
+                <motion.div
+                  key={event.id || index} className="event-card"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0 }}
+                  viewport={{ once: false, amount: .2 }}
+                >
                   {/* Background Image */}
                   {image && typeof image === 'object' && (
                     <ImageMedia
@@ -64,7 +71,7 @@ export const EventSideScroller: React.FC<Props> = (props) => {
                         <div className="text-left">
                           <span className="event-card-dates">
                             {fromDate && formatEventDate(fromDate)}
-                            {fromDate && toDate && <span className="font-bold"> - </span>}
+                            {fromDate && toDate && <span className="hyphen font-bold"></span>}
                             {toDate && formatEventDate(toDate)}
                           </span>
                         </div>
@@ -73,12 +80,12 @@ export const EventSideScroller: React.FC<Props> = (props) => {
                       {/* Row 3: Link Text, aligned right */}
                       {linkText && (
                         <div className="text-right event-card-link">
-                          <span className="underline">{linkText}</span>
+                          <span className="">{linkText}</span>
                         </div>
                       )}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )
             })}
           </div>

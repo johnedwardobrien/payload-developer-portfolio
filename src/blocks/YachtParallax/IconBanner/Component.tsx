@@ -13,6 +13,7 @@ import {
   FaSwimmingPool,
   FaBinoculars,
 } from 'react-icons/fa'
+import { motion } from 'framer-motion'
 import './Component.css'
 
 // Icon mapping object for IconButton icon select values
@@ -56,13 +57,23 @@ export const IconBanner: React.FC<Props> = (props) => {
         className='inner-cont'
       >
         {(title || subtitle) && (
-          <div className="title-cont">
+          <motion.div
+            className="title-cont"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0 }}
+            viewport={{ once: false, amount: .2 }}
+          >
             {title && <h2 className="title">{title}</h2>}
             {subtitle && <p className="subtitle">{subtitle}</p>}
-          </div>
+          </motion.div>
         )}
-        <div
+        <motion.div
           className={`icon-cont-outer`}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0 }}
+          viewport={{ once: false, amount: .2 }}
         >
           {icons.map((iconBlock, index) => {
             if (typeof iconBlock === 'object' && iconBlock.blockType === 'iconButton') {
@@ -88,7 +99,7 @@ export const IconBanner: React.FC<Props> = (props) => {
             }
             return null
           })}
-        </div>
+        </motion.div>
       </div>
     </div>
   )

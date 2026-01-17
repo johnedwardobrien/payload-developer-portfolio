@@ -25,7 +25,13 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   const { title, subtitle, videoLayout, videos, buttonText1, index, windowId } = props
   const [isMobile, setIsMobile] = useState(true)
   const [isDesktop, setIsDesktop] = useState(false)
-  const containerRef1 = useRef(null)
+  const containerRef2 = useRef(null)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef2,
+    offset: ["end -100px", "end end"]
+  });
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.95, 1], [0, 0, 1])
 
   useEffect(() => {
     const checkViewport = () => {
@@ -55,7 +61,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   // Layered Cards Layout
   if (isLayeredCardsLayout) {
     return (
-      <div className={`VideoSideScroller${` ${videoLayout}`}${index ? ` item-${index}` : ''}${windowId}`}>
+      <div className={`VideoSideScroller${` ${videoLayout}`}${index ? ` item-${index}` : ''}${windowId}`} ref={containerRef2}>
         <div className="outer-cont">
           {!isDesktop && (
             <div className={`top-title-cont`}>
@@ -83,19 +89,25 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
     return (
       <div
         className='VideoSideScrollerWrapper'
+        ref={containerRef2}
       >
         <div
           className={`VideoSideScroller${isSingleLayout ? ' grow-shrink' : ''}${index ? ` item-${index}` : ''}${windowId}`}
-          ref={containerRef1}
         >
           <div
             className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
           >
-            <div className={`top-title-cont`}>
+            <motion.div
+              className={`top-title-cont`}
+              transition={{ duration: .3 }}
+              style={{
+                opacity: titleOpacity
+              }}
+            >
               {title && <h2 className="title">{title}</h2>}
               {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
               {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
-            </div>
+            </motion.div>
             <div
               className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
             >
@@ -116,11 +128,13 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
     )
   } else {
     return (
-      <div className={`VideoSideScroller${index ? ` item-${index}` : ''}${windowId}`}>
+      <div className={`VideoSideScroller${index ? ` item-${index}` : ''}${windowId}`} ref={containerRef2}>
         <div
           className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
         >
-          <div className={`top-title-cont`}>
+          <div
+            className={`top-title-cont`}
+          >
             {title && <h2 className="title">{title}</h2>}
             {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
             {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
@@ -131,6 +145,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
             <div
               className='cards'
             >
+              <div className='first-card'></div>
               {videos.map((videoCard, index) => {
                 if (videoCard.blockType === 'standardCard') {
                   return <div

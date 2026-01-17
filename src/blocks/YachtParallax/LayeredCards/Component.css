@@ -60,17 +60,23 @@
 
 /* Tablet/Desktop: Column Layout */
 .layered-cards-wrapper {
+  position: relative;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 1rem;
-  padding: 0 1rem;
+  padding-inline: 32px;
+  gap: 64px;
 }
 
 .layered-card-item {
+  aspect-ratio: 770/428;
   width: 100%;
-  height: calc(100vh - 64px);
+  height: auto;
   position: relative;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }
 
 /* Tablet and Desktop */
@@ -79,10 +85,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
-  }
-
-  .layered-cards-wrapper {
     padding: 0 2rem;
   }
 }

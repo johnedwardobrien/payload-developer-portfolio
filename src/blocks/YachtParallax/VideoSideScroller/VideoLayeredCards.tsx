@@ -29,6 +29,7 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
   const prevCardRef = useRef<HTMLDivElement>(null)
   const titleCardContRef = useRef<HTMLDivElement>(null)
   const titleCardRefs = useRef<(HTMLSpanElement | null)[]>([])
+  const isInitialMount = useRef(true)
   const x = useMotionValue(0)
   const prevX = useMotionValue(-1000)
   const isLastCard = currentIndex === cards.length - 1
@@ -36,8 +37,13 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
   const canSwipeLeft = !isLastCard
   const canSwipeRight = !isFirstCard
 
-  // Scroll active title card into view when index changes
+  // Scroll active title card into view when index changes (skip on initial mount)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+      return
+    }
+
     if (titleCardRefs.current[currentIndex]) {
       titleCardRefs.current[currentIndex]?.scrollIntoView({
         behavior: 'smooth',
@@ -260,7 +266,7 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
         {titleCards.map(card => {
           return <span
             key={card.cardId || card.index}
-            ref={(el) => (titleCardRefs.current[card.index] = el)}
+            ref={(el) => { titleCardRefs.current[card.index] = el }}
             className={`title-card${card.index === currentIndex ? ' active' : ''}`}
           >
             {`${card.index + 1}. ${card.title}`}
