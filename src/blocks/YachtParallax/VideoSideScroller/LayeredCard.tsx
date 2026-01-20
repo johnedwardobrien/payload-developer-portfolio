@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React from 'react'
 import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 
 import type { StandardCard } from '@/payload-types'
@@ -41,8 +41,8 @@ export const LayeredCard: React.FC<Props> = ({
 	)
 
 	useMotionValueEvent(clipPathPercent, 'change', ev => {
-		if (ev < 50) {
-			// setCurrentIndex(index)
+		if (ev < 68) {
+			setCurrentIndex(index)
 		}
 	})
 
