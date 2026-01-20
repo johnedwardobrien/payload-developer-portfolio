@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { motion, PanInfo, useMotionValue, animate, AnimatePresence } from 'framer-motion'
+import { motion, PanInfo, useMotionValue, animate, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 
 import type { StandardCard } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { LayeredCard } from './LayeredCard'
 
 type Props = {
   cards: StandardCard[]
@@ -12,11 +13,23 @@ type Props = {
   title?: string | null
   isMobile?: boolean
   isDesktop?: boolean
+  containerRef?:
+React.RefObject<HTMLDivElement>
 }
 
-export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, isMobile = true, isDesktop = false }) => {
+export const VideoLayeredCards: React.FC<Props> = ({
+  cards,
+  buttonText,
+  title,
+  isMobile = true,
+  isDesktop = false,
+  containerRef
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPreviousSlidingIn, setIsPreviousSlidingIn] = useState(false)
+  const containerWaypoints =
+    Array.from({ length: cards.length }, (_, i) => i / cards.length)
+
   const [titleCards, setTitleCards] = useState(cards.map((card, index) => {
     return {
       cardId: card.id,
@@ -97,6 +110,10 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
     }
   }, [])
 
+  useEffect(() => {
+
+  }, [])
+
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (!cardRef.current) return
     const cardWidth = cardRef.current.offsetWidth
@@ -136,39 +153,57 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
   const currentCard = cards[currentIndex]
   return (
     <div className={`video-layered-cards-wrapper ${isDesktop ? 'desktop-layout' : ''}`}>
-      {/* Desktop: Left Column - Text Content */}
       {isDesktop && (
         <div className="video-layered-cards-left-column">
-          {/* Template Title */}
-          {title && (
-            <div className="video-layered-cards-template-title">
-              <h2 className="text-heading-2 font-semibold mb-2">{title}</h2>
-            </div>
-          )}
+          <div
+            className='content'
+          >
 
-          {/* Card Title and Description */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              className="video-layered-cards-content"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+            {title && (
+              <div className="video-layered-cards-template-title">
+                <h2 className="text-heading-2 font-semibold mb-2">{title}</h2>
+              </div>
+            )}
+            <div
+              className='inner'
             >
-              {currentCard?.title && <h3 className="video-layered-cards-title">{currentCard.title}</h3>}
-              {currentCard?.description && (
-                <p className="video-layered-cards-description">{currentCard.description}</p>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  className="video-layered-cards-content"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  {currentCard?.title && <h3 className="video-layered-cards-title">{currentCard.title}</h3>}
+                  {currentCard?.description && (
+                    <p className="video-layered-cards-description">{currentCard.description}</p>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+              {buttonText && (
+                <button>{buttonText}</button>
               )}
-            </motion.div>
-          </AnimatePresence>
-          {buttonText && (
-            <button>{buttonText}</button>
-          )}
+            </div>
+          </div>
+          <div
+            className='title-card-cont'
+            ref={titleCardContRef}
+          >
+            {titleCards.map(card => {
+              return <span
+                key={card.cardId || card.index}
+                ref={(el) => { titleCardRefs.current[card.index] = el }}
+                className={`title-card${card.index === currentIndex ? ' active' : ''}`}
+              >
+                {`${card.index + 1}. ${card.title}`}
+              </span>
+            })}
+          </div>
         </div>
       )}
 
-      {/* Mobile/Tablet: Card Title and Description - between template title and button */}
       {!isDesktop && (
         <>
           <AnimatePresence mode="wait">
@@ -193,86 +228,110 @@ export const VideoLayeredCards: React.FC<Props> = ({ cards, buttonText, title, i
       )}
 
       <div className={`video-layered-cards-images-container ${isDesktop ? 'desktop-column' : ''}`}>
-        <div className="video-layered-cards-edge-left" />
-        <div className="video-layered-cards-edge-right" />
-        {cards.map((card, index) => {
-          const isActive = index === currentIndex
-          const isNextCard = index === currentIndex + 1
-          const isPreviousCard = index === currentIndex - 1
-          const zIndex =
-            isPreviousCard && isPreviousSlidingIn
-              ? cards.length + 2
-              : isActive
-                ? cards.length + 1
-                : isNextCard || isPreviousCard
-                  ? cards.length
-                  : 0
+        {
+          !isDesktop &&
+            <>
+              <div className="video-layered-cards-edge-left" />
+              <div className="video-layered-cards-edge-right" />
+              {cards.map((card, index) => {
+                const isActive = index === currentIndex
+                const isNextCard = index === currentIndex + 1
+                const isPreviousCard = index === currentIndex - 1
+                const zIndex =
+                  isPreviousCard && isPreviousSlidingIn
+                    ? cards.length + 2
+                    : isActive
+                      ? cards.length + 1
+                      : isNextCard || isPreviousCard
+                        ? cards.length
+                        : 0
 
-          return (
-            <motion.div
-              key={card.id || index}
-              ref={isActive ? cardRef : isPreviousCard ? prevCardRef : null}
-              className={`video-layered-card-image-item ${isActive ? 'active' : ''}`}
-              style={{
-                zIndex,
-                opacity: isActive || isNextCard || (isPreviousCard && isPreviousSlidingIn) ? 1 : 0,
-                x: isDesktop ? 0 : isActive ? x : isPreviousCard ? prevX : 0,
-                pointerEvents: isActive && !isDesktop ? 'auto' : 'none',
-                cursor: isActive && !isDesktop && (canSwipeLeft || canSwipeRight) ? 'grab' : 'default',
-              }}
-              drag={isDesktop ? false : isActive && (canSwipeLeft || canSwipeRight) ? 'x' : false}
-              dragConstraints={
-                isActive && (canSwipeLeft || canSwipeRight)
-                  ? {
-                      left: canSwipeLeft ? -1000 : 0,
-                      right: canSwipeRight ? 1000 : 0,
+                return (
+                  <motion.div
+                    key={card.id || index}
+                    ref={isActive ? cardRef : isPreviousCard ? prevCardRef : null}
+                    className={`video-layered-card-image-item ${isActive ? 'active' : ''}`}
+                    style={{
+                      zIndex,
+                      opacity: isActive || isNextCard || (isPreviousCard && isPreviousSlidingIn) ? 1 : 0,
+                      x: isDesktop ? 0 : isActive ? x : isPreviousCard ? prevX : 0,
+                      pointerEvents: isActive && !isDesktop ? 'auto' : 'none',
+                      cursor: isActive && !isDesktop && (canSwipeLeft || canSwipeRight) ? 'grab' : 'default',
+                    }}
+                    drag={isDesktop ? false : isActive && (canSwipeLeft || canSwipeRight) ? 'x' : false}
+                    dragConstraints={
+                      isActive && (canSwipeLeft || canSwipeRight)
+                        ? {
+                            left: canSwipeLeft ? -1000 : 0,
+                            right: canSwipeRight ? 1000 : 0,
+                          }
+                        : undefined
                     }
-                  : undefined
-              }
-              dragElastic={0}
-              dragMomentum={false}
-              onDrag={(_, info) => {
-                if (isActive) {
-                  if (info.offset.x < 0 && canSwipeLeft) {
-                    x.set(info.offset.x)
-                  } else {
-                    x.set(0)
-                  }
-                }
-              }}
-              onDragEnd={isActive ? handleDragEnd : undefined}
-              whileDrag={{ cursor: 'grabbing' }}
-              initial={false}
-            >
-              {card.backgroundMedia && (
-                <Media
-                  htmlElement="div"
-                  className="video-layered-card-image-media"
-                  fill
-                  resource={card.backgroundMedia}
-                  pictureClassName="video-layered-card-image-picture"
-                  imgClassName="video-layered-card-image-img"
-                  videoClassName="video-layered-card-image-video"
+                    dragElastic={0}
+                    dragMomentum={false}
+                    onDrag={(_, info) => {
+                      if (isActive) {
+                        if (info.offset.x < 0 && canSwipeLeft) {
+                          x.set(info.offset.x)
+                        } else {
+                          x.set(0)
+                        }
+                      }
+                    }}
+                    onDragEnd={isActive ? handleDragEnd : undefined}
+                    whileDrag={{ cursor: 'grabbing' }}
+                    initial={false}
+                  >
+                    {card.backgroundMedia && (
+                      <Media
+                        htmlElement="div"
+                        className="video-layered-card-image-media"
+                        fill
+                        resource={card.backgroundMedia}
+                        pictureClassName="video-layered-card-image-picture"
+                        imgClassName="video-layered-card-image-img"
+                        videoClassName="video-layered-card-image-video"
+                      />
+                    )}
+                  </motion.div>
+                )
+              })}
+            </>
+        }
+        {
+          isDesktop && containerRef &&
+            <>
+              {cards.map((card, index) => (
+                <LayeredCard
+                  key={card.id || index}
+                  card={card}
+                  index={index}
+                  containerRef={containerRef}
+                  containerWaypoints={containerWaypoints}
+                  setCurrentIndex={setCurrentIndex}
                 />
-              )}
-            </motion.div>
-          )
-        })}
+              ))}
+            </>
+        }
+
       </div>
-      <div
-        className='title-card-cont'
-        ref={titleCardContRef}
-      >
-        {titleCards.map(card => {
-          return <span
-            key={card.cardId || card.index}
-            ref={(el) => { titleCardRefs.current[card.index] = el }}
-            className={`title-card${card.index === currentIndex ? ' active' : ''}`}
+      {
+        !isDesktop &&
+          <div
+            className='title-card-cont'
+            ref={titleCardContRef}
           >
-            {`${card.index + 1}. ${card.title}`}
-          </span>
-        })}
-      </div>
+            {titleCards.map(card => {
+              return <span
+                key={card.cardId || card.index}
+                ref={(el) => { titleCardRefs.current[card.index] = el }}
+                className={`title-card${card.index === currentIndex ? ' active' : ''}`}
+              >
+                {`${card.index + 1}. ${card.title}`}
+              </span>
+            })}
+          </div>
+      }
     </div>
   )
 }

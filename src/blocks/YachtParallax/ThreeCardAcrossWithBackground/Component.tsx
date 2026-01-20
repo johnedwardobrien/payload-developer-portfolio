@@ -52,7 +52,7 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
 
   useEffect(() => {
     const checkDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024) // lg breakpoint (1024px)
+      setIsDesktop(window.innerWidth >= 1024)
     }
     checkDesktop()
     window.addEventListener('resize', checkDesktop)
@@ -63,15 +63,10 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
     const updateDimensions = () => {
       if (cardRef.current) {
         const cardRect = cardRef.current.getBoundingClientRect()
-        // Slider container is 50% of card height
-        // Standard cards should be 1:1 aspect ratio (width = height)
         const sliderHeight = cardRect.height / 2
         const calculatedWidth = sliderHeight
-        // Apply max-width constraint of 304px
         const stdCardWidth = Math.min(calculatedWidth, 304)
         setStandardCardWidth(stdCardWidth)
-
-        // Update Swiper if it exists
         if (swiperRef.current) {
           swiperRef.current.update()
         }
@@ -94,7 +89,6 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
       ref={cardRef}
       className="three-card-across-with-background relative overflow-hidden rounded-2xl"
     >
-      {/* Background Media - Full Height and Width */}
       {backgroundMedia && typeof backgroundMedia === 'object' && (
         <div className="media absolute inset-0 z-0 w-full h-full rounded-2xl overflow-hidden">
           <Media
@@ -108,7 +102,6 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
         </div>
       )}
 
-      {/* Title and Subtitle - Top of Card */}
       <div className="three-card-header absolute top-0 left-0 right-0 z-20">
         <div className="flex flex-col items-end">
           {title && (
@@ -118,7 +111,6 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
         </div>
       </div>
 
-      {/* Standard Cards - Swiper on Mobile/Tablet, Flex on Desktop */}
       {validCards.length > 0 && (
         <div className="three-card-slider-container absolute left-0 right-0 z-10 overflow-hidden">
           {!isDesktop ? (
@@ -134,7 +126,6 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
               slidesOffsetAfter={90}
               breakpoints={{
                 768: {
-                  // Tablet (768px and up)
                   slidesOffsetAfter: 150,
                   slidesOffsetBefore: 90,
                 },
@@ -191,7 +182,6 @@ const StandardCardContent: React.FC<{
 }> = ({ cardTitle, buttonText, cardMedia }) => {
   return (
     <div className="three-card-standard-card">
-      {/* Background Image */}
       {cardMedia && typeof cardMedia === 'object' && (
         <div className="standard-card-background">
           <Media
@@ -205,7 +195,6 @@ const StandardCardContent: React.FC<{
         </div>
       )}
 
-      {/* Content Overlay - Bottom Aligned */}
       <div className="standard-card-content">
         <div className="standard-card-content-inner">
           {cardTitle && <h3 className="standard-card-title">{cardTitle}</h3>}

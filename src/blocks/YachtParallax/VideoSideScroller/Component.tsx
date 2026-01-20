@@ -25,7 +25,8 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   const { title, subtitle, videoLayout, videos, buttonText1, index, windowId } = props
   const [isMobile, setIsMobile] = useState(true)
   const [isDesktop, setIsDesktop] = useState(false)
-  const containerRef2 = useRef(null)
+  const [layeredCardHeight, setLayeredCardHeight] = useState(0);
+  const containerRef2 = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: containerRef2,
@@ -42,6 +43,10 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
     checkViewport()
     window.addEventListener('resize', checkViewport)
     return () => window.removeEventListener('resize', checkViewport)
+  }, [])
+
+  useEffect(() => {
+    if (videos?.length) setLayeredCardHeight(100 * videos?.length)
   }, [])
 
   if (!videos || !Array.isArray(videos) || videos.length === 0) {
@@ -61,8 +66,16 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   // Layered Cards Layout
   if (isLayeredCardsLayout) {
     return (
-      <div className={`VideoSideScroller${` ${videoLayout}`}${index ? ` item-${index}` : ''}${windowId}`} ref={containerRef2}>
-        <div className="outer-cont">
+      <div
+        className={`VideoSideScroller${` ${videoLayout}`}${index ? ` item-${index}` : ''}${windowId}`}
+        ref={containerRef2}
+        style={{
+          height: isDesktop ? `${layeredCardHeight}vh` : 'auto'
+        }}
+      >
+        <div
+          className="outer-cont"
+        >
           {!isDesktop && (
             <div className={`top-title-cont`}>
               {title && <h2 className="title">{title}</h2>}
@@ -74,6 +87,8 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
             title={title}
             isMobile={isMobile}
             isDesktop={isDesktop}
+            //@ts-expect-error
+            containerRef={containerRef2}
           />
         </div>
       </div>

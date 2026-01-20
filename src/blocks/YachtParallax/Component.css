@@ -36,6 +36,16 @@
 	position: relative;
 }
 
+.yacht-parallax-cont .ClickSlider {
+	z-index: 493;
+	position: relative;
+}
+
+.yacht-parallax-cont .CTAButtons {
+	z-index: 492;
+	position: relative;
+}
+
 .yacht-parallax-cont .media {
 	position: relative;
 	height: 100%;
@@ -893,6 +903,14 @@
 		padding: 48px 32px !important;
 	}
 
+	.yacht-parallax-cont .EventSideScroller .event-header-container .inner {
+		order: 1;
+		grid-template-columns: 1fr;
+		position: sticky;
+		top: 0;
+		padding: 3rem 0;
+	}
+
 	.yacht-parallax-cont .EventSideScroller .grid-cont {
 		row-gap: 64px;
 	}
@@ -977,5 +995,195 @@
 		border-radius: 8px;
 		height: 36px;
 		text-decoration: none;
+	}
+
+	.yacht-parallax-cont .ThreeCardAcross .three-card-header {
+		padding-top: 16px;
+		padding-inline: 32px;
+		margin-top: 3rem;
+	}
+
+	.yacht-parallax-cont .ThreeCardAcross .three-card-header h2 {
+		font-weight: 400;
+		font-size: 60px;
+		line-height: 64px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.yacht-parallax-cont .ThreeCardAcross .three-card-header p {
+		font-family: var(--yb-font-body);
+		font-weight: 500;
+		font-size: 22px;
+		line-height: 33px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.yacht-parallax-cont .ThreeCardAcross .standard-card-title {
+		font-family: var(--yb-font-header);
+		font-weight: 700;
+		font-size: 24px;
+		line-height: 29px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.yacht-parallax-cont .ThreeCardAcross .standard-card-content-inner {
+		gap: 12px;
+	}
+
+	.yacht-parallax-cont .ClickSlider {
+		padding-top: 48px;
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-title {
+		font-family: var(--yb-font-header);
+		font-weight: 400;
+		font-size: 60px;
+		line-height: 64px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-card .content .row-top {
+		display: flex;
+		justify-content: space-between;
+		font-family: var(--yb-font-body);
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 27px;
+		letter-spacing: .64px;
+		text-transform: uppercase;
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-card .subtitle {
+		font-family: var(--yb-font-body);
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-card .date-card {
+		font-family: var(--yb-font-body);
+		display: flex;
+		gap: 5%;
+		align-items: ;
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-card .date-card .inner {
+		display: flex;
+		gap: 5%;
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-card .card-title {
+		font-family: var(--yb-font-header);
+		font-weight: 700;
+		font-size: 24px;
+		line-height: 29px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-card .content .row-bottom button {
+		font-family: var(--yb-font-body);
+		font-size: 16px;
+		line-height: 16px;
+		border-radius: 8px;
+		height: 44px;
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--fontBody);
+		font-style: normal;
+		font-weight: 700;
+		width: fit-content;
+		transition: all .3s ease;
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-card .content .inner {
+		padding: 12px 16px;
+	}
+
+	.yacht-parallax-cont .CTAButtons {
+		margin-top: -60vh;
+	}
+
+	.yacht-parallax-cont .CTAButtons .inner {
+		position: sticky;
+		bottom: 0;
+		background-color: orangered;
+		height: 60vh;
+		width: 100%;
+		padding: 5%;
+	}
+
+	.yacht-parallax-cont .CTAButtons .curtain {
+		display: block;
+		height: 60vh;
+
+	}
+
+	.yacht-parallax-cont .CTAButtons h2 {
+		font-family: var(--yb-font-header);
+		font-weight: 400;
+		font-size: 88px;
+		line-height: 92px;
+		text-decoration: none;
+		letter-spacing: normal;
+		color: white;
+	}
+}
+
+@media (min-width: 1024px) {
+	.yacht-parallax-cont .LayeredCards .layered-card-item {
+		height: calc(100vh - 64px);
+		width: 100%;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-cards-wrapper {
+		/* height: 100svh; */
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-cards-images-container {
+		aspect-ratio: unset;
+		overflow: clip;
+		touch-action: unset;
+		position: sticky;
+		top: 0;
+		height: 100%;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-card-image-item {
+		height: 90svh;
+		overflow: hidden;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-card-image-media {
+		height: 90svh;
+		position: sticky;
+		top: 0;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-4 .video-layered-cards-images-container {
+		margin-top: 0;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-cards-left-column {
+		position: sticky;
+		top: 0;
+		padding: 3rem 1rem 0 3rem;
+		height: 90svh;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .content {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-4 .video-layered-cards-wrapper.desktop-layout {
+		gap: 0;
 	}
 }

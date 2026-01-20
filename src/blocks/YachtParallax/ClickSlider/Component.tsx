@@ -45,7 +45,6 @@ export const ClickSlider: React.FC<Props> = (props) => {
     }
   }, [])
 
-  // Custom cursor for desktop with elastic lag effect - only on slides
   React.useEffect(() => {
     if (!isDesktop || !cursorRef.current) return
 
@@ -61,10 +60,9 @@ export const ClickSlider: React.FC<Props> = (props) => {
 
     const animate = () => {
       if (isHovering) {
-        // Elastic lag effect - cursor follows with easing
         const dx = targetX - currentX
         const dy = targetY - currentY
-        currentX += dx * 0.15 // Adjust speed (0.15 = lag amount)
+        currentX += dx * 0.15
         currentY += dy * 0.15
 
         cursor.style.left = `${currentX}px`
@@ -99,7 +97,6 @@ export const ClickSlider: React.FC<Props> = (props) => {
       cursor.classList.remove('hover')
     }
 
-    // Initialize cursor position
     currentX = window.innerWidth / 2
     currentY = window.innerHeight / 2
     targetX = currentX
@@ -129,10 +126,8 @@ export const ClickSlider: React.FC<Props> = (props) => {
     <div
       className={`ClickSlider click-slider-container ${index ? `item-${index}` : ''}`}
     >
-      {/* Custom Cursor - Desktop Only */}
       {isDesktop && <div ref={cursorRef} className="click-slider-cursor" />}
       <div ref={containerRef} className="click-slider-grid">
-        {/* Title and Button - Top Row */}
         <div className="click-slider-header">
           {title && <h1 className="click-slider-title text-heading-1">{title}</h1>}
           {buttonText && (
@@ -142,7 +137,6 @@ export const ClickSlider: React.FC<Props> = (props) => {
           )}
         </div>
 
-        {/* Standard Cards Slider - Bottom Row */}
         <div className="click-slider-swiper-container">
           <Swiper
             onSwiper={(swiper) => {
@@ -155,7 +149,7 @@ export const ClickSlider: React.FC<Props> = (props) => {
             slidesPerView="auto"
             spaceBetween={16}
             breakpoints={{
-              1024: {
+              768: {
                 slidesPerView: 2,
                 spaceBetween: 16,
                 allowTouchMove: false,
@@ -182,13 +176,11 @@ export const ClickSlider: React.FC<Props> = (props) => {
                     className="click-slider-card"
                     onClick={() => {
                       if (isDesktop && swiperRef.current) {
-                        // Advance to next slide on click
                         swiperRef.current.slideNext()
                       }
                     }}
                     style={{ cursor: isDesktop ? 'none' : 'pointer' }}
                   >
-                    {/* Background Image */}
                     {backgroundMedia && typeof backgroundMedia === 'object' && (
                       <div className="click-slider-card-background">
                         <Media
@@ -202,37 +194,26 @@ export const ClickSlider: React.FC<Props> = (props) => {
                       </div>
                     )}
 
-                    {/* Content Overlay - Full Center */}
-                    <div className="click-slider-card-content">
-                      <div className="click-slider-card-inner">
-                        {/* Row 1: Subtitle and Date */}
+                    <div className="content">
+                      <div className="inner">
                         {(subtitle || date) && (
-                          <div className="click-slider-card-row-top">
+                          <div className="row-top">
                             {subtitle && (
-                              <span className="click-slider-card-subtitle">{subtitle}</span>
-                            )}
-                            {subtitle && date && (
-                              <span className="click-slider-card-separator"> - </span>
+                              <span className="subtitle">{subtitle}</span>
                             )}
                             {date && (
-                              <span className="click-slider-card-date">
-                                {formatEventDate(date)}
-                              </span>
+                              formatEventDate(date)
                             )}
                           </div>
                         )}
-
-                        {/* Row 2: Title */}
                         {cardTitle && (
-                          <div className="click-slider-card-row-middle">
-                            <h2 className="click-slider-card-title text-heading-2">{cardTitle}</h2>
+                          <div className="row-middle">
+                            <h2 className="card-title text-heading-2">{cardTitle}</h2>
                           </div>
                         )}
-
-                        {/* Row 3: Button Text */}
                         {cardButtonText && (
-                          <div className="click-slider-card-row-bottom">
-                            <span className="click-slider-card-button-text">{cardButtonText}</span>
+                          <div className="row-bottom">
+                            <button>{cardButtonText}</button>
                           </div>
                         )}
                       </div>
@@ -242,7 +223,6 @@ export const ClickSlider: React.FC<Props> = (props) => {
               )
             })}
           </Swiper>
-          {/* Custom Marker - Prepared for click sliding functionality */}
           {validCards.length > 1 && (
             <div className="click-slider-marker-container">
               {validCards.map((_, index) => (

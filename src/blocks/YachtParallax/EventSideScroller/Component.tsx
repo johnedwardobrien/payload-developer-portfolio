@@ -93,7 +93,7 @@ export const EventSideScroller: React.FC<Props> = (props) => {
 
         {/* Title and Button - Right Column */}
         <div className="event-header-container">
-          <div className="flex flex-col gap-4">
+          <div className="inner flex flex-col gap-4">
             {title && <h2 className="title text-heading-2 font-semibold">{title}</h2>}
             {buttonText && (
               <button>

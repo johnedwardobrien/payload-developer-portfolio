@@ -2,6 +2,7 @@
 .click-slider-container {
   width: 100%;
   padding: 1.25rem 0;
+  background-color: white;
 }
 
 /* Grid Layout - 1 Column (Mobile and Tablet) */
@@ -104,7 +105,7 @@
 }
 
 /* Content Overlay - Fit Content Height, Bottom Aligned */
-.click-slider-card-content {
+.ClickSlider .content {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -118,7 +119,7 @@
   box-sizing: border-box;
 }
 
-.click-slider-card-inner {
+.ClickSlider .content > .inner {
   width: 100%;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -132,18 +133,18 @@
 }
 
 /* Row 1: Subtitle and Date */
-.click-slider-card-row-top {
+.ClickSlider .row-top {
   display: flex;
   align-items: center;
   font-size: 0.875rem;
   line-height: 1.4;
 }
 
-.click-slider-card-subtitle {
+.ClickSlider .subtitle {
   font-weight: 400;
 }
 
-.click-slider-card-separator {
+.ClickSlider .separator {
   font-weight: 700;
   margin: 0 4px;
 }
@@ -153,25 +154,25 @@
 }
 
 /* Row 2: Title */
-.click-slider-card-row-middle {
+.ClickSlider .row-middle {
   display: flex;
   align-items: center;
 }
 
-.click-slider-card-title {
+.ClickSlider .card-title {
   font-size: 24px;
   font-weight: 600;
   line-height: 1.4;
 }
 
 /* Row 3: Button Text */
-.click-slider-card-row-bottom {
+.ClickSlider .row-bottom {
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.click-slider-card-button-text {
+.ClickSlider .button-text {
   font-size: 0.875rem;
   line-height: 1.4;
   text-decoration: underline;

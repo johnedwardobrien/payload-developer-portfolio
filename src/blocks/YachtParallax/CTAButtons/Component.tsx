@@ -45,53 +45,57 @@ export const CTAButtons: React.FC<Props> = ({ title, iconButtons, index, id }) =
 
   return (
     <div
-      className={`CTAButtons cta-buttons container mb-[12%] ${index ? `item-${index}` : ''}`}
+      className={`CTAButtons cta-buttons ${index ? `item-${index}` : ''}`}
     >
-      {title && (
-        <h2
+      <div className='curtain'></div>
+      <div
+        className='inner'
+      >
+        {title && (
+          <h2
+            className={cn(
+              // Mobile: 48px, center aligned
+              'text-[48px] text-left',
+              // Tablet: 48px, left aligned
+              'md:text-[48px]',
+              // Desktop: 88px, center aligned
+              'lg:text-[88px] lg:text-center',
+            )}
+          >
+            {title}
+          </h2>
+        )}
+        <div
           className={cn(
-            // Mobile: 48px, center aligned
-            'text-[48px] text-left',
-            // Tablet: 48px, left aligned
-            'md:text-[48px]',
-            // Desktop: 88px, center aligned
-            'lg:text-[88px] lg:text-center',
+            'flex flex-col gap-4 mt-6 md:mt-8',
+            'md:grid md:grid-cols-3 md:gap-6 md:mt-16 md:max-w-[1088px] md:mx-auto',
           )}
         >
-          {title}
-        </h2>
-      )}
-      <div
-        className={cn(
-          'flex flex-col gap-4 mt-6 md:mt-8',
-          // Desktop: grid with 3 columns, gap 24px, margin-top 64px, max-width 1088px, centered
-          'lg:grid lg:grid-cols-3 lg:gap-6 lg:mt-16 lg:max-w-[1088px] lg:mx-auto',
-        )}
-      >
-        {iconButtons.map((iconButton, index) => {
-          if (typeof iconButton === 'object' && iconButton.blockType === 'iconButton') {
-            const { icon, title: iconTitle } = iconButton
-            const IconComponent =
-              icon && icon in iconMap ? iconMap[icon as keyof typeof iconMap] : null
+          {iconButtons.map((iconButton, index) => {
+            if (typeof iconButton === 'object' && iconButton.blockType === 'iconButton') {
+              const { icon, title: iconTitle } = iconButton
+              const IconComponent =
+                icon && icon in iconMap ? iconMap[icon as keyof typeof iconMap] : null
 
-            return (
-              <div
-                key={iconButton.id || index}
-                className={cn(
-                  'cta-icon-card flex items-center gap-4 w-full',
-                  // Mobile: padding 21px 20px, font-size 18px, height 48px
-                  'py-[21px] px-5 text-[18px] h-12',
-                  // Card styling with background and border
-                  'bg-card border border-border rounded',
-                )}
-              >
-                {iconTitle && <span className="text-foreground font-medium">{iconTitle}</span>}
-                {IconComponent && <IconComponent className="w-6 h-6 text-foreground shrink-0" />}
-              </div>
-            )
-          }
-          return null
-        })}
+              return (
+                <div
+                  key={iconButton.id || index}
+                  className={cn(
+                    'cta-icon-card flex items-center gap-4 w-full',
+                    // Mobile: padding 21px 20px, font-size 18px, height 48px
+                    'py-[21px] px-5 text-[18px] h-12',
+                    // Card styling with background and border
+                    'bg-card border border-border rounded',
+                  )}
+                >
+                  {iconTitle && <span className="text-foreground font-medium">{iconTitle}</span>}
+                  {IconComponent && <IconComponent className="w-6 h-6 text-foreground shrink-0" />}
+                </div>
+              )
+            }
+            return null
+          })}
+        </div>
       </div>
     </div>
   )
