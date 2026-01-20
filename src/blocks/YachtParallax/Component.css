@@ -354,12 +354,14 @@
 	border-radius: 32px;
 	margin-inline: auto;
 	min-width: 100%;
+	background-color: #b0ede6;
 }
 
 .yacht-parallax-cont .VideoSideScroller.item-2 .top-title-cont {
 	position: sticky;
 	top: 0;
 	z-index: 1;
+	height: fit-content;
 	padding-block: 48px;
 	display: flex;
 	flex-direction: column;
@@ -814,6 +816,12 @@
 		height: 23vh;
 	}
 
+	.yacht-parallax-cont .VideoSideScroller.item-2 .cards-cont .card.placeholder-card {
+		height: 25vh;
+		width: 100%;
+		aspect-ratio: unset;
+	}
+
 	.yacht-parallax-cont .VideoSideScroller.item-2 .cards-cont .card .title {
 		font-family: var(--yb-font-header);
 		font-weight: 700;
@@ -1149,11 +1157,6 @@
 }
 
 @media (min-width: 1024px) {
-	.yacht-parallax-cont .LayeredCards .layered-card-item {
-		height: calc(100vh - 64px);
-		width: 100%;
-	}
-
 	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont {
 		width: 59vw;
 		margin-top: 3vh;
@@ -1178,6 +1181,27 @@
 		/* margin-inline: unset; */
 		display: grid;
 		grid-template-columns: 1fr 1.16fr;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-2 .top-title-cont {
+		padding: 50% 0;
+		padding-inline-start: 20%;
+		justify-content: start;
+		max-width: 545px;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-2 .top-title-cont .title {
+		text-align: left;
+		font-family: var(--yb-font-header);
+		font-weight: 400;
+		font-size: 72px;
+		line-height: 87px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-2 .top-title-cont button {
+		margin-right: auto;
 	}
 
 	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-cards-images-container {
@@ -1220,5 +1244,23 @@
 
 	.yacht-parallax-cont .VideoSideScroller.item-4 .video-layered-cards-wrapper.desktop-layout {
 		gap: 0;
+	}
+
+	.yacht-parallax-cont .LayeredCards .top-title-cont .title {
+		font-family: var(--yb-font-header);
+		font-weight: 400;
+		font-size: 72px;
+		line-height: 87px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.yacht-parallax-cont .LayeredCards .layered-card-item {
+		height: calc(100vh - 64px);
+		width: 100%;
+	}
+
+	.yacht-parallax-cont .LayeredCards .layered-cards-wrapper {
+		margin-top: 0;
 	}
 }

@@ -126,11 +126,16 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
             <div
               className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
             >
+              {
+                isDesktop &&
+                  <div className='card placeholder-card'></div>
+              }
               {videos.map((videoCard, index) => {
                 if (videoCard.blockType === 'standardCard') {
                   return <GrowShrinkCard
                     key={videoCard.id}
                     videoCard={videoCard}
+                    isDesktop={isDesktop}
                   />
                 }
                 return null

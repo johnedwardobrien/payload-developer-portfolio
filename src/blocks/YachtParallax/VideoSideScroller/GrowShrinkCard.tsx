@@ -6,17 +6,25 @@ import { StandardCard } from '@/payload-types';
 import { VideoCard } from '@/components/VideoCard';
 
 export const GrowShrinkCard = ({
-	videoCard
+	videoCard,
+	isDesktop
 }: {
 	videoCard: StandardCard
+	isDesktop: boolean
 }) => {
 	const cardRef = useRef<HTMLDivElement>(null);
 
 	const { scrollYProgress } = useScroll({
 		target: cardRef,
-		offset: ["end end", "start start"]
+		offset: ["start end", "end start"]
 	});
-	const scale = useTransform(scrollYProgress, [0, .2, .3, 1], [.7, .75, 1, 1]);
+	let scale;
+
+	if (isDesktop) {
+		scale = useTransform(scrollYProgress, [0, 0.5, 1], [.7, 1, .7]);
+	} else {
+		scale = useTransform(scrollYProgress, [0, .3, 1], [.7, .75, 1]);
+	}
 
 	return <motion.div
 		ref={cardRef}
