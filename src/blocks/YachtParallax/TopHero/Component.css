@@ -1,0 +1,175 @@
+.TopHero .featured-media-cont {
+	display: none;
+	max-width: 100%;
+	width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .TopHero .featured-media-cont .featured-media-bg {
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+    }
+
+    .TopHero .featured-media-cont .featured-media-bg .bg-mask {
+        background: linear-gradient(180deg,transparent,rgba(0,0,0,.8) 60%);
+    }
+
+    .TopHero .featured-media-cont {
+        display: block;
+        position: relative;
+        max-width: 370px;
+        margin: 0 1rem 1rem auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    .TopHero .featured-media-cont .content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .TopHero .featured-media-cont .content > .inner {
+        color: #fff;
+        box-sizing: border-box;
+        border-radius: 1rem;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        width: 100%;
+        padding: 16px;
+        display: grid;
+    }
+
+    .TopHero .featured-media-cont .row-top {
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+
+    .TopHero .featured-media-cont .subtitle {
+      font-weight: 400;
+    }
+
+    .TopHero .featured-media-cont .separator {
+      font-weight: 700;
+      margin: 0 4px;
+    }
+
+    .TopHero .featured-media-cont .row-middle {
+      display: flex;
+      align-items: center;
+    }
+
+    .TopHero .featured-media-cont .card-title {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .TopHero .featured-media-cont .row-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .TopHero .featured-media-cont .row-bottom button {
+        background: white;
+        color: black;
+        box-shadow: 0 0 0 1px white inset;
+        font-size: 16px;
+        line-height: 16px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        height: 44px;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--yb-font-body);
+        font-style: normal;
+        font-weight: 700;
+        width: fit-content;
+        transition: all .3s ease;
+        margin-top: 24px;
+    }
+
+    .TopHero .featured-media-cont .button-text {
+      font-size: 0.875rem;
+      line-height: 1.4;
+      text-decoration: underline;
+    }
+
+    .TopHero .content .row-top {
+		display: flex;
+		justify-content: space-between;
+		font-family: var(--yb-font-body);
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 27px;
+		letter-spacing: .64px;
+		text-transform: uppercase;
+	}
+
+	.TopHero .subtitle {
+		font-family: var(--yb-font-body);
+	}
+
+	.TopHero .date-card {
+		font-family: var(--yb-font-body);
+		display: flex;
+		gap: 5%;
+		align-items: center;
+	}
+
+	.TopHero .date-card .inner {
+		display: flex;
+		gap: 5%;
+	}
+
+	.TopHero .card-title {
+		font-family: var(--yb-font-header);
+		font-weight: 700;
+		font-size: 24px;
+		line-height: 29px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.TopHero .content .row-bottom button {
+		font-family: var(--yb-font-body);
+		font-size: 16px;
+		line-height: 16px;
+		border-radius: 8px;
+		height: 44px;
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--fontBody);
+		font-style: normal;
+		font-weight: 700;
+		width: fit-content;
+		transition: all .3s ease;
+	}
+
+	.TopHero .content .inner {
+		padding: 12px 16px;
+	}
+}

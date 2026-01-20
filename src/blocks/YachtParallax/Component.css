@@ -104,7 +104,7 @@
 	object-position: center;
 }
 
-.yacht-parallax-cont .TopHero .content {
+.yacht-parallax-cont .TopHero .inner {
 	position: relative;
 	margin-inline: auto;
 	min-width: 100%;
@@ -161,6 +161,7 @@
 
 .yacht-parallax-cont .IconBanner .title-cont {
 	text-align: center;
+	margin: auto;
 }
 
 .yacht-parallax-cont .IconBanner .title-cont .title {
@@ -295,6 +296,10 @@
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 	margin-block: 32px;
+}
+
+.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards .first-card {
+	display: none;
 }
 
 .yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards {
@@ -686,6 +691,14 @@
 }
 
 @media (min-width: 768px) {
+	.yacht-parallax-cont .TopHero .inner {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 32px;
+		align-items: end;
+		padding-inline: 40px;
+		padding-bottom: 40px;
+	}
 	.yacht-parallax-cont .TopHero .content-left .title {
 		font-weight: 400;
 		font-size: 88px;
@@ -771,7 +784,7 @@
 		overflow-y: auto;
 		-ms-overflow-style: none;
 		scrollbar-width: none;
-		margin-top: -12vh;
+		margin-top: -16vh;
 	}
 
 	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards {
@@ -1066,7 +1079,7 @@
 		font-family: var(--yb-font-body);
 		display: flex;
 		gap: 5%;
-		align-items: ;
+		align-items: center;
 	}
 
 	.yacht-parallax-cont .ClickSlider .click-slider-card .date-card .inner {
@@ -1141,8 +1154,30 @@
 		width: 100%;
 	}
 
-	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-cards-wrapper {
-		/* height: 100svh; */
+	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont {
+		width: 59vw;
+		margin-top: 3vh;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards {
+		display: grid;
+		grid-template-columns: repeat(2,1fr);
+		gap: 24px;
+		grid-auto-rows: 1fr;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards .card {
+		grid-row: span 2;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont .cards .first-card {
+		height: 16vh;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-2 .outer-cont {
+		/* margin-inline: unset; */
+		display: grid;
+		grid-template-columns: 1fr 1.16fr;
 	}
 
 	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-cards-images-container {
