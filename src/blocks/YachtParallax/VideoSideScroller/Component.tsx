@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 import type { YachtParallaxItem } from '@/payload-types'
-
+import { MdOutlineSailing } from "react-icons/md";
 import { VideoCard } from '@/components/VideoCard'
 import { VideoLayeredCards } from './VideoLayeredCards'
 import './Component.css'
@@ -116,7 +116,7 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
               className={`top-title-cont`}
               transition={{ duration: .3 }}
               style={{
-                opacity: titleOpacity
+                opacity: isDesktop ? 1 : titleOpacity
               }}
             >
               {title && <h2 className="title">{title}</h2>}
@@ -158,6 +158,9 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
             {title && <h2 className="title">{title}</h2>}
             {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
             {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
+            <MdOutlineSailing
+              className='sailboat'
+            />
           </div>
           <div
             className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}

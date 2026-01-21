@@ -210,10 +210,6 @@
 
 /* Custom Cursor - Desktop Only */
 @media (min-width: 1024px) {
-  .click-slider-container {
-    cursor: none;
-  }
-
   .click-slider-cursor {
     position: fixed;
     width: 20px;

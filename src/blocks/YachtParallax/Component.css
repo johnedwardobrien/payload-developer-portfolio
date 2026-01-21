@@ -1,3 +1,5 @@
+/* Defaults */
+
 .yacht-parallax-cont {
 	overflow: clip;
 }
@@ -60,6 +62,60 @@
 	bottom: 0;
 	background: linear-gradient(to bottom, rgb(0,0,0,0) 0%, rgb(0,0,0,.3) 100%);
 }
+
+.yacht-parallax-cont header {
+	display: flex;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	z-index: 999999;
+	height: 55px;
+	width: 100%;
+	background-color: rgb(224,224,225);
+}
+
+.yacht-parallax-cont header .inner {
+	z-index: 999999;
+	background-color: #e0e0e1;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+	max-width: 1000px;
+	height: 55px;
+	padding: 16px 22px;
+	display: flex;
+	position: fixed;
+	top: 0;
+}
+
+.yacht-parallax-cont header :is(h2, a) {
+	position: relative;
+	color: black;
+	text-align: start;
+	font-family: var(--yb-font-header);
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 20px;
+	text-decoration: none;
+	letter-spacing: normal;
+}
+
+.yacht-parallax-cont header a {
+	display: flex;
+	gap: .2rem;
+	align-items: center;
+	font-size: 16px;
+}
+
+.yacht-parallax-cont header a > svg {
+	font-size: 12px;
+}
+
+.yacht-parallax-cont header .inner > svg {
+	font-size: 24px;
+}
+
+/* Widgets */
 
 .yacht-parallax-cont .TopHero {
 	position: relative;
@@ -131,7 +187,7 @@
 }
 
 .yacht-parallax-cont .TopHero .content-left .title {
-	font-family: var(--yb-font-header);
+	font-family: var(--pn-font-header);
 	font-size: 48px;
 	font-weight: 700;
 	line-height: 56px;
@@ -265,7 +321,6 @@
 .yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .top-title-cont {
 	max-width: 344px;
 	text-align: center;
-	overflow-x: hidden;
 	display: flex;
 	flex-direction: column;
 	align-self: start;
@@ -692,7 +747,20 @@
 	border-radius: 16px;
 }
 
+.yacht-parallax-cont .CTAButtons .cta-icon-card:hover,
+.yacht-parallax-cont .CTAButtons .cta-icon-card:hover :is(span, svg) {
+	color: white !important;
+	border-width: 0 !important;
+	background-color: black;
+	box-shadow: 0 0 0 1px black inset;
+	cursor: pointer;
+}
+
 @media (min-width: 768px) {
+	.yacht-parallax-cont header {
+		height: 65px;
+		padding: 16px 22px;
+	}
 	.yacht-parallax-cont .TopHero .inner {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -777,6 +845,21 @@
 		text-decoration: none;
 		letter-spacing: normal;
 	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-1 .sailboat {
+		width: 150px;
+		height: auto;
+		position: absolute;
+		top: 150%;
+		left: 50%;
+		animation: sailboatFloat 2.5s linear infinite;
+		transform: translateZ(0);
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: crisp-edges;
+	}
+
 
 	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont {
 		display: flex;
@@ -929,7 +1012,16 @@
 		grid-template-columns: 1fr;
 		position: sticky;
 		top: 0;
-		padding: 3rem 0;
+		padding: 15% 0;
+	}
+
+	.yacht-parallax-cont .EventSideScroller .event-header-container .inner .sailboat {
+		width: 150px;
+		height: auto;
+		animation: 2.5s linear infinite sailboatFloat;
+		position: absolute;
+		top: 78%;
+		left: 49%;
 	}
 
 	.yacht-parallax-cont .EventSideScroller .grid-cont {
@@ -1088,6 +1180,7 @@
 		display: flex;
 		gap: 5%;
 		align-items: center;
+		padding: 12px 16px;
 	}
 
 	.yacht-parallax-cont .ClickSlider .click-slider-card .date-card .inner {
@@ -1122,7 +1215,7 @@
 		transition: all .3s ease;
 	}
 
-	.yacht-parallax-cont .ClickSlider .click-slider-card .content .inner {
+	.yacht-parallax-cont .ClickSlider .click-slider-card .content > .inner {
 		padding: 12px 16px;
 	}
 
@@ -1184,10 +1277,12 @@
 	}
 
 	.yacht-parallax-cont .VideoSideScroller.item-2 .top-title-cont {
-		padding: 50% 0;
-		padding-inline-start: 20%;
+		padding: 0;
+		top: 20%;
 		justify-content: start;
 		max-width: 545px;
+		padding-inline-start: 20%;
+		padding-block: 10%;
 	}
 
 	.yacht-parallax-cont .VideoSideScroller.item-2 .top-title-cont .title {
@@ -1262,5 +1357,76 @@
 
 	.yacht-parallax-cont .LayeredCards .layered-cards-wrapper {
 		margin-top: 0;
+	}
+
+	.yacht-parallax-cont .EventSideScroller {
+		position: relative;
+		margin-inline: auto;
+		min-width: 100%;
+		z-index: 1;
+		overflow-x: clip;
+		row-gap: 64px;
+		padding: 48px 32px!important;
+		column-gap: 64px;
+		grid-template-columns: repeat(2,1fr);
+	}
+
+	.yacht-parallax-cont .EventSideScroller .event-card {
+		padding: 16px;
+		height: 36vh;
+	}
+
+	.yacht-parallax-cont .EventSideScroller .event-card .content {
+		width: 65.4%;
+	}
+
+	.yacht-parallax-cont .EventSideScroller .event-card-inner {
+		width: 100%;
+	}
+
+	.yacht-parallax-cont .EventSideScroller .event-header-container {
+		padding-inline-start: 8%;
+	}
+
+	.yacht-parallax-cont .EventSideScroller .event-header-container .title {
+		font-family: var(--yb-font-header);
+		font-weight: 400;
+		font-size: 72px;
+		line-height: 87px;
+		text-decoration: none;
+		letter-spacing: normal;
+		max-width: 435px;
+	}
+
+	.yacht-parallax-cont .EventSideScroller .event-card-title {
+		font-family: var(--yb-font-header);
+		font-weight: 700;
+		font-size: 24px;
+		line-height: 29px;
+		text-decoration: none;
+		letter-spacing: normal;
+	}
+
+	.yacht-parallax-cont .EventSideScroller .date-card .day {
+		font-family: var(--yb-font-body);
+		font-size: 44px;
+		line-height: 53px;
+		text-decoration: none;
+		letter-spacing: normal;
+		font-weight: 700;
+	}
+
+	.yacht-parallax-cont .EventSideScroller .date-card .inner {
+		font-family: var(--yb-font-body);
+		font-size: 18px;
+		font-style: normal;
+		line-height: 27px;
+		letter-spacing: .72px;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+
+	.yacht-parallax-cont .ClickSlider .click-slider-header {
+		padding: 0 0 0 15%;
 	}
 }

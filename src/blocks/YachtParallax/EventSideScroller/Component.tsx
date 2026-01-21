@@ -3,7 +3,7 @@
 import React from 'react'
 
 import type { YachtParallaxItem } from '@/payload-types'
-
+import { MdOutlineSailing } from "react-icons/md";
 import { Button } from '@/components/ui/button'
 import { ImageMedia } from '@/components/Media/ImageMedia'
 import { formatEventDate } from '@/utilities/formatEventDate'
@@ -100,6 +100,9 @@ export const EventSideScroller: React.FC<Props> = (props) => {
                 {buttonText}
               </button>
             )}
+            <MdOutlineSailing
+              className='sailboat'
+            />
           </div>
         </div>
       </div>

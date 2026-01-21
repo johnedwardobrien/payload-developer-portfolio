@@ -37,6 +37,21 @@
   }
 }
 
+@keyframes sailboatFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
 /* Desktop: 2 columns, 59vw width, 350svh height */
 @media (min-width: 64rem) {
   .video-side-scroller-grid-inner.grid-layout {
