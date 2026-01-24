@@ -1299,6 +1299,10 @@
 		margin-right: auto;
 	}
 
+	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-cards-template-title {
+		max-width: 95%;
+	}
+
 	.yacht-parallax-cont .VideoSideScroller.item-4 .outer-cont .video-layered-cards-images-container {
 		aspect-ratio: unset;
 		overflow: clip;
