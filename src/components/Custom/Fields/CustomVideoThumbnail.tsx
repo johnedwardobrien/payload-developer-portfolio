@@ -132,12 +132,17 @@ export const CustomVideoThumbnail: RelationshipFieldClientComponent = (props) =>
   useEffect(() => {
     // Listen for form submit events
     const handleSubmit = async (event: Event) => {
-      event.preventDefault()
-      event.stopPropagation()
-      console.log(event)
-      // Only upload thumbnail if we have a generated thumbnail
+      const isImage =
+        //@ts-expect-error
+        file?.value?.type?.includes('image')
+
+      if (isImage) {
+        return
+      }
+
       if (thumbnailBlob) {
-        // Prevent form submission while processing
+        event.preventDefault()
+        event.stopPropagation()
 
         const thumbnailId = await uploadStoredThumbnail()
         console.log('thumbnailId', thumbnailId)
@@ -165,7 +170,7 @@ export const CustomVideoThumbnail: RelationshipFieldClientComponent = (props) =>
         formButton.removeEventListener('click', handleSubmit)
       }
     }
-  }, [thumbnailBlob])
+  }, [thumbnailBlob, file?.value])
 
   // Listen for file remove button clicks
   useEffect(() => {
