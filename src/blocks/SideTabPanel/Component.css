@@ -123,11 +123,11 @@
 	}
 
 	.content-cont.closed {
-		grid-template-columns: 1fr 75% 150px;
+		grid-template-columns: 1fr 75% 15vw;
 	}
 
 	.content-cont.open {
-		grid-template-columns: 1fr 68% 150px;
+		grid-template-columns: 1fr 60% 15vw;
 	}
 }
 
@@ -139,5 +139,13 @@
 
 	.tab-panel-cont {
 		width: 40%;
+	}
+
+	.content-cont.closed {
+		grid-template-columns: 1fr 50% 25vw;
+	}
+
+	.content-cont.open {
+		grid-template-columns: 1fr 40% 25vw;
 	}
 }
