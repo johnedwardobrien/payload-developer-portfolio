@@ -62,51 +62,42 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
         style={panelSpring}
         className={`tab-panel-cont w-[30%] h-[85vh] mr-auto fixed top-1/2 -translate-y-1/2 rounded-r-xl z-40`}
       >
-        <LiquidGlass
-          blur={0.5}
-          contrast={0.5}
-          brightness={0.25}
-          saturation={1}
-          displacementScale={0.1}
-          className="liquid-glass-cont"
-        >
-          <div className={`buttons-cont py-3 pr-8`}>
-            {Object.entries(tabButtonIdx).map((subArr) => {
-              const [key, obj] = subArr
-              return (
-                <div
-                  key={`${key}-btn`}
-                  className={cn(`${activeTabId === key ? 'active ' : ''}panel-btn my-1`)}
+        <div className={`buttons-cont py-3 pr-8`}>
+          {Object.entries(tabButtonIdx).map((subArr) => {
+            const [key, obj] = subArr
+            return (
+              <div
+                key={`${key}-btn`}
+                className={cn(`${activeTabId === key ? 'active ' : ''}panel-btn my-1`)}
+              >
+                <button
+                  onClick={() => {
+                    setActiveTabId(key)
+                    setCaretToggle(false)
+                  }}
+                  className={``}
                 >
-                  <button
-                    onClick={() => {
-                      setActiveTabId(key)
-                      setCaretToggle(false)
-                    }}
-                    className={``}
-                  >
-                    {obj.text}
-                    <FaArrowRight />
-                  </button>
-                </div>
-              )
-            })}
-          </div>
-        </LiquidGlass>
+                  {obj.text}
+                  <FaArrowRight />
+                </button>
+              </div>
+            )
+          })}
+        </div>
         <animated.button
           style={caretSpring}
-          className={`tab-panel-btn absolute p-2 flex right-[-75px] top-0 rounded-full duration-200`}
+          className={`tab-panel-btn absolute p-2 flex right-[-80px] top-0 rounded-full duration-200`}
           onClick={() => {
             setCaretToggle(!caretToggle)
           }}
         >
           <LiquidGlass
             blur={0.5}
-            borderRadius={25}
+            borderRadius={50}
             contrast={0.5}
             brightness={0.25}
             saturation={1}
-            displacementScale={0.1}
+            displacementScale={0.5}
             className="liquid-glass-cont"
           >
             <RxCaretLeft fontSize={'2rem'} />
