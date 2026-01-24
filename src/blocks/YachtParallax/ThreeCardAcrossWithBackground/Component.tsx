@@ -26,9 +26,7 @@ export const ThreeCardAcrossWithBackground: React.FC<Props> = (props) => {
   }
 
   return (
-    <div
-      className={`ThreeCardAcross three-card-outer-container ${index ? `item-${index}` : ''}`}
-    >
+    <div className={`ThreeCardAcross three-card-outer-container ${index ? `item-${index}` : ''}`}>
       {threeCards.map((card, cardIndex) => {
         if (card.blockType !== 'threeCard') return null
 
@@ -92,7 +90,6 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
       {backgroundMedia && typeof backgroundMedia === 'object' && (
         <div className="media absolute inset-0 z-0 w-full h-full rounded-2xl overflow-hidden">
           <Media
-            autoPlay={false}
             resource={backgroundMedia}
             fill
             className="relative w-full h-full"
@@ -186,7 +183,6 @@ const StandardCardContent: React.FC<{
       {cardMedia && typeof cardMedia === 'object' && (
         <div className="standard-card-background">
           <Media
-            autoPlay={false}
             resource={cardMedia}
             fill
             className="relative w-full h-full"

@@ -17,7 +17,6 @@ export const ImageCard: React.FC<Props> = ({ card }) => {
     <div className="relative w-full h-full rounded-2xl overflow-hidden">
       {backgroundMedia && (
         <Media
-          autoPlay={false}
           htmlElement="div"
           className="absolute inset-0 w-full h-full"
           fill
@@ -30,9 +29,7 @@ export const ImageCard: React.FC<Props> = ({ card }) => {
       <div className="content absolute inset-0 flex flex-col justify-end z-10">
         <div className="inner p-6 md:p-8 lg:p-12 flex flex-col gap-4 md:gap-5 lg:gap-6">
           {subtitle && (
-            <p className="subtitle text-base md:text-lg lg:text-xl text-white/90">
-              {subtitle}
-            </p>
+            <p className="subtitle text-base md:text-lg lg:text-xl text-white/90">{subtitle}</p>
           )}
           {title && (
             <h3 className="title text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
@@ -49,4 +46,3 @@ export const ImageCard: React.FC<Props> = ({ card }) => {
     </div>
   )
 }
-

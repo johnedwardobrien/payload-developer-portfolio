@@ -28,7 +28,6 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
         {media && typeof media === 'object' && (
           <div>
             <Media
-                autoPlay={false}
               className="-mx-4 md:-mx-8 2xl:-mx-16"
               imgClassName=""
               priority

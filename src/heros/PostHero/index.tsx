@@ -64,13 +64,7 @@ export const PostHero: React.FC<{
       </div>
       <div className="min-h-[80vh] select-none">
         {heroImage && typeof heroImage !== 'string' && (
-          <Media
-            autoPlay={false}
-            fill
-            priority
-            imgClassName="-z-10 object-cover"
-            resource={heroImage}
-          />
+          <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
         )}
       </div>
     </div>

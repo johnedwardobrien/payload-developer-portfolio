@@ -52,49 +52,38 @@ const StandardCardContent: React.FC<{
 }
 
 export const TopHero: React.FC<Props> = (props) => {
-const {
-  title,
-  subtitle,
-  heroImage,
-  heroFeatured,
-  featuredImageTitle,
-  featuredImageSubtitle,
-  featuredImageButtonText,
-  disableInnerContainer: _disableInnerContainer,
-  index,
-  windowId
-} = props
+  const {
+    title,
+    subtitle,
+    heroImage,
+    heroFeatured,
+    featuredImageTitle,
+    featuredImageSubtitle,
+    featuredImageButtonText,
+    disableInnerContainer: _disableInnerContainer,
+    index,
+    windowId,
+  } = props
   return (
-    <div
-      className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}
-    >
+    <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
       {heroImage && typeof heroImage === 'object' && (
         <div className="media-cont">
-          <Media
-            className="media"
-            htmlElement="div"
-            resource={heroImage}
-          />
+          <Media className="media" htmlElement="div" resource={heroImage} />
         </div>
       )}
-      <div
-        className='inner'
-      >
+      <div className="inner">
         <div className="content">
           <div className="content-left">
             {title && <h1 className="title">{title}</h1>}
             {subtitle && <p className="subtitle">{subtitle}</p>}
           </div>
         </div>
-        <div
-          className='featured-media-cont'
-        >
+        <div className="featured-media-cont">
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
               <Media
                 resource={heroFeatured}
                 fill
-                autoPlay={true}
                 className="relative w-full h-full"
                 imgClassName="object-cover w-full h-full"
                 pictureClassName="absolute inset-0 w-full h-full"
@@ -104,7 +93,7 @@ const {
           )}
           <div className="content">
             <div className="inner">
-              {(featuredImageSubtitle) && (
+              {featuredImageSubtitle && (
                 <div className="row-top">
                   {featuredImageSubtitle && (
                     <span className="subtitle">{featuredImageSubtitle}</span>
@@ -125,7 +114,7 @@ const {
           </div>
         </div>
       </div>
-      <div className='bg-mask'></div>
+      <div className="bg-mask"></div>
     </div>
   )
 }

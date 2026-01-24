@@ -123,18 +123,12 @@ export const ClickSlider: React.FC<Props> = (props) => {
   }
 
   return (
-    <div
-      className={`ClickSlider click-slider-container ${index ? `item-${index}` : ''}`}
-    >
+    <div className={`ClickSlider click-slider-container ${index ? `item-${index}` : ''}`}>
       {isDesktop && <div ref={cursorRef} className="click-slider-cursor" />}
       <div ref={containerRef} className="click-slider-grid">
         <div className="click-slider-header">
           {title && <h1 className="click-slider-title text-heading-1">{title}</h1>}
-          {buttonText && (
-            <button>
-              {buttonText}
-            </button>
-          )}
+          {buttonText && <button>{buttonText}</button>}
         </div>
 
         <div className="click-slider-swiper-container">
@@ -184,7 +178,6 @@ export const ClickSlider: React.FC<Props> = (props) => {
                     {backgroundMedia && typeof backgroundMedia === 'object' && (
                       <div className="click-slider-card-background">
                         <Media
-                          autoPlay={false}
                           resource={backgroundMedia}
                           fill
                           className="relative w-full h-full"
@@ -199,12 +192,8 @@ export const ClickSlider: React.FC<Props> = (props) => {
                       <div className="inner">
                         {(subtitle || date) && (
                           <div className="row-top">
-                            {subtitle && (
-                              <span className="subtitle">{subtitle}</span>
-                            )}
-                            {date && (
-                              formatEventDate(date)
-                            )}
+                            {subtitle && <span className="subtitle">{subtitle}</span>}
+                            {date && formatEventDate(date)}
                           </div>
                         )}
                         {cardTitle && (

@@ -17,16 +17,9 @@ export const VideoCard: React.FC<Props> = ({ card }) => {
   return (
     <div className="video-card">
       {backgroundMedia && (
-        <Media
-          autoPlay={false}
-          htmlElement="div"
-          className='video-cont'
-          resource={backgroundMedia}
-        />
+        <Media htmlElement="div" className="video-cont" resource={backgroundMedia} />
       )}
-      {title && (
-        <h3 className="title">{title}</h3>
-      )}
+      {title && <h3 className="title">{title}</h3>}
     </div>
   )
 }
