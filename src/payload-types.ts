@@ -805,7 +805,7 @@ export interface SideTabPanel {
             label: string;
           };
         };
-        content?: (AnimationBlock | ContentBlock | MediaBlock)[] | null;
+        content?: (AnimationBlock | ContentBlock | MediaBlock | FormBlock)[] | null;
         id?: string | null;
       }[]
     | null;
@@ -1426,6 +1426,7 @@ export interface SideTabPanelSelect<T extends boolean = true> {
               animationBlock?: T | AnimationBlockSelect<T>;
               content?: T | ContentBlockSelect<T>;
               mediaBlock?: T | MediaBlockSelect<T>;
+              formBlock?: T | FormBlockSelect<T>;
             };
         id?: T;
       };

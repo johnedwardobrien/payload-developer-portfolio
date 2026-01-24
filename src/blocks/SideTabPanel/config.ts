@@ -4,6 +4,7 @@ import { link } from '@/fields/link'
 import { AnimationBlock } from '@/blocks/AnimationBlock/config'
 import { Content } from '@/blocks/Content/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { FormBlock } from '@/blocks/Form/config'
 
 const tabButtons: Field[] = [
   {
@@ -34,7 +35,7 @@ const tabButtons: Field[] = [
     name: 'content',
     type: 'blocks',
     label: 'Tab Content',
-    blocks: [AnimationBlock, Content, MediaBlock],
+    blocks: [AnimationBlock, Content, MediaBlock, FormBlock],
   },
 ]
 
