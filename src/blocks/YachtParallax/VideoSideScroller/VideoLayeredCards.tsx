@@ -284,6 +284,7 @@ export const VideoLayeredCards: React.FC<Props> = ({
                   >
                     {card.backgroundMedia && (
                       <Media
+                        autoPlay={false}
                         htmlElement="div"
                         className="video-layered-card-image-media"
                         fill

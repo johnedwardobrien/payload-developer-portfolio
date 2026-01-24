@@ -18,6 +18,7 @@ export const VideoCard: React.FC<Props> = ({ card }) => {
     <div className="video-card">
       {backgroundMedia && (
         <Media
+          autoPlay={false}
           htmlElement="div"
           className='video-cont'
           resource={backgroundMedia}

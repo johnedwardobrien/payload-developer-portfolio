@@ -17,6 +17,7 @@ export const ImageCard: React.FC<Props> = ({ card }) => {
     <div className="relative w-full h-full rounded-2xl overflow-hidden">
       {backgroundMedia && (
         <Media
+          autoPlay={false}
           htmlElement="div"
           className="absolute inset-0 w-full h-full"
           fill

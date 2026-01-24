@@ -94,6 +94,7 @@ const {
               <Media
                 resource={heroFeatured}
                 fill
+                autoPlay={true}
                 className="relative w-full h-full"
                 imgClassName="object-cover w-full h-full"
                 pictureClassName="absolute inset-0 w-full h-full"

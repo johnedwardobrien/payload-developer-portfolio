@@ -184,6 +184,7 @@ export const ClickSlider: React.FC<Props> = (props) => {
                     {backgroundMedia && typeof backgroundMedia === 'object' && (
                       <div className="click-slider-card-background">
                         <Media
+                          autoPlay={false}
                           resource={backgroundMedia}
                           fill
                           className="relative w-full h-full"

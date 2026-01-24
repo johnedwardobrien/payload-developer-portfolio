@@ -38,7 +38,13 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       </div>
       <div className="min-h-[80vh] select-none">
         {media && typeof media === 'object' && (
-          <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
+          <Media
+            autoPlay={false}
+            fill
+            imgClassName="-z-10 object-cover"
+            priority
+            resource={media}
+          />
         )}
       </div>
     </div>
