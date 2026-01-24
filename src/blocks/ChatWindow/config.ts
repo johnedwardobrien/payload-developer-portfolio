@@ -12,22 +12,15 @@ export const ChatWindow: Block = {
       label: 'Help Text',
     },
     {
-      name: 'pineconeIndex',
-      type: 'text',
-      label: 'Pinecone Index',
-      required: true,
-    },
-    {
-      name: 'promptContext',
-      type: 'textarea',
-      label: 'Prompt Context',
-      required: true,
-    },
-    {
-      name: 'promptInstructions',
-      type: 'textarea',
-      label: 'Prompt Instructions',
-      required: true,
+      name: 'chatType',
+      type: 'select',
+      label: 'Chat Type',
+      options: [
+        {
+          label: 'Quixote Chat',
+          value: 'quixote-chat',
+        },
+      ],
     },
     {
       name: 'placeholders',

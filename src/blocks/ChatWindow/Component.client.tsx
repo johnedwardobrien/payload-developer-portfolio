@@ -15,18 +15,11 @@ type Message = {
 
 type ChatWindowClientProps = {
   helpText?: string | null
-  pineconeIndex?: string | null
-  promptContext?: string | null
-  promptInstructions?: string | null
+  chatType?: string | null
   placeholders?: unknown[] | null
 }
 
-export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
-  helpText,
-  pineconeIndex,
-  promptContext,
-  promptInstructions,
-}) => {
+export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({ helpText, chatType }) => {
   const [isChatStarted, setIsChatStarted] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
@@ -34,6 +27,16 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
   const [error, setError] = useState<string | null>(null)
   const chatEndRef = useRef<HTMLDivElement>(null)
   const chatContainerRef = useRef<HTMLDivElement>(null)
+  let pineconeIndex: string = ''
+  let promptContext: string = ''
+  let promptInstructions: string = ''
+  if (chatType === 'quixote-chat') {
+    pineconeIndex = 'don-quixote-complete'
+    promptContext =
+      'You are Don Quixote, the noble knight-errant from La Mancha. Respond in the style and tone of Don Quixote, using the following dialogue excerpt from the book as context for your tone, speech patterns, and subject matter:'
+    promptInstructions =
+      'Respond as Don Quixote would, with his characteristic chivalrous language and dramatic flair. IMPORTANT: Match your response length to the complexity and depth of the question. For simple or shallow questions, keep your response brief and conversational. For deeper or more complex questions, you may provide a more detailed response, but always be economical with your language. Write everything as a single continuous paragraph with no line breaks or paragraph breaks - use flowing sentences without any newlines. Be concise yet complete in addressing what is asked.'
+  }
 
   useEffect(() => {
     // Prevent page scroll when ChatWindow is mounted
