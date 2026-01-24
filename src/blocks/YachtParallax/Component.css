@@ -1372,8 +1372,9 @@
 	}
 
 	.yacht-parallax-cont .EventSideScroller .event-card {
-		padding: 16px;
 		height: 36vh;
+		padding: 16px;
+		max-height: 230px;
 	}
 
 	.yacht-parallax-cont .EventSideScroller .event-card .content {
