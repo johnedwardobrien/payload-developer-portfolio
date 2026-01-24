@@ -94,11 +94,11 @@ const config = {
         'deep-umber': '#6B4735',
         espresso: '#3D2817',
         // Payload palette
-        'payload-black': '#00060D',
-        'payload-gunmetal': '#001B32',
-        'payload-lightgrey': '#7E7054',
-        'payload-grey': '#524E3E',
-        'payload-lightbrown': '#AB844B',
+        'pl-black': '#00060D',
+        'pl-gunmetal': '#001B32',
+        'pl-lightgrey': '#7E7054',
+        'pl-grey': '#524E3E',
+        'pl-lightbrown': '#AB844B',
       },
       fontSize: {
         'heading-1': ['40px', { lineHeight: '1.2' }],

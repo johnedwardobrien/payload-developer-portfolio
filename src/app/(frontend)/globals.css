@@ -91,6 +91,13 @@
     --color-rust: #A65D47;
     --color-deep-umber: #6B4735;
     --color-espresso: #3D2817;
+
+    /* Payload palette */
+    --color-pl-black: rgb(0, 6, 13);
+    --color-pl-gunmetal: rgb(0, 27, 50);
+    --color-pl-lightgrey: rgb(126, 112, 84);
+    --color-pl-grey: rgb(82, 78, 62);
+    --color-pl-lightbrown: rgb(171, 132, 75);
   }
 
   [data-theme='dark'] {

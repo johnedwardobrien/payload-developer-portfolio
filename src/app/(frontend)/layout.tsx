@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import { Figtree, Plus_Jakarta_Sans } from 'next/font/google'
+import { Figtree, Plus_Jakarta_Sans, Zalando_Sans, Google_Sans_Code } from 'next/font/google'
 import React, { cache } from 'react'
 
 // import { AdminBar } from '@/components/AdminBar'
@@ -32,6 +32,20 @@ const PlusJakartaSansFont = Plus_Jakarta_Sans({
   variable: '--yb-font-header',
   subsets: ['latin'],
   display: 'swap',
+})
+
+const ZalandoSans = Zalando_Sans({
+  variable: '--zs-font-body',
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['--yb-font-header'],
+})
+
+const GoogleSansCode = Google_Sans_Code({
+  variable: '--gsc-font-header',
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['--yb-font-header'],
 })
 
 const queryPageByPathname = cache(async (pathname: string) => {
@@ -106,6 +120,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         GeistMono.variable,
         FigtreeFont.variable,
         PlusJakartaSansFont.variable,
+        ZalandoSans.variable,
+        GoogleSansCode.variable,
       )}
       lang="en"
       suppressHydrationWarning

@@ -2,7 +2,10 @@
 import { cn } from '@/utilities/ui'
 import React, { useState, useEffect } from 'react'
 import { RxCaretLeft } from 'react-icons/rx'
-import { useSpring, animated, useChain, useSpringRef, easings } from 'react-spring'
+import { useSpring, animated, easings } from 'react-spring'
+import { LiquidGlass } from '@liquidglass/react'
+import { FaArrowRight } from 'react-icons/fa6'
+import './Component.css'
 
 type TabPanelClientProps = {
   tabButtonIdx: { [key: string]: any }
@@ -17,8 +20,8 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
   defaultTabIdx,
   children,
 }) => {
-  // console.log(tabButtonIdx, tabContentIdx)
-  const [desktop, setDesktop] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
   const [activeTabId, setActiveTabId] = useState(defaultTabIdx)
   const [caretToggle, setCaretToggle] = useState(true)
 
@@ -26,64 +29,95 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
     transform: caretToggle ? 'rotate(180deg)' : 'rotate(0deg)',
     config: { duration: 400, easing: (t: number) => t },
   })
+  const panelLeft = (() => {
+    if (isTablet) {
+      return caretToggle ? '0' : '-45%'
+    }
+    if (isDesktop) {
+      return caretToggle ? '0' : '-38%'
+    }
+    return caretToggle ? '0' : '-68%'
+  })()
   const panelSpring = useSpring({
-    left: caretToggle ? '0' : '-28%',
+    left: panelLeft,
     config: { duration: 500, easing: easings.easeInOutQuad },
   })
-  const contentSpring = useSpring({
-    gridTemplateColumns: caretToggle ? '1fr 58% 100px' : '1fr 75% 100px',
-    config: { duration: 500, easing: easings.easeInOutCubic },
-  })
-
   useEffect(() => {
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 980) {
-        setDesktop(true)
-      } else {
-        setDesktop(false)
-      }
-    })
+    const handleResize = () => {
+      const width = window.innerWidth
+      setIsDesktop(width >= 1024)
+      setIsTablet(width >= 768 && width < 1024)
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   return (
     <>
       <animated.div
         style={panelSpring}
-        className={`bg-peach-cream w-[30%] h-[85vh] mr-auto fixed top-1/2 -translate-y-1/2 rounded-r-xl z-40`}
+        className={`tab-panel-cont w-[30%] h-[85vh] mr-auto fixed top-1/2 -translate-y-1/2 rounded-r-xl z-40`}
       >
-        <div className={`flex flex-col items-end py-3 pr-8`}>
-          {Object.entries(tabButtonIdx).map((subArr) => {
-            const [key, obj] = subArr
-            return (
-              <div key={`${key}-btn`} className={cn(`w-fit my-1`)}>
-                <button
-                  onClick={() => {
-                    setActiveTabId(key)
-                  }}
-                  className={`text-xl hover:text-deep-umber transition-colors duration-200`}
+        <LiquidGlass
+          blur={0.5}
+          contrast={0.5}
+          brightness={0.25}
+          saturation={1}
+          displacementScale={0.1}
+          className="liquid-glass-cont"
+        >
+          <div className={`buttons-cont py-3 pr-8`}>
+            {Object.entries(tabButtonIdx).map((subArr) => {
+              const [key, obj] = subArr
+              return (
+                <div
+                  key={`${key}-btn`}
+                  className={cn(`${activeTabId === key ? 'active ' : ''}panel-btn my-1`)}
                 >
-                  {obj.text}
-                </button>
-              </div>
-            )
-          })}
-        </div>
+                  <button
+                    onClick={() => {
+                      setActiveTabId(key)
+                      setCaretToggle(false)
+                    }}
+                    className={``}
+                  >
+                    {obj.text}
+                    <FaArrowRight />
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+        </LiquidGlass>
         <animated.button
           style={caretSpring}
-          className={`absolute bg-peach-cream p-2 flex right-[-75px] top-0 rounded-full hover:bg-warm-sand transition-colors duration-200`}
+          className={`tab-panel-btn absolute p-2 flex right-[-75px] top-0 rounded-full duration-200`}
           onClick={() => {
             setCaretToggle(!caretToggle)
           }}
         >
-          <RxCaretLeft fontSize={'2rem'} />
+          <LiquidGlass
+            blur={0.5}
+            borderRadius={25}
+            contrast={0.5}
+            brightness={0.25}
+            saturation={1}
+            displacementScale={0.1}
+            className="liquid-glass-cont"
+          >
+            <RxCaretLeft fontSize={'2rem'} />
+          </LiquidGlass>
         </animated.button>
       </animated.div>
-      <animated.div
-        style={contentSpring}
-        className={cn(`grid w-full h-auto bg-porcelain text-espresso`)}
-      >
-        <div className={`flex flex-col h-auto w-full bg-porcelain`}></div>
-        <div className={cn(`flex flex-col bg-porcelain`)}>
+      <div className={cn(`content-cont${caretToggle ? ' open' : ' closed'} grid w-full h-auto`)}>
+        <div className={cn(`inner flex flex-col`)}>
+          <div className="title-cont">
+            <h2>{tabButtonIdx[activeTabId].text}</h2>
+          </div>
           {React.Children.map(children, (child, index) => {
             return (
               <div
@@ -97,10 +131,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
             )
           })}
         </div>
-        {/* <div>
-					
-				</div> */}
-      </animated.div>
+      </div>
     </>
   )
 }
