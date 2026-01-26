@@ -52,6 +52,7 @@ export const VideoLayeredCards: React.FC<Props> = ({
   const titleCardContRef = useRef<HTMLDivElement>(null)
   const titleCardRefs = useRef<(HTMLSpanElement | null)[]>([])
   const isInitialMount = useRef(true)
+  const wrapperRef = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const prevX = useMotionValue(-1000)
   const isLastCard = currentIndex === cards.length - 1
@@ -66,7 +67,19 @@ export const VideoLayeredCards: React.FC<Props> = ({
       return
     }
 
-    if (titleCardRefs.current[currentIndex]) {
+    const wrapper = wrapperRef.current
+    const isParentInView = (() => {
+      if (!wrapper) return false
+      const rect = wrapper.getBoundingClientRect()
+      return (
+        rect.bottom > 0 &&
+        rect.right > 0 &&
+        rect.top < window.innerHeight &&
+        rect.left < window.innerWidth
+      )
+    })()
+
+    if (isParentInView && titleCardRefs.current[currentIndex]) {
       titleCardRefs.current[currentIndex]?.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
@@ -158,7 +171,10 @@ export const VideoLayeredCards: React.FC<Props> = ({
   }
   const currentCard = cards[currentIndex]
   return (
-    <div className={`video-layered-cards-wrapper ${isDesktop ? 'desktop-layout' : ''}`}>
+    <div
+      ref={wrapperRef}
+      className={`video-layered-cards-wrapper ${isDesktop ? 'desktop-layout' : ''}`}
+    >
       {isDesktop && (
         <div className="video-layered-cards-left-column">
           <div className="content">

@@ -5,6 +5,7 @@ import {
   HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 
 import { link } from '@/fields/link'
@@ -34,6 +35,21 @@ const columnFields: Field[] = [
     ],
   },
   {
+    name: 'icon',
+    type: 'select',
+    defaultValue: 'none',
+    options: [
+      {
+        label: 'None',
+        value: 'none',
+      },
+      {
+        label: 'Abstract Circle 1',
+        value: 'GiAbstract069',
+      },
+    ],
+  },
+  {
     name: 'richText',
     type: 'richText',
     editor: lexicalEditor({
@@ -43,6 +59,7 @@ const columnFields: Field[] = [
           HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
+          UnorderedListFeature(),
         ]
       },
     }),

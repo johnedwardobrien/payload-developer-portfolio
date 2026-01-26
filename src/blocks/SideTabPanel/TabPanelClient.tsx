@@ -3,6 +3,7 @@ import { cn } from '@/utilities/ui'
 import React, { useState, useEffect } from 'react'
 import { RxCaretLeft } from 'react-icons/rx'
 import { useSpring, animated, easings } from 'react-spring'
+import { motion } from 'framer-motion'
 import { LiquidGlass } from '@liquidglass/react'
 import { FaArrowRight } from 'react-icons/fa6'
 import './Component.css'
@@ -34,7 +35,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
       return caretToggle ? '0' : '-45%'
     }
     if (isDesktop) {
-      return caretToggle ? '0' : '-38%'
+      return caretToggle ? '-16%' : '-38%'
     }
     return caretToggle ? '0' : '-68%'
   })()
@@ -104,21 +105,29 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
           </LiquidGlass>
         </animated.button>
       </animated.div>
-      <div className={cn(`content-cont${caretToggle ? ' open' : ' closed'} grid w-full h-auto`)}>
+      <div
+        className={cn(
+          `tab-panel content-cont${caretToggle ? ' open' : ' closed'} grid w-full h-auto`,
+        )}
+      >
         <div className={cn(`inner flex flex-col`)}>
           <div className="title-cont">
             <h2>{tabButtonIdx[activeTabId].text}</h2>
           </div>
           {React.Children.map(children, (child, index) => {
             return (
-              <div
+              <motion.div
                 key={`${index}-content`}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.25 }}
+                viewport={{ once: false, amount: 0.2 }}
                 className={cn({
                   hidden: tabContentIdToArrIdx[activeTabId] !== index,
                 })}
               >
                 {child}
-              </div>
+              </motion.div>
             )
           })}
         </div>

@@ -320,6 +320,7 @@
 
 .yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .top-title-cont {
 	max-width: 344px;
+	margin: 0 auto;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -682,6 +683,58 @@
 	font-family: var(--yb-font-body);
 }
 
+.yacht-parallax-cont .EventSideScroller .event-card-dates {
+	display: flex;
+	gap: .3rem;
+	align-items: center;
+	justify-content: center;
+}
+
+.yacht-parallax-cont .EventSideScroller .event-card-dates .date-card {
+	display: flex;
+	gap: .3rem;
+	align-items: center;
+	justify-content: center;
+}
+
+.yacht-parallax-cont .EventSideScroller .event-card-dates .day {
+	font-family: var(--yb-font-body);
+	font-size: 32px;
+	line-height: 38px;
+	text-decoration: none;
+	letter-spacing: normal;
+	font-weight: 700;
+}
+
+.yacht-parallax-cont .EventSideScroller .event-card-dates .inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--yb-font-body);
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 19px;
+	text-decoration: none;
+	letter-spacing: normal;
+}
+
+.yacht-parallax-cont .EventSideScroller .event-card-dates .inner .month {
+	font-family: var(--yb-font-body);
+	font-size: 16px;
+	font-style: normal;
+	line-height: 27px;
+	letter-spacing: .64px;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.yacht-parallax-cont .EventSideScroller .event-card-dates .hyphen {
+	width: 16px;
+	height: 3.5px;
+	background: white;
+}
+
 .yacht-parallax-cont .ThreeCardAcross {
 	font-family: var(--yb-font-body);
 }
@@ -754,6 +807,10 @@
 	background-color: black;
 	box-shadow: 0 0 0 1px black inset;
 	cursor: pointer;
+}
+
+.yacht-parallax-cont .sailboat {
+	display: none;
 }
 
 @media (min-width: 768px) {
@@ -847,6 +904,7 @@
 	}
 
 	.yacht-parallax-cont .VideoSideScroller.item-1 .sailboat {
+		display: block;
 		width: 150px;
 		height: auto;
 		position: absolute;
@@ -1012,7 +1070,6 @@
 		grid-template-columns: 1fr;
 		position: sticky;
 		top: 0;
-		padding: 15% 0;
 	}
 
 	.yacht-parallax-cont .EventSideScroller .event-header-container .inner .sailboat {
@@ -1040,65 +1097,6 @@
 		line-height: 29px;
 		text-decoration: none;
 		letter-spacing: normal;
-	}
-
-	.yacht-parallax-cont .EventSideScroller .event-card-dates {
-		display: flex;
-		gap: .3rem;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.yacht-parallax-cont .EventSideScroller .event-card-dates {
-		display: flex;
-		gap: 1rem;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.yacht-parallax-cont .EventSideScroller .event-card-dates .date-card {
-		display: flex;
-		gap: .3rem;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.yacht-parallax-cont .EventSideScroller .event-card-dates .day {
-		font-family: var(--yb-font-body);
-		font-size: 32px;
-		line-height: 38px;
-		text-decoration: none;
-		letter-spacing: normal;
-		font-weight: 700;
-	}
-
-	.yacht-parallax-cont .EventSideScroller .event-card-dates .inner {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		font-family: var(--yb-font-body);
-		font-weight: 500;
-		font-size: 16px;
-		line-height: 19px;
-		text-decoration: none;
-		letter-spacing: normal;
-	}
-
-	.yacht-parallax-cont .EventSideScroller .event-card-dates .inner .month {
-		font-family: var(--yb-font-body);
-		font-size: 16px;
-		font-style: normal;
-		line-height: 27px;
-		letter-spacing: .64px;
-		text-transform: uppercase;
-		font-weight: 700;
-	}
-
-	.yacht-parallax-cont .EventSideScroller .event-card-dates .hyphen {
-		width: 16px;
-		height: 3.5px;
-		background: white;
 	}
 
 	.yacht-parallax-cont .EventSideScroller .event-card-link {
@@ -1390,6 +1388,7 @@
 	}
 
 	.yacht-parallax-cont .EventSideScroller .event-header-container {
+		padding: 15% 0;
 		padding-inline-start: 8%;
 	}
 

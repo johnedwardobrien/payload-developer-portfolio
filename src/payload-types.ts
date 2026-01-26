@@ -494,6 +494,7 @@ export interface ContentBlock {
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+        icon?: ('none' | 'GiAbstract069') | null;
         richText?: {
           root: {
             type: string;
@@ -1347,6 +1348,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
     | T
     | {
         size?: T;
+        icon?: T;
         richText?: T;
         enableLink?: T;
         link?:

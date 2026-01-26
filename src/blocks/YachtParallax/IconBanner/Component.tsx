@@ -53,16 +53,14 @@ export const IconBanner: React.FC<Props> = (props) => {
 
   return (
     <div className={`IconBanner${index ? ` item-${index}` : ''}${windowId}`}>
-      <div
-        className='inner-cont'
-      >
+      <div className="inner-cont">
         {(title || subtitle) && (
           <motion.div
             className="title-cont"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0 }}
-            viewport={{ once: false, amount: .2 }}
+            viewport={{ once: false, amount: 0.2 }}
           >
             {title && <h2 className="title">{title}</h2>}
             {subtitle && <p className="subtitle">{subtitle}</p>}
@@ -73,7 +71,7 @@ export const IconBanner: React.FC<Props> = (props) => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0 }}
-          viewport={{ once: false, amount: .2 }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           {icons.map((iconBlock, index) => {
             if (typeof iconBlock === 'object' && iconBlock.blockType === 'iconButton') {
@@ -82,18 +80,9 @@ export const IconBanner: React.FC<Props> = (props) => {
                 icon && icon in seasonIcons ? seasonIcons[icon as keyof typeof seasonIcons] : null
 
               return (
-                <div
-                  key={iconBlock.id || index}
-                  className="icon"
-                >
-                  {IconComponent && (
-                  <IconComponent className="icon" />
-                  )}
-                  {title && (
-                    <span className="icon-title">
-                      {title}
-                    </span>
-                  )}
+                <div key={iconBlock.id || index} className="icon">
+                  {IconComponent && <IconComponent className="icon" />}
+                  {title && <span className="icon-title">{title}</span>}
                 </div>
               )
             }

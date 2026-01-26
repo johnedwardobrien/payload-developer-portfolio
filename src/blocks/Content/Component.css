@@ -1,0 +1,37 @@
+.tab-panel.content-cont {
+	position: relative;
+}
+
+.tab-panel.content-cont svg.even {
+	position: relative;
+	font-size: 4rem;
+	margin: 0;
+	margin-bottom: 5%;
+	animation: content-icon-rotate-even 8s linear infinite;
+}
+
+@keyframes content-icon-rotate-even {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.tab-panel.content-cont svg.odd {
+	position: relative;
+	font-size: 4rem;
+	margin: 0;
+	margin-bottom: 5%;
+	animation: content-icon-rotate-odd 8s linear infinite;
+}
+
+@keyframes content-icon-rotate-odd {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(-360deg);
+	}
+}
