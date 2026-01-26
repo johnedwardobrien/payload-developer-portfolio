@@ -39,7 +39,7 @@
 @media (min-width: 1024px) {
 	.tab-panel.content-cont svg:is(.even, .odd) {
 		position: absolute;
-		top: -6%;
-		left: -17%;
+		top: -7%;
+		left: -15%;
 	}
 }
