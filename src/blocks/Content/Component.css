@@ -1,4 +1,4 @@
-.tab-panel.content-cont {
+.tab-panel.content-cont .content-col {
 	position: relative;
 }
 
@@ -33,5 +33,13 @@
 	}
 	to {
 		transform: rotate(-360deg);
+	}
+}
+
+@media (min-width: 1024px) {
+	.tab-panel.content-cont svg:is(.even, .odd) {
+		position: absolute;
+		top: -6%;
+		left: -17%;
 	}
 }
