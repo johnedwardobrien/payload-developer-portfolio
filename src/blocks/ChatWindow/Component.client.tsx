@@ -242,12 +242,15 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
       <div className="chat-cont-outer">
         <div ref={chatContainerRef} className="chat-cont-inner" data-lenis-prevent>
           {messages.map((message) => (
-            <div
+            <motion.div
               key={message.id}
               className={cn(
                 'message-cont flex',
                 message.role === 'user' ? 'justify-end' : 'justify-start',
               )}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
             >
               <div
                 className={cn(
@@ -259,7 +262,7 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
               >
                 <p className="message whitespace-pre-wrap text-espresso">{message.text}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
           {isLoading && (
             <Typewriter
