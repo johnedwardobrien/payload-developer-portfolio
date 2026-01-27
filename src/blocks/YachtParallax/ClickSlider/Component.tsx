@@ -50,7 +50,7 @@ export const ClickSlider: React.FC<Props> = (props) => {
 
     const cursor = cursorRef.current
     const swiperContainer = containerRef.current?.querySelector('.click-slider-swiper-container')
-    const slides = swiperContainer?.querySelectorAll('.click-slider-slide')
+    const backgrounds = swiperContainer?.querySelectorAll('.click-slider-card-background')
 
     let currentX = 0
     let currentY = 0
@@ -104,16 +104,16 @@ export const ClickSlider: React.FC<Props> = (props) => {
 
     animate()
     document.addEventListener('mousemove', handleMouseMove)
-    slides?.forEach((slide) => {
-      slide.addEventListener('mouseenter', handleMouseEnter as EventListener)
-      slide.addEventListener('mouseleave', handleMouseLeave)
+    backgrounds?.forEach((bg) => {
+      bg.addEventListener('mouseenter', handleMouseEnter as EventListener)
+      bg.addEventListener('mouseleave', handleMouseLeave)
     })
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
-      slides?.forEach((slide) => {
-        slide.removeEventListener('mouseenter', handleMouseEnter as EventListener)
-        slide.removeEventListener('mouseleave', handleMouseLeave)
+      backgrounds?.forEach((bg) => {
+        bg.removeEventListener('mouseenter', handleMouseEnter as EventListener)
+        bg.removeEventListener('mouseleave', handleMouseLeave)
       })
     }
   }, [isDesktop, validCards.length])
@@ -189,7 +189,12 @@ export const ClickSlider: React.FC<Props> = (props) => {
                     )}
 
                     <div className="content">
-                      <div className="inner">
+                      <div
+                        className="inner"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                        }}
+                      >
                         {(subtitle || date) && (
                           <div className="row-top">
                             {subtitle && <span className="subtitle">{subtitle}</span>}

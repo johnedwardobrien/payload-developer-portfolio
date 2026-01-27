@@ -117,6 +117,7 @@
   justify-content: center;
   padding: 16px;
   box-sizing: border-box;
+  cursor: auto;
 }
 
 .ClickSlider .content > .inner {
@@ -130,6 +131,17 @@
   border-radius: 1rem;
   color: rgb(255, 255, 255);
   box-sizing: border-box;
+  cursor: auto;
+}
+
+.ClickSlider .content .inner * {
+  cursor: auto;
+}
+
+.ClickSlider .content button,
+.ClickSlider .content .inner button,
+.ClickSlider .content .inner .row-bottom button {
+  cursor: pointer;
 }
 
 /* Row 1: Subtitle and Date */

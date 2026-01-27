@@ -1248,6 +1248,14 @@
 }
 
 @media (min-width: 1024px) {
+	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .top-title-cont {
+		padding-bottom: 35%;
+	}
+
+	.yacht-parallax-cont .VideoSideScroller.item-1 .sailboat {
+		top: 65%;
+	}
+
 	.yacht-parallax-cont .VideoSideScroller.item-1 .outer-cont .cards-cont {
 		width: 59vw;
 		margin-top: 3vh;
