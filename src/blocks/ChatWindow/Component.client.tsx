@@ -5,6 +5,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import Typewriter from 'typewriter-effect'
+import { IoMdSend } from 'react-icons/io'
+import { motion } from 'framer-motion'
+import { testMessages } from './test/testMessages'
 
 type Message = {
   id: string
@@ -24,10 +27,11 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
   chatType,
   placeholders,
 }) => {
-  const [isChatStarted, setIsChatStarted] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
+  const testingMessages = false
+  const [isChatStarted, setIsChatStarted] = useState(testingMessages ? true : false)
+  const [messages, setMessages] = useState<Message[]>(testingMessages ? testMessages : [])
   const [inputValue, setInputValue] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [textareaFocused, setTextareaFocused] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const chatEndRef = useRef<HTMLDivElement>(null)
@@ -35,16 +39,10 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
   let pineconeIndex: string = ''
   let promptContext: string = ''
   let promptInstructions: string = ''
+  const chatEndpoint = chatType ? `/api/chat/${chatType}` : '/api/chat/character-dialogue'
   const stringPlaceholderArr = (placeholders?.map((obj: any) => obj?.textInput).filter(Boolean) ?? [
     'Type your message...',
   ]) as string[]
-  if (chatType === 'quixote-chat') {
-    pineconeIndex = 'don-quixote-complete'
-    promptContext =
-      'You are Don Quixote, the noble knight-errant from La Mancha. Respond in the style and tone of Don Quixote, using the following dialogue excerpt from the book as context for your tone, speech patterns, and subject matter:'
-    promptInstructions =
-      'Respond as Don Quixote would, with his characteristic chivalrous language and dramatic flair. IMPORTANT: Match your response length to the complexity and depth of the question. For simple or shallow questions, keep your response brief and conversational. For deeper or more complex questions, you may provide a more detailed response, but always be economical with your language. Write everything as a single continuous paragraph with no line breaks or paragraph breaks - use flowing sentences without any newlines. Be concise yet complete in addressing what is asked.'
-  }
 
   useEffect(() => {
     // Prevent page scroll when ChatWindow is mounted
@@ -86,15 +84,12 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
 
       try {
         // Call character dialogue chat API
-        const response = await fetch('/api/chat/character-dialogue', {
+        const response = await fetch(chatEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            pineconeIndex,
-            promptContext,
-            promptInstructions,
             message: trimmedValue,
           }),
         })
@@ -140,15 +135,12 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
 
       try {
         // Call character dialogue chat API
-        const response = await fetch('/api/chat/character-dialogue', {
+        const response = await fetch(chatEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            pineconeIndex,
-            promptContext,
-            promptInstructions,
             message: trimmedValue,
           }),
         })
@@ -175,23 +167,6 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
         setIsLoading(false)
       }
     }
-  }
-
-  // Validate required fields
-  if (!pineconeIndex || !promptContext || !promptInstructions) {
-    return (
-      <div
-        className="fixed inset-0 w-full flex items-center justify-center"
-        style={{ backgroundColor: '#FFDDC1' }}
-      >
-        <div className="text-center p-8">
-          <p className="text-red-500">
-            Error: Chat window configuration is incomplete. Please configure Pinecone Index, Prompt
-            Context, and Prompt Instructions.
-          </p>
-        </div>
-      </div>
-    )
   }
 
   if (!isChatStarted) {
@@ -259,19 +234,13 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
   }
 
   return (
-    <div
-      className="chat-window fixed inset-0 w-full flex items-center justify-center"
-      style={{ backgroundColor: '#FFDDC1' }}
-    >
+    <div className="chat-window inset-0 flex" style={{ backgroundColor: '#FFDDC1' }}>
       <div className="title-cont">
         <h1>Quixote Chat</h1>
       </div>
       {/* Chat Messages Area */}
-      <div className="chat-cont-outer mx-auto flex flex-col">
-        <div
-          ref={chatContainerRef}
-          className="fmflex-1 overflow-y-auto space-y-4 px-2 pt-4 bg-white rounded-lg"
-        >
+      <div className="chat-cont-outer">
+        <div ref={chatContainerRef} className="chat-cont-inner" data-lenis-prevent>
           {messages.map((message) => (
             <div
               key={message.id}
@@ -293,17 +262,24 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
             </div>
           ))}
           {isLoading && (
-            <div className="flex justify-start px-2">
-              <div className="w-5 h-5 border-2 border-warm-sand border-t-transparent rounded-full animate-spin" />
-            </div>
+            <Typewriter
+              options={{
+                strings: '...',
+                autoStart: true,
+                loop: true,
+                delay: 35,
+                deleteSpeed: 15,
+                cursor: '',
+              }}
+            />
           )}
           <div ref={chatEndRef} />
         </div>
 
         {/* Chat Input at Bottom */}
         <div className="chat-input">
-          <form onSubmit={handleChatSubmit} className="flex gap-2 pt-2">
-            <div className="flex-1 relative">
+          <form onSubmit={handleChatSubmit} className="form">
+            <div className="chat-input-inner flex-1 relative">
               <Textarea
                 value={inputValue}
                 onChange={(e) => {
@@ -319,18 +295,27 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
                   }
                 }}
                 placeholder=""
-                className="h-50 chat-window-textarea border-0"
+                className="chat-window-textarea border-0"
                 maxLength={500}
               />
               {inputValue.length >= 450 && (
-                <span className="absolute top-full left-3 mt-1 text-xs text-muted-foreground">
-                  {inputValue.length} / 500
+                <span className="char-left-cont">
+                  <span className="char-left">{inputValue.length}</span> / 500
                 </span>
               )}
             </div>
-            <Button type="submit" className="bg-muted text-espresso hover:bg-muted/80">
-              Send
-            </Button>
+            <motion.button
+              type="submit"
+              className="button"
+              initial={{ opacity: 0 }}
+              whileInView={{
+                opacity: inputValue.length ? 1 : 0,
+                pointerEvents: inputValue.length ? 'auto' : 'none',
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              <IoMdSend />
+            </motion.button>
           </form>
           {error && <p className="text-xs text-red-500 mt-2 px-2">{error}</p>}
         </div>

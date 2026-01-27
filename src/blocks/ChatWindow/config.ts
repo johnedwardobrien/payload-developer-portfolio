@@ -17,8 +17,8 @@ export const ChatWindow: Block = {
       label: 'Chat Type',
       options: [
         {
-          label: 'Quixote Chat',
-          value: 'quixote-chat',
+          label: 'Quixote',
+          value: 'quixote',
         },
       ],
     },

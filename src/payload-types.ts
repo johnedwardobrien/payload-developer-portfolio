@@ -820,7 +820,7 @@ export interface SideTabPanel {
  */
 export interface ChatWindow {
   helpText?: string | null;
-  chatType?: 'quixote-chat' | null;
+  chatType?: 'quixote' | null;
   placeholders?: Placeholder[] | null;
   id?: string | null;
   blockName?: string | null;
