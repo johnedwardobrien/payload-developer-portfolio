@@ -1,5 +1,6 @@
 import React from 'react'
 import { ChatWindowClient } from './Component.client'
+import './Component.css'
 
 type ChatWindowProps = {
   helpText?: string | null

@@ -1,0 +1,94 @@
+:is(.intro-chat-window, .chat-window) > .inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+:is(.intro-chat-window , .chat-window) .title-cont h1 {
+	font-family: var(--medieval-font-header);
+	font-size: min(13vw, 8rem);
+}
+
+.chat-window {
+	display: flex;
+	flex-direction: column;
+}
+
+.chat-window .title-cont {
+	position: relative;
+	top: 0;
+	min-height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.chat-window .chat-cont-outer {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	margin: auto 0 0 0;
+}
+
+.intro-chat-window .form .inner {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.intro-chat-window .form .inner-inner {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.intro-chat-window .form .inner-inner button {
+	font-family: var(--medieval-font-header);
+	font-size: 1.5rem !important;
+	font-style: italic;
+	width: 75%;
+	margin: 1rem auto;
+	padding: 2rem 1.2rem;
+}
+
+.intro-chat-window textarea {
+	font-size: 1.3rem;
+	min-height: 200px;
+	margin-top: 1rem;
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+.intro-chat-window .Typewriter {
+	position: absolute;
+	top: 10%;
+	left: 11px;
+	font-size: 1.3rem;
+	font-family: var(--zs-font-body);
+	color: rgb(0,0,0,.5);
+	width: 90%;
+}
+
+.chat-window .message {
+	font-family: var(--zs-font-body);
+	font-size: 1.2rem;
+	line-height: 1.8rem;
+}
+
+.chat-window .chat-input {
+	/* height: 290px; */
+}
+
+@media (min-width: 768px) {
+	.intro-chat-window .form .inner {
+		width: 75%;
+	}
+
+	.intro-chat-window .form .inner-inner button {
+		width: 25%;
+	}
+}

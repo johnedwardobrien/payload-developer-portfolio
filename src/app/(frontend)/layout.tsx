@@ -3,7 +3,13 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import { Figtree, Plus_Jakarta_Sans, Zalando_Sans, Google_Sans_Code } from 'next/font/google'
+import {
+  Figtree,
+  Plus_Jakarta_Sans,
+  Zalando_Sans,
+  Google_Sans_Code,
+  MedievalSharp,
+} from 'next/font/google'
 import React, { cache } from 'react'
 
 // import { AdminBar } from '@/components/AdminBar'
@@ -45,6 +51,14 @@ const GoogleSansCode = Google_Sans_Code({
   variable: '--gsc-font-header',
   subsets: ['latin'],
   display: 'swap',
+  fallback: ['--yb-font-header'],
+})
+
+const MedievalSharpFont = MedievalSharp({
+  variable: '--medieval-font-header',
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400'],
   fallback: ['--yb-font-header'],
 })
 
@@ -122,6 +136,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         PlusJakartaSansFont.variable,
         ZalandoSans.variable,
         GoogleSansCode.variable,
+        MedievalSharpFont.variable,
       )}
       lang="en"
       suppressHydrationWarning
