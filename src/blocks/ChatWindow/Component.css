@@ -53,6 +53,7 @@
 	font-size: 3rem;
 	font-family: var(--medieval-font-header);
 	padding: 0 1.5rem;
+	cursor: none;
 }
 
 .chat-window .chat-cont-outer .chat-cont-inner .message-cont {
@@ -91,6 +92,7 @@
 	font-style: var(--zs-font-body);
 	font-size: 1.2rem;
 	padding-inline: 1rem;
+	box-sizing: border-box;
 }
 
 .chat-window .chat-cont-outer .chat-input .form .char-left-cont {
@@ -145,6 +147,7 @@
 	font-family: var(--zs-font-body);
 	color: rgb(0,0,0,.5);
 	width: 90%;
+	pointer-events: none;
 }
 
 .chat-window .message {
