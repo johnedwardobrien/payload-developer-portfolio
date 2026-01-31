@@ -155,7 +155,7 @@
   width: 100%;
   aspect-ratio: 343 / 360;
   overflow: hidden;
-  touch-action: pan-x;
+  touch-action: pan-y;
 }
 
 /* White divs to hide sliding animations at container edges */
@@ -193,6 +193,7 @@
   border-radius: 0.5rem;
   overflow: hidden;
   pointer-events: none;
+  touch-action: pan-y;
 }
 
 .video-layered-card-image-media {
