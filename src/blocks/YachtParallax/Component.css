@@ -778,6 +778,37 @@
 	font-family: var(--yb-font-body) !important;
 }
 
+.yacht-parallax-cont .ClickSlider .click-slider-card .content .row-top {
+	align-self: stretch;
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 22px;
+	letter-spacing: .56px;
+	text-transform: uppercase;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	flex: 1;
+	width: 100%;
+	gap: 8px;
+}
+
+.yacht-parallax-cont .ClickSlider .click-slider-card .date-card {
+	font-family: var(--yb-font-body);
+	display: flex;
+	gap: 5%;
+	align-items: center;
+	padding: 12px 16px;
+}
+
+.yacht-parallax-cont .ClickSlider .click-slider-card .date-card .inner {
+	display: flex;
+	gap: 5%;
+}
+
 .yacht-parallax-cont .CTAButtons h2 {
 	font-family: var(--yb-font-body);
 	font-weight: 400;
@@ -1173,18 +1204,6 @@
 		font-family: var(--yb-font-body);
 	}
 
-	.yacht-parallax-cont .ClickSlider .click-slider-card .date-card {
-		font-family: var(--yb-font-body);
-		display: flex;
-		gap: 5%;
-		align-items: center;
-		padding: 12px 16px;
-	}
-
-	.yacht-parallax-cont .ClickSlider .click-slider-card .date-card .inner {
-		display: flex;
-		gap: 5%;
-	}
 
 	.yacht-parallax-cont .ClickSlider .click-slider-card .card-title {
 		font-family: var(--yb-font-header);
