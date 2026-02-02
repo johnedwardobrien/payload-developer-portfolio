@@ -20,9 +20,11 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            video.play().catch((error) => {
-              console.log('Video play failed:', error)
-            })
+            setTimeout(() => {
+              video.play().catch((error) => {
+                console.log('Video play failed:', error)
+              })
+            }, 100)
           } else {
             video.pause()
           }
