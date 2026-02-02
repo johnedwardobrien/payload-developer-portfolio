@@ -8,7 +8,7 @@ export const LenisProvider: React.FC<{
 }> = ({ children }) => {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: .7,
+      duration: 0.7,
       touchMultiplier: 2,
     })
 
@@ -26,4 +26,3 @@ export const LenisProvider: React.FC<{
 
   return <>{children}</>
 }
-

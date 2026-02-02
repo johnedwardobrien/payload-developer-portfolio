@@ -796,6 +796,10 @@
 	gap: 8px;
 }
 
+.yacht-parallax-cont .ClickSlider .click-slider-card .content .row-top .subtitle {
+	font-size: min(3vw, 14px);
+}
+
 .yacht-parallax-cont .ClickSlider .click-slider-card .date-card {
 	font-family: var(--yb-font-body);
 	display: flex;

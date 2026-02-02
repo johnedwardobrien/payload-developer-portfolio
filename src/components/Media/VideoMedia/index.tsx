@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/utilities/ui'
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 
 import type { Props as MediaProps } from '../types'
 
@@ -12,12 +12,39 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
 
   const videoRef = useRef<HTMLVideoElement>(null)
 
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch((error) => {
+              console.log('Video play failed:', error)
+            })
+          } else {
+            video.pause()
+          }
+        })
+      },
+      {
+        rootMargin: '50px 0',
+      },
+    )
+
+    observer.observe(video)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [resource])
+
   if (resource && typeof resource === 'object') {
     const { filename, url, thumbnailURL } = resource
 
     return (
       <video
-        autoPlay
         className={cn(videoClassName)}
         controls={false}
         loop

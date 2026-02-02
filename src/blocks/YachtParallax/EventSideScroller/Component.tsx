@@ -3,7 +3,7 @@
 import React from 'react'
 
 import type { YachtParallaxItem } from '@/payload-types'
-import { MdOutlineSailing } from "react-icons/md";
+import { MdOutlineSailing } from 'react-icons/md'
 import { Button } from '@/components/ui/button'
 import { ImageMedia } from '@/components/Media/ImageMedia'
 import { formatEventDate } from '@/utilities/formatEventDate'
@@ -26,9 +26,7 @@ export const EventSideScroller: React.FC<Props> = (props) => {
   }
 
   return (
-    <div
-      className={`EventSideScroller container pb-8 ${index ? `item-${index}` : ''}`}
-    >
+    <div className={`EventSideScroller container pb-8 ${index ? `item-${index}` : ''}`}>
       <div className="grid-cont">
         {/* Event Cards - Left Column */}
         <div className="cards-cont">
@@ -40,11 +38,12 @@ export const EventSideScroller: React.FC<Props> = (props) => {
 
               return (
                 <motion.div
-                  key={event.id || index} className="event-card"
-                  initial={{ opacity: 0, y: 50 }}
+                  key={event.id || index}
+                  className="event-card"
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0 }}
-                  viewport={{ once: false, amount: .1 }}
+                  transition={{ duration: 0.4, delay: 0 }}
+                  viewport={{ once: true }}
                 >
                   {/* Background Image */}
                   {image && typeof image === 'object' && (
@@ -95,14 +94,8 @@ export const EventSideScroller: React.FC<Props> = (props) => {
         <div className="event-header-container">
           <div className="inner flex flex-col gap-4">
             {title && <h2 className="title text-heading-2 font-semibold">{title}</h2>}
-            {buttonText && (
-              <button>
-                {buttonText}
-              </button>
-            )}
-            <MdOutlineSailing
-              className='sailboat'
-            />
+            {buttonText && <button>{buttonText}</button>}
+            <MdOutlineSailing className="sailboat" />
           </div>
         </div>
       </div>
