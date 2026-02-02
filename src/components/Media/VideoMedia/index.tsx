@@ -31,7 +31,7 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
         })
       },
       {
-        rootMargin: '50px 0',
+        rootMargin: '50px 0px',
       },
     )
 
