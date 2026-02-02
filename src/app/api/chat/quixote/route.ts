@@ -19,7 +19,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const body = await request.json()
   const { message } = body
   let pineconeIndex = process.env?.QUIXOTE_INDEX ?? ''
-  let promptContext = process.env?.QUIXOTE_PROMPT_INDEX ?? ''
+  let promptContext = process.env?.QUIXOTE_PROMPT_CONTEXT ?? ''
   let promptInstructions = process.env?.QUIXOTE_PROMPT_INSTRUCTIONS ?? ''
 
   // Validate required parameters
