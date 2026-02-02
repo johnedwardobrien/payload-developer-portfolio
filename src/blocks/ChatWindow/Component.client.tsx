@@ -211,7 +211,6 @@ export const ChatWindowClient: React.FC<ChatWindowClientProps> = ({
                       }
                     }}
                     onFocus={(e) => {
-                      console.log('working')
                       setTextareaFocused(true)
                     }}
                     onBlur={() => {

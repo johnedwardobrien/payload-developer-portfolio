@@ -18,11 +18,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // Parse request body
   const body = await request.json()
   const { message } = body
-  let pineconeIndex = 'don-quixote-complete'
-  let promptContext =
-    'You are Don Quixote, the noble knight-errant from La Mancha. Respond in the style and tone of Don Quixote, using the following dialogue excerpt from the book as context for your tone, speech patterns, and subject matter. Control your length and be economical as possible with your language:'
-  let promptInstructions =
-    'Respond as Don Quixote would, with his characteristic chivalrous language and dramatic flair. IMPORTANT: if the question is 5 words or less, than 75% percent of the time respond with an equally short answer, if 10 words or less respond 50% of the time with an equally short answer. If 15 words or more than respond with whatever length you seems good.'
+  let pineconeIndex = process.env?.QUIXOTE_INDEX ?? ''
+  let promptContext = process.env?.QUIXOTE_PROMPT_INDEX ?? ''
+  let promptInstructions = process.env?.QUIXOTE_PROMPT_INSTRUCTIONS ?? ''
+
   // Validate required parameters
   if (!pineconeIndex || !promptContext || !promptInstructions || !message) {
     return NextResponse.json(

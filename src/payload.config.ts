@@ -20,6 +20,19 @@ import { ChatFooter } from './ChatFooter/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import nodemailer from 'nodemailer'
+import { SESv2, SendEmailCommand } from '@aws-sdk/client-sesv2'
+
+const sesClient = new SESv2({
+  region: 'us-east-1',
+  credentials: {
+    accessKeyId: process.env?.NEXT_PUBLIC_MY_AWS_ACCESS_KEY ?? '',
+    secretAccessKey: process.env?.NEXT_PUBLIC_MY_AWS_SECRET_ACCESS_KEY ?? '',
+  },
+})
+
+const transporter = nodemailer.createTransport({ SES: { sesClient, SendEmailCommand } })
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -110,6 +123,11 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  email: nodemailerAdapter({
+    defaultFromAddress: 'admin@johnobrien.dev',
+    defaultFromName: 'Portfolio Site Contact',
+    transport: transporter,
+  }),
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
