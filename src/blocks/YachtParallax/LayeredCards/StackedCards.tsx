@@ -12,7 +12,7 @@ type Props = {
 
 export const StackedCards: React.FC<Props> = ({ cards }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [dragConstraints, setDragConstraints] = useState({ left: -50, right: 50 })
+  const [dragConstraints, setDragConstraints] = useState({ left: -10, right: 10 })
   const cardRef = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const activeCardX = useTransform(x, (val) => `calc(-50% + ${val}px)`)
