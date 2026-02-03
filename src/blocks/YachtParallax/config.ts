@@ -9,7 +9,6 @@ export const YachtParallax: Block = {
       type: 'relationship',
       relationTo: 'scroll-window',
       label: 'Scroll Windows',
-      maxDepth: 10,
       hasMany: true,
       admin: {
         description: 'Select Scroll Windows to display in this parallax section',
