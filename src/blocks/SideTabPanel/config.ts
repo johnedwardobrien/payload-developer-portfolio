@@ -26,6 +26,7 @@ const tabButtons: Field[] = [
         fields: [
           link({
             appearances: false,
+            required: false,
           }),
         ],
       },
