@@ -109,6 +109,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   let headerType: PageHeaderType | undefined
   let footerType: PageFooterType | undefined
   let theme: string | undefined
+  let favicon: string | undefined
   try {
     const page = await queryPageByPathname(pathname)
     if (page?.header) {
@@ -121,6 +122,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
     if (page?.theme) {
       theme = page.theme
+    }
+
+    if (page?.favicon) {
+      favicon = page.favicon
     }
   } catch {
     // If page doesn't exist or error, default to showing header/footer with main versions
@@ -144,8 +149,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        {!!favicon && <link href={`/${favicon}`} rel="icon" sizes="32x32" />}
       </head>
       <body>
         <Providers>
