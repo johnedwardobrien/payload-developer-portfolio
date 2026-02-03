@@ -22,6 +22,7 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
       } else if (ypData?.topHeroLoaded) {
         return <source src={getMediaUrl(url)} />
       }
+      return null
     },
     [ypData, topHero],
   )
@@ -31,15 +32,14 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
     if (isWithinProvider) {
       return (
         <video
-          autoPlay
           className={cn(videoClassName)}
           controls={false}
+          autoPlay
           loop
           muted
           onClick={onClick}
-          onCanPlay={() => {
+          onCanPlay={async () => {
             if (topHero && !ypData?.topHeroLoaded) {
-              videoRef.current?.play()
               setYpData((prev: any) => {
                 const newData = cloneDeep(prev)
                 newData.topHeroLoaded = true
@@ -47,9 +47,12 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
               })
             }
           }}
+          onError={(e) => {
+            console.error('Video error:', e.currentTarget.error)
+          }}
           playsInline
           ref={videoRef}
-          preload="none"
+          preload="metadata"
           poster={posterSrc}
         >
           {handleYpVidSrc(url)}
@@ -64,9 +67,12 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
           loop
           muted
           onClick={onClick}
+          onError={(e) => {
+            console.error('Video error:', e.currentTarget.error)
+          }}
           playsInline
           ref={videoRef}
-          preload="none"
+          preload="metadata"
           poster={posterSrc}
         >
           <source src={getMediaUrl(url)} />
