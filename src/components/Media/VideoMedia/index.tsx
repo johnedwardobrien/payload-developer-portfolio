@@ -39,6 +39,7 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
           onClick={onClick}
           onCanPlay={() => {
             if (topHero && !ypData?.topHeroLoaded) {
+              videoRef.current?.play()
               setYpData((prev: any) => {
                 const newData = cloneDeep(prev)
                 newData.topHeroLoaded = true
