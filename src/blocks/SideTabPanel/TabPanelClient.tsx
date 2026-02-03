@@ -137,7 +137,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
             initial={{ opacity: 0, x: '-100%' }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true }}
           >
             <h2>{tabButtonIdx[activeTabId].text}</h2>
           </motion.div>
@@ -148,7 +148,7 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.25 }}
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true }}
                 className={cn({
                   hidden: tabContentIdToArrIdx[activeTabId] !== index,
                 })}
