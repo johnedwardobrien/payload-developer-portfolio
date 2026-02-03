@@ -12,8 +12,8 @@ type Props = {
   posterSrc?: string
 }
 
-export const VideoCard: React.FC<Props> = ({ card }) => {
-  const { title, backgroundMedia, posterSrc } = card
+export const VideoCard: React.FC<Props> = ({ card, posterSrc }) => {
+  const { title, backgroundMedia } = card
 
   return (
     <div className="video-card">
