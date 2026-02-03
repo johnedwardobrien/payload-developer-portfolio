@@ -43,10 +43,6 @@ export const YachtParallax: React.FC<Props> = (props) => {
     }
   })
 
-  if (!scrollWindows || !Array.isArray(scrollWindows) || scrollWindows.length === 0) {
-    return <div>this went wrong</div>
-  }
-
   return (
     <div className="yacht-parallax-cont">
       <motion.header
@@ -69,7 +65,7 @@ export const YachtParallax: React.FC<Props> = (props) => {
           </a>
         </div>
       </motion.header>
-      {scrollWindows.map((scrollWindow, index) => {
+      {scrollWindows?.map((scrollWindow, index) => {
         if (typeof scrollWindow === 'string') return null
         return (
           <ScrollWindowComponent
