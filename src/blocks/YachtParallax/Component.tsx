@@ -1,9 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { useScroll, useMotionValueEvent, motion } from 'framer-motion';
+import { useScroll, useMotionValueEvent, motion } from 'framer-motion'
 import type { YachtParallax as YachtParallaxType } from '@/payload-types'
-import { MdOutlineSailing } from "react-icons/md";
-import { FaArrowLeft } from "react-icons/fa6";
+import { MdOutlineSailing } from 'react-icons/md'
+import { FaArrowLeft } from 'react-icons/fa6'
 import { ScrollWindow as ScrollWindowComponent } from '@/blocks/ScrollWindow/Component'
 import './Component.css'
 
@@ -29,45 +29,41 @@ export const YachtParallax: React.FC<Props> = (props) => {
     }
   }, [])
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious();
-    if (!previous) return;
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const previous = scrollY.getPrevious()
+    if (!previous) return
     if (isTablet) {
       if (latest > previous) {
-        setShowHeader(false);
+        setShowHeader(false)
       } else if (latest < previous) {
-        setShowHeader(true);
+        setShowHeader(true)
       }
     } else {
       setShowHeader(true)
     }
-  });
+  })
 
   if (!scrollWindows || !Array.isArray(scrollWindows) || scrollWindows.length === 0) {
     return <></>
   }
 
   return (
-    <div
-      className='yacht-parallax-cont'
-    >
+    <div className="yacht-parallax-cont">
       <motion.header
         animate={{
-          y: showHeader ? 0 : '-100%'
+          y: showHeader ? 0 : '-100%',
         }}
         transition={{
           type: 'spring',
           bounce: 0,
           duration: 1,
-          ease: 'easeInOut'
+          ease: 'easeInOut',
         }}
       >
-        <div
-          className='inner'
-        >
+        <div className="inner">
           <h2>Yacht Bazaar</h2>
           <MdOutlineSailing />
-          <a href='/'>
+          <a href="/">
             <FaArrowLeft />
             <span>Back to home</span>
           </a>
