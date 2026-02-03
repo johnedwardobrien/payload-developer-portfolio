@@ -129,11 +129,40 @@
 	font-family: var(--zs-font-body);
 	font-size: min(5vw, 1.2rem);
 	margin: 1rem 0;
+	text-align: left;
+}
+
+.content-cont .prose :is(h1, h2, h3, p) {
+	text-align: left !important;
 }
 
 .content-cont .content-col h1 {
 	font-family: var(--gsc-font-header);
 	color: white !important;
+}
+
+.content-cont .content-col h2 {
+	font-family: var(--gsc-font-header);
+	color: white !important;
+	text-align: left;
+	font-size: min(4vw, 1.2rem);
+	font-weight: 400;
+	font-style: italic;
+	margin: 1rem 0;
+}
+
+.content-cont .content-col h3 {
+	font-family: var(--zs-font-body);
+	color: white !important;
+	text-align: left;
+	font-size: min(6vw, 2rem);
+	font-weight: 600;
+	margin: 1rem 0;
+}
+
+.content-cont .content-col p {
+	line-height: 172% !important;
+	letter-spacing: .1rem;
 }
 
 .content-cont .content-col {
@@ -211,7 +240,7 @@
 	}
 
 	.tab-panel-cont .buttons-cont {
-		max-width: 320px;
+		max-width: 220px;
 	}
 
 	.content-cont.closed {
@@ -220,5 +249,11 @@
 
 	.content-cont.open {
 		grid-template-columns: 1fr 40% 25vw;
+	}
+}
+
+@media (min-width: 1200px) {
+	.tab-panel-cont .buttons-cont {
+		max-width: 290px;
 	}
 }

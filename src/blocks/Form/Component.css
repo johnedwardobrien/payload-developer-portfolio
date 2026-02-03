@@ -1,0 +1,59 @@
+.tab-panel .form {
+	margin-bottom: 3rem;
+}
+
+.tab-panel .form label {
+	display: inline-block;
+	font-size: min(4vw, 1.3rem);
+	margin-bottom: .5rem;
+}
+
+.tab-panel .form .progress-msg {
+	display: flex;
+	font-size: min(4vw, 1.5rem);
+	font-style: italic;
+	margin-bottom: 1rem;
+}
+
+.tab-panel .form :is(input, textarea) {
+	color: var(--color-pl-gunmetal);
+	font-size: min(4.5vw, 1.2rem);
+	padding: 1rem;
+}
+
+.tab-panel .form textarea {
+	padding: .5rem;
+}
+
+.tab-panel .form button {
+	color: #fff;
+	height: 38px;
+	font-size: 1rem;
+	line-height: 18px;
+	font-family: var(--zs-font-body);
+	background-color: #0000;
+	border-radius: 8px;
+	flex-direction: row;
+	align-items: center;
+	gap: 8px;
+	width: fit-content;
+	margin-top: 1rem;
+	padding: 22px 38px;
+	font-style: normal;
+	font-weight: 500;
+	transition: all .3s;
+	display: flex;
+	position: relative;
+	overflow: clip;
+	box-shadow: inset 0 0 0 1px #fff;
+}
+
+.tab-panel .form button:hover {
+	color: var(--color-pl-gunmetal);
+	background-color: #fff;
+}
+
+.tab-panel .form h2 {
+	color: #fff;
+
+}

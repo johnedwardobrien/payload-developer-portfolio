@@ -40,6 +40,6 @@
 	.tab-panel.content-cont svg:is(.even, .odd) {
 		position: absolute;
 		top: 0;
-		left: -15%;
+		left: -5.5rem;
 	}
 }

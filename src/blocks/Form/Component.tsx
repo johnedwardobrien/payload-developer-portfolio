@@ -7,9 +7,11 @@ import { useForm, FormProvider } from 'react-hook-form'
 import RichText from '@/components/RichText'
 import { Button } from '@/components/ui/button'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
+import Typewriter from 'typewriter-effect'
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
+import './Component.css'
 
 export type FormBlockType = {
   blockName?: string
@@ -114,7 +116,7 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem]">
+    <div className="form container lg:max-w-[48rem]">
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
@@ -123,7 +125,20 @@ export const FormBlock: React.FC<
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />
           )}
-          {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
+          {/* {isLoading && !hasSubmitted && <p className="progress-msg">Working...</p>} */}
+          <div className="progress-msg">
+            Working
+            <Typewriter
+              options={{
+                strings: '...',
+                autoStart: true,
+                loop: true,
+                delay: 35,
+                deleteSpeed: 15,
+                cursor: '',
+              }}
+            />
+          </div>
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
