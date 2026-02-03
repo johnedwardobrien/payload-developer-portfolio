@@ -19,6 +19,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - *.ico, *.png, *.jpg, *.jpeg, *.gif, *.svg, *.webp (image files)
      */
-    '/((?!api|_next/static|_next/image|.*\\.(?:ico|png|jpg|jpeg|gif|svg|webp)).*)',
+    '/((?!api|_next/static|_next/image|.*\\.ico).*)',
   ],
 }

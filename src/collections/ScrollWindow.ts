@@ -15,10 +15,6 @@ export const ScrollWindow: CollectionConfig = {
     group: 'Content',
     defaultColumns: ['title', 'items'],
   },
-  defaultPopulate: {
-    title: true,
-    items: true,
-  },
   fields: [
     {
       name: 'title',

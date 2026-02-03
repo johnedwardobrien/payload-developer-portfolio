@@ -40,7 +40,6 @@ export const Pages: CollectionConfig<'pages'> = {
   defaultPopulate: {
     title: true,
     slug: true,
-    layout: true,
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
