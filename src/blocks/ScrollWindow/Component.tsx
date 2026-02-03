@@ -11,7 +11,7 @@ type Props = {
 
 export const ScrollWindow: React.FC<Props> = (props) => {
   const { id, items, index, type } = props
-
+  console.log(items)
   if (!items || !Array.isArray(items) || items.length === 0) {
     return <></>
   }
