@@ -44,7 +44,7 @@ export const YachtParallax: React.FC<Props> = (props) => {
   })
 
   if (!scrollWindows || !Array.isArray(scrollWindows) || scrollWindows.length === 0) {
-    return <></>
+    return <div>this went wrong</div>
   }
 
   return (
