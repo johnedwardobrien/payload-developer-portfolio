@@ -98,6 +98,7 @@ export const TopHero: React.FC<Props> = (props) => {
                 videoClassName="absolute inset-0 w-full h-full object-cover"
                 posterSrc="/video-poster-yacht-bazaar.png"
                 placeholderBlur="/video-poster-yacht-bazaar.png"
+                priority
               />
             </div>
           )}
