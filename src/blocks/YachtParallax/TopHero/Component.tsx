@@ -37,6 +37,8 @@ const StandardCardContent: React.FC<{
             imgClassName="standard-card-img"
             pictureClassName="standard-card-picture"
             videoClassName="standard-card-video"
+            posterSrc="/video-poster-yacht-bazaar.png"
+            placeholderBlur="/video-poster-yacht-bazaar.png"
           />
         </div>
       )}
@@ -68,7 +70,13 @@ export const TopHero: React.FC<Props> = (props) => {
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
       {heroImage && typeof heroImage === 'object' && (
         <div className="media-cont">
-          <Media className="media" htmlElement="div" resource={heroImage} />
+          <Media
+            className="media"
+            htmlElement="div"
+            resource={heroImage}
+            posterSrc="/video-poster-yacht-bazaar.png"
+            placeholderBlur="/video-poster-yacht-bazaar.png"
+          />
         </div>
       )}
       <div className="inner">
@@ -88,6 +96,8 @@ export const TopHero: React.FC<Props> = (props) => {
                 imgClassName="object-cover w-full h-full"
                 pictureClassName="absolute inset-0 w-full h-full"
                 videoClassName="absolute inset-0 w-full h-full object-cover"
+                posterSrc="/video-poster-yacht-bazaar.png"
+                placeholderBlur="/video-poster-yacht-bazaar.png"
               />
             </div>
           )}

@@ -42,7 +42,7 @@ export const EventSideScroller: React.FC<Props> = (props) => {
                   className="event-card"
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0 }}
+                  transition={{ duration: 1, delay: 0 }}
                   viewport={{ once: true }}
                 >
                   {/* Background Image */}
@@ -52,6 +52,7 @@ export const EventSideScroller: React.FC<Props> = (props) => {
                       fill
                       imgClassName="event-card-background"
                       pictureClassName="event-card-background"
+                      placeholderBlur="/video-poster-yacht-bazaar.png"
                     />
                   )}
 

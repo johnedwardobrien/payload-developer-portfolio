@@ -788,9 +788,9 @@ export interface Form {
 export interface SideTabPanel {
   tabGroups?:
     | {
-        btn: {
+        btn?: {
           text?: string | null;
-          link: {
+          link?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -803,7 +803,7 @@ export interface SideTabPanel {
                   value: string | Post;
                 } | null);
             url?: string | null;
-            label: string;
+            label?: string | null;
           };
         };
         content?: (AnimationBlock | ContentBlock | MediaBlock | FormBlock)[] | null;

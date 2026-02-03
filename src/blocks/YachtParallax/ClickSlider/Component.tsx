@@ -184,6 +184,8 @@ export const ClickSlider: React.FC<Props> = (props) => {
                           imgClassName="object-cover w-full h-full"
                           pictureClassName="absolute inset-0 w-full h-full"
                           videoClassName="absolute inset-0 w-full h-full object-cover"
+                          posterSrc="/video-poster-yacht-bazaar.png"
+                          placeholderBlur="/video-poster-yacht-bazaar.png"
                         />
                       </div>
                     )}

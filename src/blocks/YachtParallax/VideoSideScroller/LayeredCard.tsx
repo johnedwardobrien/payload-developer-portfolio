@@ -58,6 +58,8 @@ export const LayeredCard: React.FC<Props> = ({
           pictureClassName="video-layered-card-image-picture"
           imgClassName="video-layered-card-image-img"
           videoClassName="video-layered-card-image-video"
+          posterSrc="/video-poster-yacht-bazaar.png"
+          placeholderBlur="/video-poster-yacht-bazaar.png"
         />
       )}
     </motion.div>

@@ -96,6 +96,8 @@ const ThreeCardSlider: React.FC<{ card: ThreeCard }> = ({ card }) => {
             imgClassName="object-cover w-full h-full rounded-2xl"
             pictureClassName="absolute inset-0 w-full h-full rounded-2xl"
             videoClassName="absolute inset-0 w-full h-full object-cover rounded-2xl"
+            posterSrc="/video-poster-yacht-bazaar.png"
+            placeholderBlur="/video-poster-yacht-bazaar.png"
           />
         </div>
       )}
@@ -189,6 +191,8 @@ const StandardCardContent: React.FC<{
             imgClassName="object-cover w-full h-full"
             pictureClassName="absolute inset-0 w-full h-full"
             videoClassName="absolute inset-0 w-full h-full object-cover"
+            posterSrc="/video-poster-yacht-bazaar.png"
+            placeholderBlur="/video-poster-yacht-bazaar.png"
           />
         </div>
       )}
