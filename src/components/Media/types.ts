@@ -21,4 +21,5 @@ export interface Props {
   videoClassName?: string
   placeholderBlur?: string
   posterSrc?: string
+  topHero?: boolean
 }

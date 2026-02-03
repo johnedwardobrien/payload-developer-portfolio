@@ -22,7 +22,7 @@ export const Media: React.FC<Props> = (props) => {
         : {})}
     >
       {isVideo ? <VideoMedia {...props} /> : <ImageMedia {...props} />}
-      <div className='bg-mask'></div>
+      <div className="bg-mask"></div>
     </Tag>
   )
 }

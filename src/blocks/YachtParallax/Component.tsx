@@ -6,6 +6,7 @@ import { MdOutlineSailing } from 'react-icons/md'
 import { FaArrowLeft } from 'react-icons/fa6'
 import { ScrollWindow as ScrollWindowComponent } from '@/blocks/ScrollWindow/Component'
 import './Component.css'
+import { YachtParallaxProvider } from '@/providers/YachtParallax'
 
 type Props = {
   disableInnerContainer?: boolean
@@ -44,37 +45,39 @@ export const YachtParallax: React.FC<Props> = (props) => {
   })
 
   return (
-    <div className="yacht-parallax-cont">
-      <motion.header
-        animate={{
-          y: showHeader ? 0 : '-100%',
-        }}
-        transition={{
-          type: 'spring',
-          bounce: 0,
-          duration: 1,
-          ease: 'easeInOut',
-        }}
-      >
-        <div className="inner">
-          <h2>Yacht Bazaar</h2>
-          <MdOutlineSailing />
-          <a href="/">
-            <FaArrowLeft />
-            <span>Back to home</span>
-          </a>
-        </div>
-      </motion.header>
-      {scrollWindows?.map((scrollWindow: any, index) => {
-        return (
-          <ScrollWindowComponent
-            key={scrollWindow?.id}
-            {...scrollWindow}
-            disableInnerContainer
-            index={index + 1}
-          />
-        )
-      })}
-    </div>
+    <YachtParallaxProvider>
+      <div className="yacht-parallax-cont">
+        <motion.header
+          animate={{
+            y: showHeader ? 0 : '-100%',
+          }}
+          transition={{
+            type: 'spring',
+            bounce: 0,
+            duration: 1,
+            ease: 'easeInOut',
+          }}
+        >
+          <div className="inner">
+            <h2>Yacht Bazaar</h2>
+            <MdOutlineSailing />
+            <a href="/">
+              <FaArrowLeft />
+              <span>Back to home</span>
+            </a>
+          </div>
+        </motion.header>
+        {scrollWindows?.map((scrollWindow: any, index) => {
+          return (
+            <ScrollWindowComponent
+              key={scrollWindow?.id}
+              {...scrollWindow}
+              disableInnerContainer
+              index={index + 1}
+            />
+          )
+        })}
+      </div>
+    </YachtParallaxProvider>
   )
 }

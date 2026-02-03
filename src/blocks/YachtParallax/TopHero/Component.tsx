@@ -5,6 +5,7 @@ import type { Parallax } from '@react-spring/parallax'
 
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
+import { motion } from 'framer-motion'
 import './Component.css'
 
 type Props = {
@@ -76,6 +77,7 @@ export const TopHero: React.FC<Props> = (props) => {
             resource={heroImage}
             posterSrc="/video-poster-yacht-bazaar.png"
             placeholderBlur="/video-poster-yacht-bazaar.png"
+            topHero
           />
         </div>
       )}
@@ -86,7 +88,12 @@ export const TopHero: React.FC<Props> = (props) => {
             {subtitle && <p className="subtitle">{subtitle}</p>}
           </div>
         </div>
-        <div className="featured-media-cont">
+        <motion.div
+          className="featured-media-cont"
+          initial={{ y: '150%' }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
               <Media
@@ -123,7 +130,7 @@ export const TopHero: React.FC<Props> = (props) => {
               )}
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
       <div className="bg-mask"></div>
     </div>
