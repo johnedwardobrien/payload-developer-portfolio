@@ -65,11 +65,10 @@ export const YachtParallax: React.FC<Props> = (props) => {
           </a>
         </div>
       </motion.header>
-      {scrollWindows?.map((scrollWindow, index) => {
-        if (typeof scrollWindow === 'string') return null
+      {scrollWindows?.map((scrollWindow: any, index) => {
         return (
           <ScrollWindowComponent
-            key={scrollWindow.id}
+            key={scrollWindow?.id}
             {...scrollWindow}
             disableInnerContainer
             index={index + 1}
