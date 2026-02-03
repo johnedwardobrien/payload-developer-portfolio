@@ -125,20 +125,21 @@ export const FormBlock: React.FC<
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />
           )}
-          {/* {isLoading && !hasSubmitted && <p className="progress-msg">Working...</p>} */}
-          <div className="progress-msg">
-            Working
-            <Typewriter
-              options={{
-                strings: '...',
-                autoStart: true,
-                loop: true,
-                delay: 35,
-                deleteSpeed: 15,
-                cursor: '',
-              }}
-            />
-          </div>
+          {isLoading && !hasSubmitted && (
+            <div className="progress-msg">
+              Working
+              <Typewriter
+                options={{
+                  strings: '...',
+                  autoStart: true,
+                  loop: true,
+                  delay: 35,
+                  deleteSpeed: 15,
+                  cursor: '',
+                }}
+              />
+            </div>
+          )}
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
