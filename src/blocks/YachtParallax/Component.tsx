@@ -42,7 +42,7 @@ export const YachtParallax: React.FC<Props> = (props) => {
       setShowHeader(true)
     }
   })
-
+  console.log(scrollWindows)
   return (
     <div className="yacht-parallax-cont">
       <motion.header
