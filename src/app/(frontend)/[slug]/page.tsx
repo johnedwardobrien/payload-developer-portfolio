@@ -57,10 +57,10 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout } = page
+  const { hero, layout, theme } = page
 
   return (
-    <>
+    <div className="root-page" data-custom-theme={theme || undefined}>
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
@@ -69,7 +69,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
-    </>
+    </div>
   )
 }
 

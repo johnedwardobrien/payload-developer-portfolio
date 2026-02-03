@@ -32,6 +32,9 @@ export const generateMeta = async (args: {
 
   return {
     description: doc?.meta?.description,
+    //I dont care right now I can implement this better with tenants
+    //@ts-expect-error
+    icons: doc?.favicon,
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || '',
       images: ogImage

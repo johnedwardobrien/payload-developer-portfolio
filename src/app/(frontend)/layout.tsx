@@ -12,18 +12,9 @@ import {
 } from 'next/font/google'
 import React, { cache } from 'react'
 
-// import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
-import { ChatHeader } from '@/ChatHeader/Component'
-import { ChatFooter } from '@/ChatFooter/Component'
 import { Providers } from '@/providers'
-import type { PageHeaderType, PageFooterType } from '@/collections/Pages/types'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode, headers } from 'next/headers'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -62,76 +53,7 @@ const MedievalSharpFont = MedievalSharp({
   fallback: ['--yb-font-header'],
 })
 
-const queryPageByPathname = cache(async (pathname: string) => {
-  const { isEnabled: draft } = await draftMode()
-  const payload = await getPayload({ config: configPromise })
-
-  // Extract slug from pathname (remove leading slash)
-  const slug = pathname === '/' ? 'home' : pathname.replace(/^\//, '')
-
-  const result = await payload.find({
-    collection: 'pages',
-    draft,
-    limit: 1,
-    pagination: false,
-    overrideAccess: draft,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
-  const headersList = await headers()
-
-  // Try to get pathname from custom header (set by middleware) or from referer
-  let pathname = headersList.get('x-pathname')
-  if (!pathname) {
-    const referer = headersList.get('referer')
-    if (referer) {
-      try {
-        const url = new URL(referer)
-        pathname = url.pathname
-      } catch {
-        pathname = '/'
-      }
-    } else {
-      pathname = '/'
-    }
-  }
-
-  // Try to get page data to check header and footer settings
-  let headerType: PageHeaderType | undefined
-  let footerType: PageFooterType | undefined
-  let theme: string | undefined
-  let favicon: string | undefined
-  try {
-    const page = await queryPageByPathname(pathname)
-    if (page?.header) {
-      headerType = page?.header
-    }
-
-    if (page?.footer) {
-      footerType = page?.footer
-    }
-
-    if (page?.theme) {
-      theme = page.theme
-    }
-
-    if (page?.favicon) {
-      favicon = page.favicon
-    }
-  } catch {
-    // If page doesn't exist or error, default to showing header/footer with main versions
-    // This is expected for non-page routes (like /posts, /search, etc.)
-  }
-
   return (
     <html
       className={cn(
@@ -145,11 +67,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       )}
       lang="en"
       suppressHydrationWarning
-      data-custom-theme={theme || undefined}
     >
       <head>
         <InitTheme />
-        {!!favicon && <link href={`/${favicon}`} rel="icon" sizes="32x32" />}
       </head>
       <body>
         <Providers>
@@ -158,8 +78,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               preview: isEnabled,
             }}
           /> */}
-
-          {(() => {
+          {/* {(() => {
             switch (headerType) {
               case 'chat':
                 return <ChatHeader />
@@ -170,9 +89,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               default:
                 return null
             }
-          })()}
+          })()} */}
           {children}
-          {(() => {
+          {/* {(() => {
             switch (footerType) {
               case 'chat':
                 return <ChatFooter />
@@ -183,7 +102,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               default:
                 return null
             }
-          })()}
+          })()} */}
         </Providers>
       </body>
     </html>

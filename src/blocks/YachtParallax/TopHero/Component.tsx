@@ -2,7 +2,6 @@
 
 import React from 'react'
 import type { Parallax } from '@react-spring/parallax'
-import { FaCode } from 'react-icons/fa6'
 
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
@@ -69,7 +68,6 @@ export const TopHero: React.FC<Props> = (props) => {
   } = props
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
-      <FaCode />
       {heroImage && typeof heroImage === 'object' && (
         <div className="media-cont">
           <Media
