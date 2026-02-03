@@ -109,9 +109,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
-  viewport: 'width=device-width, initial-scale=1',
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
