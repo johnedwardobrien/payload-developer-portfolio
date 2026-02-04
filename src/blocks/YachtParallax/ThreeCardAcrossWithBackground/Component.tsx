@@ -193,6 +193,11 @@ const StandardCardContent: React.FC<{
             videoClassName="absolute inset-0 w-full h-full object-cover"
             posterSrc="/video-poster-yacht-bazaar.png"
             placeholderBlur="/video-poster-yacht-bazaar.png"
+            responsiveSources={{
+              mobile: cardMedia.sizes?.small?.url ?? '',
+              tablet: cardMedia.sizes?.medium?.url ?? '',
+              desktop: cardMedia.sizes?.xlarge?.url ?? '',
+            }}
           />
         </div>
       )}

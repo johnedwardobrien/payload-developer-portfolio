@@ -40,9 +40,7 @@ export const LayeredCards: React.FC<Props> = (props) => {
   }
 
   return (
-    <div
-      className={`LayeredCards${index ? ` item-${index}` : ''}`}
-    >
+    <div className={`LayeredCards${index ? ` item-${index}` : ''}`}>
       {/* Header with Title and Button */}
       <div className="top-title-cont">
         {title && <h2 className="title">{title}</h2>}

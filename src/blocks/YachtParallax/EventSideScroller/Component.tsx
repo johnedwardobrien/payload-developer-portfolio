@@ -40,10 +40,10 @@ export const EventSideScroller: React.FC<Props> = (props) => {
                 <motion.div
                   key={event.id || index}
                   className="event-card"
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0 }}
-                  viewport={{ once: true }}
+                  transition={{ duration: 1, delay: 0.2 }}
+                  viewport={{ once: false }}
                 >
                   {/* Background Image */}
                   {image && typeof image === 'object' && (
@@ -53,6 +53,11 @@ export const EventSideScroller: React.FC<Props> = (props) => {
                       imgClassName="event-card-background"
                       pictureClassName="event-card-background"
                       placeholderBlur="/video-poster-yacht-bazaar.png"
+                      responsiveSources={{
+                        mobile: image.sizes?.small?.url ?? '',
+                        tablet: image.sizes?.medium?.url ?? '',
+                        desktop: image.sizes?.xlarge?.url ?? '',
+                      }}
                     />
                   )}
 

@@ -3,6 +3,7 @@
 import React from 'react'
 
 import type { StandardCard } from '@/payload-types'
+import type { Media as MediaType } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
@@ -20,10 +21,15 @@ export const ImageCard: React.FC<Props> = ({ card }) => {
           htmlElement="div"
           className="absolute inset-0 w-full h-full"
           fill
-          resource={backgroundMedia}
+          resource={backgroundMedia as MediaType}
           pictureClassName="absolute inset-0 w-full h-full"
           imgClassName="object-cover"
           videoClassName="absolute inset-0 w-full h-full object-cover"
+          responsiveSources={{
+            mobile: (backgroundMedia as MediaType)?.sizes?.small?.url ?? '',
+            tablet: (backgroundMedia as MediaType)?.sizes?.medium?.url ?? '',
+            desktop: (backgroundMedia as MediaType)?.sizes?.xlarge?.url ?? '',
+          }}
         />
       )}
       <div className="content absolute inset-0 flex flex-col justify-end z-10">

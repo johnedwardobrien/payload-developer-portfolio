@@ -1,6 +1,5 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
 import type { Parallax } from '@react-spring/parallax'
 
 import { Media } from '@/components/Media'
@@ -55,9 +54,6 @@ const StandardCardContent: React.FC<{
 }
 
 export const TopHero: React.FC<Props> = (props) => {
-  const [vidLoaded, setVidLoaded] = useState(false)
-  const [featImgLoaded, setFeatImgLoaded] = useState(false)
-  const [animateImg, setAnimateImg] = useState(false)
   const {
     title,
     subtitle,
@@ -70,11 +66,6 @@ export const TopHero: React.FC<Props> = (props) => {
     index,
     windowId,
   } = props
-  useEffect(() => {
-    if (vidLoaded && featImgLoaded) {
-      setAnimateImg(true)
-    }
-  }, [vidLoaded, featImgLoaded])
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
       {heroImage && typeof heroImage === 'object' && (
@@ -86,9 +77,6 @@ export const TopHero: React.FC<Props> = (props) => {
             posterSrc="/video-poster-yacht-bazaar.png"
             placeholderBlur="/video-poster-yacht-bazaar.png"
             topHero
-            onCanPlayCb={() => {
-              setVidLoaded(true)
-            }}
           />
         </div>
       )}
@@ -102,13 +90,13 @@ export const TopHero: React.FC<Props> = (props) => {
         <motion.div
           className="featured-media-cont"
           initial={{ y: '25%', opacity: 0 }}
-          animate={animateImg ? { y: 0, opacity: 1 } : { y: '25%', opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
               <Media
-                resource={heroFeatured}
+                resource={(heroFeatured.sizes?.small as MediaType) ?? null}
                 fill
                 className="relative w-full h-full"
                 imgClassName="object-cover w-full h-full"
@@ -117,9 +105,6 @@ export const TopHero: React.FC<Props> = (props) => {
                 posterSrc="/video-poster-yacht-bazaar.png"
                 placeholderBlur="/video-poster-yacht-bazaar.png"
                 priority
-                onLoadCb={() => {
-                  setFeatImgLoaded(true)
-                }}
               />
             </div>
           )}

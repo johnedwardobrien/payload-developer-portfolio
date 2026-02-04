@@ -186,6 +186,11 @@ export const ClickSlider: React.FC<Props> = (props) => {
                           videoClassName="absolute inset-0 w-full h-full object-cover"
                           posterSrc="/video-poster-yacht-bazaar.png"
                           placeholderBlur="/video-poster-yacht-bazaar.png"
+                          responsiveSources={{
+                            mobile: backgroundMedia.sizes?.small?.url ?? '',
+                            tablet: backgroundMedia.sizes?.medium?.url ?? '',
+                            desktop: backgroundMedia.sizes?.xlarge?.url ?? '',
+                          }}
                         />
                       </div>
                     )}

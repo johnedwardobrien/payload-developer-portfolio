@@ -30,6 +30,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     loading: loadingFromProps,
     placeholderBlur,
     onLoadCb,
+    responsiveSources,
   } = props
 
   if (placeholderBlur) {
@@ -64,6 +65,19 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   return (
     <picture className={cn(pictureClassName)}>
+      {responsiveSources && (
+        <>
+          {responsiveSources.desktop && (
+            <source media="(min-width: 1024px)" srcSet={responsiveSources.desktop} />
+          )}
+          {responsiveSources.tablet && (
+            <source media="(min-width: 768px)" srcSet={responsiveSources.tablet} />
+          )}
+          {responsiveSources.mobile && (
+            <source media="(max-width: 767px)" srcSet={responsiveSources.mobile} />
+          )}
+        </>
+      )}
       <NextImage
         alt={alt || ''}
         className={cn(imgClassName)}

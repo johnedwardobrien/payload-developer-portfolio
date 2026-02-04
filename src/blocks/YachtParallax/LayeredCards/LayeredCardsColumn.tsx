@@ -20,4 +20,3 @@ export const LayeredCardsColumn: React.FC<Props> = ({ cards }) => {
     </div>
   )
 }
-

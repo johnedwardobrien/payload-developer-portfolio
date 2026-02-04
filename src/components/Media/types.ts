@@ -24,4 +24,9 @@ export interface Props {
   topHero?: boolean
   onLoadCb?: () => void
   onCanPlayCb?: () => void
+  responsiveSources?: {
+    mobile?: string
+    tablet?: string
+    desktop?: string
+  }
 }
