@@ -1,5 +1,5 @@
 'use client'
-
+import { useState } from 'react'
 import type { Parallax } from '@react-spring/parallax'
 
 import { Media } from '@/components/Media'
@@ -66,6 +66,7 @@ export const TopHero: React.FC<Props> = (props) => {
     index,
     windowId,
   } = props
+  const [vidLoaded, setVidLoaded] = useState(false)
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
       {heroImage && typeof heroImage === 'object' && (
@@ -77,6 +78,9 @@ export const TopHero: React.FC<Props> = (props) => {
             posterSrc="/video-poster-yacht-bazaar.png"
             placeholderBlur="/video-poster-yacht-bazaar.png"
             topHero
+            onCanPlayCb={() => {
+              setVidLoaded(true)
+            }}
           />
         </div>
       )}
@@ -90,8 +94,8 @@ export const TopHero: React.FC<Props> = (props) => {
         <motion.div
           className="featured-media-cont"
           initial={{ y: '25%', opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+          animate={!vidLoaded ? { y: '25%', opacity: 0 } : { y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
