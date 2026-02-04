@@ -29,6 +29,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     src: srcFromProps,
     loading: loadingFromProps,
     placeholderBlur,
+    onLoadCb,
   } = props
 
   if (placeholderBlur) {
@@ -77,6 +78,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         src={src}
         width={!fill ? width : undefined}
         unoptimized={true}
+        onLoad={() => {
+          if (onLoadCb) {
+            onLoadCb()
+          }
+        }}
       />
     </picture>
   )

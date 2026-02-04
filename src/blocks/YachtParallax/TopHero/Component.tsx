@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import type { Parallax } from '@react-spring/parallax'
 
 import { Media } from '@/components/Media'
@@ -55,6 +55,7 @@ const StandardCardContent: React.FC<{
 }
 
 export const TopHero: React.FC<Props> = (props) => {
+  const [featImgLoaded, setFeatImgLoaded] = useState(false)
   const {
     title,
     subtitle,
@@ -91,8 +92,8 @@ export const TopHero: React.FC<Props> = (props) => {
         <motion.div
           className="featured-media-cont"
           initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
+          animate={featImgLoaded ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+          transition={{ duration: 1 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
@@ -106,6 +107,9 @@ export const TopHero: React.FC<Props> = (props) => {
                 posterSrc="/video-poster-yacht-bazaar.png"
                 placeholderBlur="/video-poster-yacht-bazaar.png"
                 priority
+                onLoadCb={() => {
+                  setFeatImgLoaded(true)
+                }}
               />
             </div>
           )}

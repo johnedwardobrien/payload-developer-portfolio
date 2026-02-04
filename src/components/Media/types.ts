@@ -22,4 +22,5 @@ export interface Props {
   placeholderBlur?: string
   posterSrc?: string
   topHero?: boolean
+  onLoadCb?: () => void
 }
