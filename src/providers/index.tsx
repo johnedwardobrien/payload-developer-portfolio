@@ -15,7 +15,9 @@ export const Providers: React.FC<{
     <LenisProvider>
       <ThemeProvider>
         <HeaderThemeProvider>
-          <ParallaxProvider>{children}</ParallaxProvider>
+          <YachtParallaxProvider>
+            <ParallaxProvider>{children}</ParallaxProvider>
+          </YachtParallaxProvider>
         </HeaderThemeProvider>
       </ThemeProvider>
     </LenisProvider>
