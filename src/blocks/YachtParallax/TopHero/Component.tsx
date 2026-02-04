@@ -78,7 +78,7 @@ export const TopHero: React.FC<Props> = (props) => {
             posterSrc="/video-poster-yacht-bazaar.png"
             placeholderBlur="/video-poster-yacht-bazaar.png"
             topHero
-            onCanPlayCb={() => {
+            onCanPlayThroughCb={() => {
               setVidLoaded(true)
             }}
           />
