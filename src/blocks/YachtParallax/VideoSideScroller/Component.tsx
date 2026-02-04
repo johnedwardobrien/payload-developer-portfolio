@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 import type { YachtParallaxItem } from '@/payload-types'
-import { MdOutlineSailing } from "react-icons/md";
+import { MdOutlineSailing } from 'react-icons/md'
 import { VideoCard } from '@/components/VideoCard'
 import { VideoLayeredCards } from './VideoLayeredCards'
 import './Component.css'
@@ -25,13 +25,13 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
   const { title, subtitle, videoLayout, videos, buttonText1, index, windowId } = props
   const [isMobile, setIsMobile] = useState(true)
   const [isDesktop, setIsDesktop] = useState(false)
-  const [layeredCardHeight, setLayeredCardHeight] = useState(0);
+  const [layeredCardHeight, setLayeredCardHeight] = useState(0)
   const containerRef2 = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: containerRef2,
-    offset: ["end -100px", "end end"]
-  });
+    offset: ['end -100px', 'end end'],
+  })
   const titleOpacity = useTransform(scrollYProgress, [0, 0.95, 1], [0, 0, 1])
 
   useEffect(() => {
@@ -70,16 +70,12 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
         className={`VideoSideScroller${` ${videoLayout}`}${index ? ` item-${index}` : ''}${windowId}`}
         ref={containerRef2}
         style={{
-          height: isDesktop ? `${layeredCardHeight}vh` : 'auto'
+          height: isDesktop ? `${layeredCardHeight}vh` : 'auto',
         }}
       >
-        <div
-          className="outer-cont"
-        >
+        <div className="outer-cont">
           {!isDesktop && (
-            <div className={`top-title-cont`}>
-              {title && <h2 className="title">{title}</h2>}
-            </div>
+            <div className={`top-title-cont`}>{title && <h2 className="title">{title}</h2>}</div>
           )}
           <VideoLayeredCards
             cards={validVideos}
@@ -102,45 +98,37 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
 
   if (index === 2) {
     return (
-      <div
-        className='VideoSideScrollerWrapper'
-        ref={containerRef2}
-      >
+      <div className="VideoSideScrollerWrapper" ref={containerRef2}>
         <div
           className={`VideoSideScroller${isSingleLayout ? ' grow-shrink' : ''}${index ? ` item-${index}` : ''}${windowId}`}
         >
-          <div
-            className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
-          >
+          <div className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}>
             <motion.div
               className={`top-title-cont`}
-              transition={{ duration: .3 }}
+              transition={{ duration: 0.3 }}
               style={{
-                opacity: isDesktop ? 1 : titleOpacity
+                opacity: isDesktop ? 1 : titleOpacity,
               }}
             >
               {title && <h2 className="title">{title}</h2>}
               {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
               {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
             </motion.div>
-            <div
-              className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
-            >
-              {
-                isDesktop &&
-                  <div className='card placeholder-card'></div>
-              }
+            <div className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}>
+              {isDesktop && <div className="card placeholder-card"></div>}
               {videos.map((videoCard, index) => {
                 if (videoCard.blockType === 'standardCard') {
-                  return <GrowShrinkCard
-                    key={videoCard.id}
-                    videoCard={videoCard}
-                    isDesktop={isDesktop}
-                  />
+                  return (
+                    <GrowShrinkCard
+                      key={videoCard.id}
+                      videoCard={videoCard}
+                      isDesktop={isDesktop}
+                    />
+                  )
                 }
                 return null
               })}
-              <div className='card placeholder-card'></div>
+              <div className="card placeholder-card"></div>
             </div>
           </div>
         </div>
@@ -148,42 +136,34 @@ export const VideoSideScroller: React.FC<Props> = (props) => {
     )
   } else {
     return (
-      <div className={`VideoSideScroller${index ? ` item-${index}` : ''}${windowId}`} ref={containerRef2}>
-        <div
-          className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}
-        >
-          <div
-            className={`top-title-cont`}
-          >
+      <div
+        className={`VideoSideScroller${index ? ` item-${index}` : ''}${windowId}`}
+        ref={containerRef2}
+      >
+        <div className={`outer-cont${isSingleLayout ? ' grow-shrink-outer' : ''}`}>
+          <div className={`top-title-cont`}>
             {title && <h2 className="title">{title}</h2>}
             {isGridLayout && subtitle && <p className="subtitle">{subtitle}</p>}
             {isSingleLayout && buttonText1 && <button className="button">{buttonText1}</button>}
-            <MdOutlineSailing
-              className='sailboat'
-            />
+            <MdOutlineSailing className="sailboat" />
           </div>
-          <div
-            className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}
-          >
-            <div
-              className='cards'
-            >
-              <div className='first-card'></div>
+          <div className={`cards-cont${isGridLayout ? ' grid-layout' : ' grow-shrink-layout'}`}>
+            <div className="cards">
+              <div className="first-card"></div>
               {videos.map((videoCard, index) => {
                 if (videoCard.blockType === 'standardCard') {
-                  return <div
-                      key={videoCard.id || index}
-                      className='card'
-                    >
+                  return (
+                    <div key={videoCard.id || index} className="card">
                       <VideoCard card={videoCard} />
                     </div>
+                  )
                 }
                 return null
               })}
             </div>
           </div>
         </div>
-        <div className='empty-reveal-cont'></div>
+        <div className="empty-reveal-cont"></div>
       </div>
     )
   }
