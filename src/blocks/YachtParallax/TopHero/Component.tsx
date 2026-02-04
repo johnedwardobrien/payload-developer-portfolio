@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { Parallax } from '@react-spring/parallax'
 
 import { Media } from '@/components/Media'
@@ -55,7 +55,9 @@ const StandardCardContent: React.FC<{
 }
 
 export const TopHero: React.FC<Props> = (props) => {
+  const [vidLoaded, setVidLoaded] = useState(false)
   const [featImgLoaded, setFeatImgLoaded] = useState(false)
+  const [animateImg, setAnimateImg] = useState(false)
   const {
     title,
     subtitle,
@@ -68,6 +70,11 @@ export const TopHero: React.FC<Props> = (props) => {
     index,
     windowId,
   } = props
+  useEffect(() => {
+    if (vidLoaded && featImgLoaded) {
+      setAnimateImg(true)
+    }
+  }, [vidLoaded, featImgLoaded])
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
       {heroImage && typeof heroImage === 'object' && (
@@ -79,6 +86,9 @@ export const TopHero: React.FC<Props> = (props) => {
             posterSrc="/video-poster-yacht-bazaar.png"
             placeholderBlur="/video-poster-yacht-bazaar.png"
             topHero
+            onCanPlayCb={() => {
+              setVidLoaded(true)
+            }}
           />
         </div>
       )}
@@ -91,8 +101,8 @@ export const TopHero: React.FC<Props> = (props) => {
         </div>
         <motion.div
           className="featured-media-cont"
-          initial={{ opacity: 0 }}
-          animate={featImgLoaded ? { opacity: 1 } : { opacity: 0 }}
+          initial={{ y: '25%', opacity: 0 }}
+          animate={animateImg ? { y: 0, opacity: 1 } : { y: '25%', opacity: 0 }}
           transition={{ duration: 1 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (

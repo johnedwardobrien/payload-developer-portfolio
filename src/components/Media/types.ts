@@ -23,4 +23,5 @@ export interface Props {
   posterSrc?: string
   topHero?: boolean
   onLoadCb?: () => void
+  onCanPlayCb?: () => void
 }

@@ -5,7 +5,7 @@ import type { Props as MediaProps } from '../types'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 export const VideoMedia: React.FC<MediaProps> = (props) => {
-  const { onClick, resource, videoClassName, posterSrc = '', topHero } = props
+  const { onClick, resource, videoClassName, posterSrc = '', topHero, onCanPlayCb } = props
   const videoRef = useRef<HTMLVideoElement>(null)
 
   if (resource && typeof resource === 'object') {
@@ -22,6 +22,11 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
         ref={videoRef}
         preload={topHero ? 'auto' : 'metadata'}
         poster={posterSrc}
+        onCanPlay={() => {
+          if (onCanPlayCb) {
+            onCanPlayCb()
+          }
+        }}
       >
         <source src={getMediaUrl(url)} />
       </video>
