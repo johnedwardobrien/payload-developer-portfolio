@@ -6,7 +6,6 @@ import { ParallaxProvider } from 'react-scroll-parallax'
 import { HeaderThemeProvider } from './HeaderTheme'
 import { ThemeProvider } from './Theme'
 import { LenisProvider } from './Lenis'
-import { YachtParallaxProvider } from './YachtParallax'
 
 export const Providers: React.FC<{
   children: React.ReactNode
@@ -15,9 +14,7 @@ export const Providers: React.FC<{
     <LenisProvider>
       <ThemeProvider>
         <HeaderThemeProvider>
-          <YachtParallaxProvider>
-            <ParallaxProvider>{children}</ParallaxProvider>
-          </YachtParallaxProvider>
+          <ParallaxProvider>{children}</ParallaxProvider>
         </HeaderThemeProvider>
       </ThemeProvider>
     </LenisProvider>
