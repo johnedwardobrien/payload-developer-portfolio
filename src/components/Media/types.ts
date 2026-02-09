@@ -23,7 +23,7 @@ export interface Props {
   posterSrc?: string
   topHero?: boolean
   onLoadCb?: () => void
-  onCanPlayThroughCb?: () => void
+  onCanPlayCb?: () => void
   responsiveSources?: {
     mobile?: string
     tablet?: string

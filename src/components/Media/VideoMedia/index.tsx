@@ -6,7 +6,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { useInView } from 'framer-motion'
 
 export const VideoMedia: React.FC<MediaProps> = (props) => {
-  const { onClick, resource, videoClassName, posterSrc = '', topHero, onCanPlayThroughCb } = props
+  const { onClick, resource, videoClassName, posterSrc = '', topHero, onCanPlayCb } = props
   const videoRef = useRef<HTMLVideoElement>(null)
   const videoContRef = useRef<HTMLDivElement>(null)
   // once: true means it stays mounted after first view
@@ -28,9 +28,9 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
             ref={videoRef}
             preload={'auto'}
             poster={posterSrc}
-            onCanPlayThrough={() => {
-              if (onCanPlayThroughCb) {
-                onCanPlayThroughCb()
+            onCanPlay={() => {
+              if (onCanPlayCb) {
+                onCanPlayCb()
               }
             }}
           >
