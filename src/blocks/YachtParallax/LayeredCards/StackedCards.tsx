@@ -24,8 +24,8 @@ export const StackedCards: React.FC<Props> = ({ cards }) => {
       if (cardRef.current) {
         const cardWidth = cardRef.current.offsetWidth
         setDragConstraints({
-          left: -cardWidth * 0.6,
-          right: cardWidth * 0.6,
+          left: -cardWidth,
+          right: cardWidth,
         })
       }
     }
