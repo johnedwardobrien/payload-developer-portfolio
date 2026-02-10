@@ -38,7 +38,7 @@ export const StackedCards: React.FC<Props> = ({ cards }) => {
     if (!cardRef.current) return
 
     const cardWidth = cardRef.current.offsetWidth
-    const threshold = cardWidth * 0.5
+    const threshold = cardWidth * 0.25
 
     if (Math.abs(info.offset.x) >= threshold) {
       if (info.offset.x > 0) {
