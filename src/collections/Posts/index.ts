@@ -17,6 +17,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
+import { updateAndDeleteAccess } from '../../access/updateAndDelete'
 
 import {
   MetaDescriptionField,
@@ -30,10 +31,10 @@ import { slugField } from 'payload'
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: updateAndDeleteAccess,
+    delete: updateAndDeleteAccess,
     read: authenticatedOrPublished,
-    update: authenticated,
+    update: updateAndDeleteAccess,
   },
   // This config controls what's populated by default when a post is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property

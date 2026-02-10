@@ -11,6 +11,7 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { Tenants } from './collections/Tenants'
 import { YachtParallaxItem } from './collections/YachtParallaxItem'
 import { ScrollWindow } from './collections/ScrollWindow'
 import { Footer } from './Footer/config'
@@ -23,6 +24,10 @@ import { getServerSideURL } from './utilities/getURL'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import nodemailer from 'nodemailer'
 import { SESv2, SendEmailCommand } from '@aws-sdk/client-sesv2'
+import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
+import { Config } from 'payload'
+import { isSuperAdmin } from './access/isSuperAdmin'
+import { getUserTenantIDs } from './utilities/getUserTenantIDs'
 
 const sesClient = new SESv2({
   region: 'us-east-1',
@@ -40,21 +45,13 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     autoRefresh: true,
-    autoLogin:
-      process.env.NODE_ENV === 'development'
-        ? {
-            email: 'test@example.com',
-            password: 'test',
-            prefillOnly: true, // Optional: if true, credentials are prefilled but user still clicks login
-          }
-        : false,
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
       beforeLogin: ['@/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/components/BeforeDashboard'],
+      // beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -88,7 +85,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, YachtParallaxItem, ScrollWindow],
+  collections: [Pages, Posts, Media, Categories, Users, YachtParallaxItem, ScrollWindow, Tenants],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, ChatHeader, ChatFooter],
   plugins: [
@@ -116,6 +113,31 @@ export default buildConfig({
         region: process.env.AWS_REGION || process.env.NEXT_PUBLIC_AWS_REGION || 'us-east-1',
       },
       clientUploads: true,
+    }),
+    multiTenantPlugin<Config>({
+      collections: {
+        pages: {},
+        categories: {},
+        media: {},
+        posts: {},
+        'scroll-window': {},
+        'yacht-parallax-item': {},
+      },
+      tenantField: {
+        access: {
+          read: () => true,
+          update: ({ req }) => {
+            if (isSuperAdmin(req.user)) {
+              return true
+            }
+            return getUserTenantIDs(req.user).length > 0
+          },
+        },
+      },
+      tenantsArrayField: {
+        includeDefaultField: false,
+      },
+      userHasAccessToAllTenants: (user) => isSuperAdmin(user),
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,
