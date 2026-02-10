@@ -22,11 +22,19 @@ export const generateMeta = async (args: {
   const { doc } = args
 
   const ogImage = getImageURL(doc?.meta?.image)
-
   const title = doc?.meta?.title ?? ''
+
+  // Build canonical URL based on tenant domain
+  let canonicalUrl: string | undefined
+  if (doc?.tenant && typeof doc.tenant === 'object' && 'domain' in doc.tenant) {
+    const domain = (doc.tenant as any).domain
+    const slug = Array.isArray(doc?.slug) ? doc.slug.join('/') : doc?.slug || ''
+    canonicalUrl = `https://${domain}/${slug}`
+  }
 
   return {
     description: doc?.meta?.description,
+    alternates: canonicalUrl ? { canonical: canonicalUrl } : undefined,
     //I dont care right now I can implement this better with tenants
     //@ts-expect-error
     icons: doc?.favicon,
