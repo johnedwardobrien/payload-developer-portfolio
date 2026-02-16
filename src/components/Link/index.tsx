@@ -19,6 +19,7 @@ type CMSLinkType = {
   type?: 'custom' | 'reference' | null
   url?: string | null
   prefetch?: 'auto' | boolean | null
+  scroll?: boolean
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -33,6 +34,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     size: sizeFromProps,
     url,
     prefetch = false,
+    scroll = false,
   } = props
 
   const href =
@@ -50,7 +52,13 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps} prefetch={prefetch}>
+      <Link
+        className={cn(className)}
+        href={href || url || ''}
+        {...newTabProps}
+        prefetch={prefetch}
+        scroll={scroll}
+      >
         {label && label}
         {children && children}
       </Link>
@@ -59,7 +67,13 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   return (
     <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps} prefetch={prefetch}>
+      <Link
+        className={cn(className)}
+        href={href || url || ''}
+        {...newTabProps}
+        prefetch={prefetch}
+        scroll={scroll}
+      >
         {label && label}
         {children && children}
       </Link>
