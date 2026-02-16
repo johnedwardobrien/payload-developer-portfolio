@@ -37,7 +37,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
                 {Icon && <Icon className={`icon ${parityClass}`} />}
                 {richText && <RichText data={richText} enableGutter={false} />}
                 {enableLink && (
-                  <CMSLink {...link} prefetch={false}>
+                  <CMSLink {...link} prefetch={true}>
                     <FaArrowRight />
                   </CMSLink>
                 )}
