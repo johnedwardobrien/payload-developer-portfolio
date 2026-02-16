@@ -75,12 +75,12 @@ export const TopHero: React.FC<Props> = (props) => {
   } = props
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
-      {heroImage.length > 0 && (
+      {(heroImage as MediaType[])?.length > 0 && (
         <div className="media-cont">
           <Media
             className="media"
             htmlElement="div"
-            resource={heroImage}
+            resource={heroImage as MediaType[]}
             posterSrc="/video-poster-yacht-bazaar.png"
             placeholderBlur="/video-poster-yacht-bazaar.png"
             topHero
@@ -104,7 +104,7 @@ export const TopHero: React.FC<Props> = (props) => {
             className="featured-media-cont"
             initial={{ y: '5vh', opacity: 0 }}
             animate={{ y: '0vh', opacity: 1 }}
-            transition={{ duration: 0.2, delay: 2 }}
+            transition={{ duration: 0.25, delay: 1.2 }}
           >
             {heroFeatured && typeof heroFeatured === 'object' && (
               <div className="featured-media-bg">
