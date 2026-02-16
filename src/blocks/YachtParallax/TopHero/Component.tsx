@@ -94,57 +94,55 @@ export const TopHero: React.FC<Props> = (props) => {
             {subtitle && <p className="subtitle">{subtitle}</p>}
           </div>
         </div>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={
-              typeof heroFeatured === 'object'
-                ? (heroFeatured?.sizes?.thumbnail as MediaType).url
-                : 'featured-img-key'
-            }
-            className="featured-media-cont"
-            initial={{ y: '5vh', opacity: 0 }}
-            animate={{ y: '0vh', opacity: 1 }}
-            transition={{ duration: 0.25, delay: 1.2 }}
-          >
-            {heroFeatured && typeof heroFeatured === 'object' && (
-              <div className="featured-media-bg">
-                <Media
-                  resource={(heroFeatured.sizes?.thumbnail as MediaType) ?? null}
-                  fill
-                  className="relative w-full h-full"
-                  imgClassName="object-cover w-full h-full"
-                  pictureClassName="absolute inset-0 w-full h-full"
-                  videoClassName="absolute inset-0 w-full h-full object-cover"
-                  posterSrc="/video-poster-yacht-bazaar.png"
-                  placeholderBlur="/video-poster-yacht-bazaar.png"
-                  priority
-                  fetchPriority="high"
-                />
-              </div>
-            )}
-            <div className="content">
-              <div className="inner">
-                {featuredImageSubtitle && (
-                  <div className="row-top">
-                    {featuredImageSubtitle && (
-                      <span className="subtitle">{featuredImageSubtitle}</span>
-                    )}
-                  </div>
-                )}
-                {featuredImageTitle && (
-                  <div className="row-middle">
-                    <h2 className="card-title text-heading-2">{featuredImageTitle}</h2>
-                  </div>
-                )}
-                {featuredImageButtonText && (
-                  <div className="row-bottom">
-                    <button>{featuredImageButtonText}</button>
-                  </div>
-                )}
-              </div>
+        <motion.div
+          key={
+            typeof heroFeatured === 'object'
+              ? (heroFeatured?.sizes?.thumbnail as MediaType).url
+              : 'featured-img-key'
+          }
+          className="featured-media-cont"
+          initial={{ y: 8, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1 }}
+        >
+          {heroFeatured && typeof heroFeatured === 'object' && (
+            <div className="featured-media-bg">
+              <Media
+                resource={(heroFeatured.sizes?.thumbnail as MediaType) ?? null}
+                fill
+                className="relative w-full h-full"
+                imgClassName="object-cover w-full h-full"
+                pictureClassName="absolute inset-0 w-full h-full"
+                videoClassName="absolute inset-0 w-full h-full object-cover"
+                posterSrc="/video-poster-yacht-bazaar.png"
+                placeholderBlur="/video-poster-yacht-bazaar.png"
+                priority
+                fetchPriority="high"
+              />
             </div>
-          </motion.div>
-        </AnimatePresence>
+          )}
+          <div className="content">
+            <div className="inner">
+              {featuredImageSubtitle && (
+                <div className="row-top">
+                  {featuredImageSubtitle && (
+                    <span className="subtitle">{featuredImageSubtitle}</span>
+                  )}
+                </div>
+              )}
+              {featuredImageTitle && (
+                <div className="row-middle">
+                  <h2 className="card-title text-heading-2">{featuredImageTitle}</h2>
+                </div>
+              )}
+              {featuredImageButtonText && (
+                <div className="row-bottom">
+                  <button>{featuredImageButtonText}</button>
+                </div>
+              )}
+            </div>
+          </div>
+        </motion.div>
       </div>
       <div className="bg-mask"></div>
     </div>
