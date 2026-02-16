@@ -73,6 +73,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <InitTheme />
       </head>
       <body>
+        {/* Try hack for next.js link scroll issue, top div might force scroll to top */}
+        <div></div>
         <Providers>
           {/* <AdminBar
             adminBarProps={{
