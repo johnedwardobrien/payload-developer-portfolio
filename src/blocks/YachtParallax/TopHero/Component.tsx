@@ -70,7 +70,7 @@ export const TopHero: React.FC<Props> = (props) => {
   useEffect(() => {
     setTimeout(() => {
       setVidLoaded(true)
-    }, 450)
+    }, 600)
   }, [])
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
@@ -97,7 +97,7 @@ export const TopHero: React.FC<Props> = (props) => {
           className="featured-media-cont"
           initial={{ y: '25%', opacity: 0 }}
           animate={vidLoaded ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 0.6 }}
+          transition={{ duration: 1 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
