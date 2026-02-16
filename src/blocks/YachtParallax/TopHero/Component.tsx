@@ -101,7 +101,7 @@ export const TopHero: React.FC<Props> = (props) => {
               : 'featured-img-key'
           }
           className="featured-media-cont"
-          initial={{ y: 8, opacity: 0 }}
+          initial={{ y: 5, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 1 }}
         >
