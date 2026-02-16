@@ -18,6 +18,7 @@ type CMSLinkType = {
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
+  prefetch?: 'auto' | boolean | null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -31,6 +32,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     reference,
     size: sizeFromProps,
     url,
+    prefetch,
   } = props
 
   const href =
@@ -43,7 +45,9 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   if (!href) return null
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps
-  const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
+  const newTabProps = newTab
+    ? { rel: 'noopener noreferrer', target: '_blank', prefetch: prefetch ?? 'auto' }
+    : {}
 
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
