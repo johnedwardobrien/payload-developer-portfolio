@@ -66,6 +66,13 @@ export const TopHero: React.FC<Props> = (props) => {
     index,
     windowId,
   } = props
+
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
       {heroImage && typeof heroImage === 'object' && (
@@ -90,8 +97,8 @@ export const TopHero: React.FC<Props> = (props) => {
         <motion.div
           className="featured-media-cont"
           initial={{ y: '5vh', opacity: 0 }}
-          animate={{ y: '0vh', opacity: 1 }}
-          transition={{ duration: 0.3, delay: 1 }}
+          animate={isMounted ? { y: '0vh', opacity: 1 } : { y: '5vh', opacity: 0 }}
+          transition={{ duration: 0.3, delay: 2 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
