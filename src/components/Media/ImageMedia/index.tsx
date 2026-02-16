@@ -10,6 +10,7 @@ import type { Props as MediaProps } from '../types'
 
 import { cssVariables } from '@/cssVariables'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import type { Media as MediaType } from '@/payload-types'
 
 const { breakpoints } = cssVariables
 
@@ -44,13 +45,18 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   let src: StaticImageData | string = srcFromProps || ''
 
   if (!src && resource && typeof resource === 'object') {
-    const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
+    const {
+      alt: altFromResource,
+      height: fullHeight,
+      url,
+      width: fullWidth,
+    } = resource as MediaType
 
     width = fullWidth!
     height = fullHeight!
     alt = altFromResource || ''
 
-    const cacheTag = resource.updatedAt
+    const cacheTag = (resource as MediaType).updatedAt
 
     src = getMediaUrl(url, cacheTag)
   }
