@@ -22,6 +22,7 @@ export interface Props {
   placeholderBlur?: string
   posterSrc?: string
   topHero?: boolean
+  fetchPriority?: 'auto' | 'high' | 'low' | undefined
   onLoadCb?: () => void
   onCanPlayCb?: () => void
   onCanPlayThroughCb?: () => void

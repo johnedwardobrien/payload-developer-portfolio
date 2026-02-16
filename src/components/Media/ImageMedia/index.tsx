@@ -31,6 +31,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     placeholderBlur,
     onLoadCb,
     responsiveSources,
+    fetchPriority,
   } = props
 
   if (placeholderBlur) {
@@ -86,6 +87,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         placeholder="blur"
         blurDataURL={placeholderBlurStr}
         priority={priority}
+        fetchPriority={fetchPriority ?? 'auto'}
         quality={100}
         loading={loading}
         sizes={sizes}
