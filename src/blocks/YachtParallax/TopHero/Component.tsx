@@ -66,7 +66,7 @@ export const TopHero: React.FC<Props> = (props) => {
     index,
     windowId,
   } = props
-
+  const [vidCanPlay, setVidCanPlay] = useState(false)
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
       {heroImage && typeof heroImage === 'object' && (
@@ -78,6 +78,12 @@ export const TopHero: React.FC<Props> = (props) => {
             posterSrc="/video-poster-yacht-bazaar.png"
             placeholderBlur="/video-poster-yacht-bazaar.png"
             topHero
+            onCanPlayCb={() => {
+              setVidCanPlay(true)
+            }}
+            onCanPlayThroughCb={() => {
+              setVidCanPlay(true)
+            }}
           />
         </div>
       )}
@@ -91,8 +97,8 @@ export const TopHero: React.FC<Props> = (props) => {
         <motion.div
           className="featured-media-cont"
           initial={{ y: '5vh', opacity: 0 }}
-          animate={{ y: '0vh', opacity: 1 }}
-          transition={{ duration: 0.2, delay: 2.5 }}
+          animate={vidCanPlay ? { y: '0vh', opacity: 1 } : {}}
+          transition={{ duration: 0.2, delay: 1 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
