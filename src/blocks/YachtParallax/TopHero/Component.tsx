@@ -87,7 +87,7 @@ export const TopHero: React.FC<Props> = (props) => {
             {subtitle && <p className="subtitle">{subtitle}</p>}
           </div>
         </div>
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           <motion.div
             key={
               typeof heroFeatured === 'object'
