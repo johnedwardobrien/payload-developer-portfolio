@@ -22,8 +22,8 @@
     .TopHero .featured-media-cont {
         display: block;
         position: relative;
-        max-width: 370px;
-        margin: 0 1rem 1rem auto;
+        width: 325px;
+        margin: 0 2rem 1rem auto;
         aspect-ratio: 1 / 1;
     }
 

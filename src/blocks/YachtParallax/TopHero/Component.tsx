@@ -91,12 +91,12 @@ export const TopHero: React.FC<Props> = (props) => {
           className="featured-media-cont"
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.2, delay: 0.75 }}
+          transition={{ duration: 0.3, delay: 0.25 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
               <Media
-                resource={(heroFeatured.sizes?.small as MediaType) ?? null}
+                resource={(heroFeatured.sizes?.thumbnail as MediaType) ?? null}
                 fill
                 className="relative w-full h-full"
                 imgClassName="object-cover w-full h-full"
