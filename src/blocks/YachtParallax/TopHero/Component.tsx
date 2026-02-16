@@ -89,9 +89,9 @@ export const TopHero: React.FC<Props> = (props) => {
         </div>
         <motion.div
           className="featured-media-cont"
-          initial={{ y: 25, opacity: 0.5 }}
+          initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.25, delay: 0.75 }}
+          transition={{ duration: 0.2, delay: 0.75 }}
         >
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
