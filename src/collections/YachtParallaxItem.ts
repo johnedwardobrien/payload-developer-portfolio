@@ -232,6 +232,7 @@ export const YachtParallaxItem: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       label: 'Hero Image',
+      hasMany: true,
       admin: {
         condition: (_data, siblingData) => siblingData?.blockType === 'topHero',
       },

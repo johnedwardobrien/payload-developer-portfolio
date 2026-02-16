@@ -11,7 +11,14 @@ type Props = {
   disableInnerContainer?: boolean
   title?: string
   subtitle?: string
-  heroImage?: any
+  heroImage?:
+    | {
+        media?: (string | null) | MediaType
+        id?: string | null
+      }[]
+    | ((string | null) | MediaType)[]
+    | (string | null)
+    | MediaType
   heroFeatured?: (string | null) | MediaType
   featuredImageTitle?: string | null
   featuredImageSubtitle?: string | null
@@ -68,7 +75,7 @@ export const TopHero: React.FC<Props> = (props) => {
   } = props
   return (
     <div className={`TopHero${index ? ` item-${index}` : ''}${windowId}`}>
-      {heroImage && typeof heroImage === 'object' && (
+      {heroImage.length > 0 && (
         <div className="media-cont">
           <Media
             className="media"

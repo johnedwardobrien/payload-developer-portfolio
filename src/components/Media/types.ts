@@ -15,9 +15,9 @@ export interface Props {
   loading?: 'lazy' | 'eager' // for NextImage only
   priority?: boolean // for NextImage only
   ref?: Ref<HTMLImageElement | HTMLVideoElement | null>
-  resource?: MediaType | string | number | null // for Payload media
+  resource?: MediaType | string | number | null | (MediaType | string | number | null)[] // for Payload media
   size?: string // for NextImage only
-  src?: StaticImageData // for static media
+  src?: StaticImageData | string // for static media
   videoClassName?: string
   placeholderBlur?: string
   posterSrc?: string

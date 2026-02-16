@@ -908,7 +908,7 @@ export interface YachtParallaxItem {
   featuredImageSubtitle?: string | null;
   featuredImageButtonText?: string | null;
   inputPlaceholders?: Placeholder[] | null;
-  heroImage?: (string | null) | Media;
+  heroImage?: (string | Media)[] | null;
   heroFeatured?: (string | null) | Media;
   videos?: StandardCard[] | null;
   cards?: StandardCard[] | null;
