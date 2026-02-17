@@ -1,10 +1,8 @@
 'use client'
-import { useState, useEffect } from 'react'
 import type { Parallax } from '@react-spring/parallax'
 
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
-import { AnimatePresence, motion } from 'framer-motion'
 import './Component.css'
 
 type Props = {
@@ -94,17 +92,7 @@ export const TopHero: React.FC<Props> = (props) => {
             {subtitle && <p className="subtitle">{subtitle}</p>}
           </div>
         </div>
-        <motion.div
-          key={
-            typeof heroFeatured === 'object'
-              ? (heroFeatured?.sizes?.thumbnail as MediaType).url
-              : 'featured-img-key'
-          }
-          className="featured-media-cont"
-          initial={{ y: 5, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1 }}
-        >
+        <div className="featured-media-cont">
           {heroFeatured && typeof heroFeatured === 'object' && (
             <div className="featured-media-bg">
               <Media
@@ -142,7 +130,7 @@ export const TopHero: React.FC<Props> = (props) => {
               )}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
       <div className="bg-mask"></div>
     </div>
