@@ -17,6 +17,10 @@ export const YachtParallax: React.FC<Props> = (props) => {
   const [isTablet, setIsTablet] = useState(false)
   const { scrollY } = useScroll()
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   React.useEffect(() => {
     const checkTablet = () => {
       setIsTablet(window.innerWidth >= 768)
