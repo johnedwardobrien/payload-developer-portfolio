@@ -123,8 +123,6 @@
 	margin-top: 0;
 	display: grid;
 	grid-template-areas: "stack";
-	height: 100vh;
-	height: 100svh;
 	height: 100dvh;
 	border-radius: 0 0 32px 32px;
 	overflow: clip;
