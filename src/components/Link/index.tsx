@@ -34,7 +34,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     size: sizeFromProps,
     url,
     prefetch = false,
-    scroll = true,
+    scroll = false,
   } = props
 
   const href =
