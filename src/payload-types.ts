@@ -236,7 +236,6 @@ export interface Page {
   header?: ('main' | 'chat' | 'empty') | null;
   footer?: ('main' | 'chat' | 'empty') | null;
   theme?: ('none' | 'chat-window' | 'yacht-bazaar') | null;
-  favicon?: ('none' | 'code.ico') | null;
   publishedAt?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -1532,7 +1531,6 @@ export interface PagesSelect<T extends boolean = true> {
   header?: T;
   footer?: T;
   theme?: T;
-  favicon?: T;
   publishedAt?: T;
   generateSlug?: T;
   slug?: T;

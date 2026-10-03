@@ -118,6 +118,9 @@ export const viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
+  icons: {
+    icon: '/code.ico',
+  },
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',

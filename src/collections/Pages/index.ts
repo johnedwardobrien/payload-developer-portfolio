@@ -188,22 +188,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 },
               ],
             },
-            {
-              name: 'favicon',
-              type: 'select',
-              label: 'Favicon',
-              options: [
-                {
-                  label: 'None',
-                  value: 'none',
-                },
-                {
-                  label: 'Code',
-                  value: 'code.ico',
-                },
-              ],
-              defaultValue: 'none',
-            },
           ],
         },
       ],
