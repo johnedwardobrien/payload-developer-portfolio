@@ -55,5 +55,8 @@ export async function GET(req: NextRequest): Promise<Response> {
 
   draft.enable()
 
-  redirect(path)
+  const target = new URL(path, req.url)
+  target.searchParams.set('preview', 'true')
+
+  redirect(`${target.pathname}${target.search}`)
 }
