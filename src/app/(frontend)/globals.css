@@ -193,3 +193,56 @@ body {
   line-height: 172%;
   letter-spacing: 0.1rem;
 }
+
+.article-sheet .article-prose {
+  color: black;
+  --tw-prose-body: black;
+  --tw-prose-headings: black;
+  --tw-prose-lead: black;
+  --tw-prose-links: black;
+  --tw-prose-bold: black;
+  --tw-prose-counters: black;
+  --tw-prose-bullets: black;
+  --tw-prose-quotes: black;
+  --tw-prose-captions: black;
+  --tw-prose-code: black;
+}
+
+.layout-list-panel {
+  color: #000;
+  color-scheme: light;
+}
+
+.layout-list-panel :is(input, button, span, p, a) {
+  color: #000;
+}
+
+.layout-list-panel input {
+  background-color: #fff;
+  -webkit-text-fill-color: #000;
+}
+
+.layout-list-panel input::placeholder {
+  color: #525252;
+  -webkit-text-fill-color: #525252;
+}
+
+.layout-list-panel [aria-pressed='true'] {
+  background-color: #171717;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+.layout-list-panel .prose {
+  color: black;
+  --tw-prose-body: black;
+  --tw-prose-headings: black;
+  --tw-prose-lead: black;
+  --tw-prose-links: black;
+  --tw-prose-bold: black;
+  --tw-prose-counters: black;
+  --tw-prose-bullets: black;
+  --tw-prose-quotes: black;
+  --tw-prose-captions: black;
+  --tw-prose-code: black;
+}

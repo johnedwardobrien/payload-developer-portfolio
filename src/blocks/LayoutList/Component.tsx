@@ -32,9 +32,9 @@ export const LayoutListBlock: React.FC<
 
   const header =
     title || introContent ? (
-      <div className="mx-auto mb-8 w-[95%] md:w-[90%] lg:w-[80%]">
+      <div className="mb-8">
         {title && (
-          <div className="prose dark:prose-invert max-w-none">
+          <div className="prose max-w-none">
             <h2>{title}</h2>
           </div>
         )}
@@ -43,6 +43,15 @@ export const LayoutListBlock: React.FC<
         )}
       </div>
     ) : null
+
+  const panel = (list: React.ReactNode) => (
+    <div className="mb-16 mt-28 scroll-mt-24" id={blockId}>
+      <div className="layout-list-panel mx-auto w-[95%] min-w-0 rounded-xl bg-white p-6 text-black md:w-[90%] md:p-8 lg:w-[80%] lg:p-10">
+        {header}
+        {list}
+      </div>
+    </div>
+  )
 
   const slug = (relationTo || 'posts') as ArticleCollectionSlug
   const categoryIds = categories?.map((category) =>
@@ -62,12 +71,7 @@ export const LayoutListBlock: React.FC<
             )
         : await fetchAllLayoutListDocs({ relationTo: slug, categories: categoryIds })
 
-    return (
-      <div className="mb-16 mt-28 scroll-mt-24" id={blockId}>
-        {header}
-        <LayoutListClient blockId={blockId} docs={docs} limit={limit} mode="local" />
-      </div>
-    )
+    return panel(<LayoutListClient blockId={blockId} docs={docs} limit={limit} mode="local" />)
   }
 
   const initial = await fetchLayoutListDocs({
@@ -78,17 +82,14 @@ export const LayoutListBlock: React.FC<
     sort: 'latest',
   })
 
-  return (
-    <div className="mb-16 mt-28 scroll-mt-24" id={blockId}>
-      {header}
-      <LayoutListClient
-        blockId={blockId}
-        categories={categoryIds}
-        initial={initial}
-        limit={limit}
-        mode="remote"
-        relationTo={slug}
-      />
-    </div>
+  return panel(
+    <LayoutListClient
+      blockId={blockId}
+      categories={categoryIds}
+      initial={initial}
+      limit={limit}
+      mode="remote"
+      relationTo={slug}
+    />,
   )
 }

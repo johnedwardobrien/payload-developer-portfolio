@@ -113,23 +113,23 @@ export const LayoutListClient: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="mx-auto flex w-[95%] flex-col gap-8 md:w-[90%] lg:w-[80%]">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="w-full max-w-xs">
+    <div className="flex min-w-0 flex-col gap-8">
+      <div className="flex min-w-0 flex-wrap items-center justify-between gap-4">
+        <div className="w-full min-w-0 max-w-xs">
           <Label className="sr-only" htmlFor={`${blockId}-search`}>
             Search
           </Label>
           <Input
             id={`${blockId}-search`}
             type="search"
-            className="bg-white text-espresso placeholder:text-muted-foreground"
+            className="border-neutral-400 bg-white text-black placeholder:text-neutral-600"
             placeholder="Search"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
         <div
-          className="inline-flex overflow-hidden rounded border border-border"
+          className="inline-flex overflow-hidden rounded border border-neutral-400"
           role="group"
           aria-label="Sort"
         >
@@ -141,10 +141,10 @@ export const LayoutListClient: React.FC<Props> = (props) => {
                 type="button"
                 aria-pressed={isActive}
                 className={cn(
-                  'h-10 border-l border-border px-4 text-sm font-medium transition-colors first:border-l-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                  'h-10 border-l border-neutral-400 px-4 text-sm font-medium transition-colors first:border-l-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                   isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-background text-foreground hover:bg-card',
+                    ? 'bg-neutral-900 text-white'
+                    : 'bg-white text-black hover:bg-neutral-100',
                 )}
                 onClick={() => !isActive && load(1, option.value, search)}
               >
@@ -159,7 +159,7 @@ export const LayoutListClient: React.FC<Props> = (props) => {
         aria-busy={isPending}
         aria-live="polite"
         className={cn(
-          'grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 transition-opacity',
+          'grid min-w-0 grid-cols-4 gap-x-4 gap-y-4 transition-opacity sm:grid-cols-8 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-8',
           isPending && 'opacity-50 pointer-events-none',
         )}
       >
@@ -173,18 +173,22 @@ export const LayoutListClient: React.FC<Props> = (props) => {
       {result.docs.length === 0 && !isPending && <p>No results found.</p>}
 
       {result.totalDocs > 0 && (
-        <nav className="flex items-center justify-end gap-2" aria-label="Pagination">
+        <nav
+          className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 text-black"
+          aria-label="Pagination"
+        >
           <Button
             type="button"
             variant="ghost"
             size="icon"
+            className="text-black"
             aria-label="Previous page"
             disabled={currentPage <= 1 || isPending}
             onClick={() => goToPage(currentPage - 1)}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <span className="font-semibold text-sm">
+          <span className="min-w-0 text-center text-sm font-semibold text-black">
             Showing {start}
             {start > 0 ? ` - ${end}` : ''} of {result.totalDocs}
           </span>
@@ -192,6 +196,7 @@ export const LayoutListClient: React.FC<Props> = (props) => {
             type="button"
             variant="ghost"
             size="icon"
+            className="text-black"
             aria-label="Next page"
             disabled={currentPage >= result.totalPages || isPending}
             onClick={() => goToPage(currentPage + 1)}

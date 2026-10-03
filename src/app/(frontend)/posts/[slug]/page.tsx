@@ -50,7 +50,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post) return <PayloadRedirects url={url} />
 
   return (
-    <article className="min-h-screen bg-pl-gunmetal pt-16 pb-16 text-white">
+    <article className="min-h-screen bg-pl-gunmetal pt-16 pb-16">
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -61,7 +61,7 @@ export default async function Post({ params: paramsPromise }: Args) {
       <PostHero post={post} />
 
       <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="mx-auto w-[95%] md:w-[70%] lg:w-[60%] lg:max-w-[43rem]">
+        <div className="article-sheet mx-auto w-[95%] bg-white p-6 text-black md:w-[70%] md:p-8 lg:w-[60%] lg:max-w-[43rem] lg:p-10">
           <RichText className="article-prose" data={post.content} enableGutter={false} />
           {post.relatedPosts && post.relatedPosts.length > 0 && (
             <RelatedPosts
