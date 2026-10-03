@@ -9,7 +9,7 @@ import { fetchLayoutListDocs } from './actions'
 import { LayoutListClient } from './Component.client'
 import { fetchAllLayoutListDocs } from './fetchAll'
 import { toLayoutListDoc } from './normalize'
-import type { LayoutListDoc } from './types'
+import type { LayoutListDoc, LayoutListTemplate } from './types'
 
 export const LayoutListBlock: React.FC<
   LayoutListBlockProps & {
@@ -20,6 +20,7 @@ export const LayoutListBlock: React.FC<
     id,
     categories,
     introContent,
+    layoutTemplate,
     limit: limitFromProps,
     populateBy,
     relationTo,
@@ -29,6 +30,7 @@ export const LayoutListBlock: React.FC<
 
   const limit = limitFromProps || 10
   const blockId = `block-${id}`
+  const template: LayoutListTemplate = layoutTemplate || 'fourAcross'
 
   const header =
     title || introContent ? (
@@ -71,7 +73,15 @@ export const LayoutListBlock: React.FC<
             )
         : await fetchAllLayoutListDocs({ relationTo: slug, categories: categoryIds })
 
-    return panel(<LayoutListClient blockId={blockId} docs={docs} limit={limit} mode="local" />)
+    return panel(
+      <LayoutListClient
+        blockId={blockId}
+        docs={docs}
+        limit={limit}
+        mode="local"
+        template={template}
+      />,
+    )
   }
 
   const initial = await fetchLayoutListDocs({
@@ -90,6 +100,7 @@ export const LayoutListBlock: React.FC<
       limit={limit}
       mode="remote"
       relationTo={slug}
+      template={template}
     />,
   )
 }

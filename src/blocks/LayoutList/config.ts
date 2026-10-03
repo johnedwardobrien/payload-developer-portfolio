@@ -11,6 +11,16 @@ export const LayoutList: Block = {
       type: 'text',
       label: 'Title',
     },
+    {
+      name: 'layoutTemplate',
+      type: 'select',
+      label: 'Layout Template',
+      defaultValue: 'fourAcross',
+      options: [
+        { label: '4 across', value: 'fourAcross' },
+        { label: '2 across', value: 'twoAcross' },
+      ],
+    },
     ...Archive.fields,
   ],
   labels: {

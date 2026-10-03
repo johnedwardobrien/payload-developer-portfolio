@@ -728,6 +728,7 @@ export interface ArchiveBlock {
  */
 export interface LayoutListBlock {
   title?: string | null;
+  layoutTemplate?: ('fourAcross' | 'twoAcross') | null;
   introContent?: {
     root: {
       type: string;
@@ -1628,6 +1629,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  */
 export interface LayoutListBlockSelect<T extends boolean = true> {
   title?: T;
+  layoutTemplate?: T;
   introContent?: T;
   populateBy?: T;
   relationTo?: T;

@@ -3,6 +3,8 @@ import type { ArticleCollectionSlug } from '@/types/articleCollections'
 
 export type LayoutListSort = 'latest' | 'alphabetic'
 
+export type LayoutListTemplate = 'fourAcross' | 'twoAcross'
+
 export type LayoutListDoc = {
   id: string
   title: string

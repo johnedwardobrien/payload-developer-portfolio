@@ -12,9 +12,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { fetchLayoutListDocs } from './actions'
 import { LayoutListCard } from './LayoutListCard'
-import type { LayoutListDoc, LayoutListResult, LayoutListSort } from './types'
+import type { LayoutListDoc, LayoutListResult, LayoutListSort, LayoutListTemplate } from './types'
 
-type Props = { blockId: string; limit: number } & (
+type Props = { blockId: string; limit: number; template: LayoutListTemplate } & (
   | {
       mode: 'remote'
       relationTo: ArticleCollectionSlug
@@ -40,7 +40,7 @@ const sortDocs = (docs: LayoutListDoc[], sort: LayoutListSort) =>
   )
 
 export const LayoutListClient: React.FC<Props> = (props) => {
-  const { blockId, limit } = props
+  const { blockId, limit, template } = props
 
   const [searchInput, setSearchInput] = useState('')
   const search = useDebounce(searchInput.trim(), 300)
@@ -159,12 +159,15 @@ export const LayoutListClient: React.FC<Props> = (props) => {
         aria-busy={isPending}
         aria-live="polite"
         className={cn(
-          'grid min-w-0 grid-cols-1 gap-x-4 gap-y-4 transition-opacity sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-8',
+          'grid min-w-0 grid-cols-1 transition-opacity',
+          template === 'twoAcross'
+            ? 'gap-8 md:grid-cols-2 lg:gap-10'
+            : 'gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-8',
           isPending && 'opacity-50 pointer-events-none',
         )}
       >
         {result.docs.map((doc) => (
-          <LayoutListCard key={`${doc.relationTo}-${doc.id}`} doc={doc} />
+          <LayoutListCard key={`${doc.relationTo}-${doc.id}`} doc={doc} template={template} />
         ))}
       </div>
 

@@ -1,0 +1,9 @@
+---
+description: Do not open running apps or dev servers to verify changes unless explicitly asked
+alwaysApply: true
+---
+
+# No unrequested site checks
+
+- Do not open, visit, or load running apps, dev servers, localhost URLs, or the admin panel (browser or curl) to verify changes, and do not include that step in plans, unless the user specifically asks for it.
+- Verify changes with typecheck and lint only; leave visual checks to the user.
