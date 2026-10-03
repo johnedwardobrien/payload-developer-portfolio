@@ -6,6 +6,8 @@ import { useSpring, animated, easings } from 'react-spring'
 import { motion } from 'framer-motion'
 import { LiquidGlass } from '@liquidglass/react'
 import { FaArrowRight } from 'react-icons/fa6'
+import { CMSLink } from '@/components/Link'
+import { tabButtonHasDestination } from './hasTabLink'
 import './Component.css'
 
 type TabPanelClientProps = {
@@ -100,16 +102,23 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
                 key={`${key}-btn`}
                 className={cn(`${activeTabId === key ? 'active ' : ''}panel-btn my-1`)}
               >
-                <button
-                  onClick={() => {
-                    setActiveTabId(key)
-                    setCaretToggle(false)
-                  }}
-                  className={``}
-                >
-                  {obj.text}
-                  <FaArrowRight />
-                </button>
+                {tabButtonHasDestination(obj.link) ? (
+                  <CMSLink {...obj.link} label={null} appearance="inline">
+                    {obj.text}
+                    <FaArrowRight />
+                  </CMSLink>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setActiveTabId(key)
+                      setCaretToggle(false)
+                    }}
+                    className={``}
+                  >
+                    {obj.text}
+                    <FaArrowRight />
+                  </button>
+                )}
               </div>
             )
           })}
@@ -125,40 +134,42 @@ export const TabPanelClient: React.FC<TabPanelClientProps> = ({
           <RxCaretLeft fontSize={'2rem'} />
         </animated.button>
       </animated.div>
-      <div
-        className={cn(
-          `tab-panel content-cont${caretToggle ? ' open' : ' closed'} grid w-full h-auto`,
-        )}
-      >
-        <div className={cn(`inner flex flex-col`)}>
-          <motion.div
-            className={`title-cont`}
-            key={`title-${activeTabId}`}
-            initial={{ opacity: 0, x: '-100%' }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.25 }}
-            viewport={{ once: true }}
-          >
-            <h2>{tabButtonIdx[activeTabId].text}</h2>
-          </motion.div>
-          {React.Children.map(children, (child, index) => {
-            return (
-              <motion.div
-                key={`${activeTabId}-content-${index}`}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.25 }}
-                viewport={{ once: true }}
-                className={cn({
-                  hidden: tabContentIdToArrIdx[activeTabId] !== index,
-                })}
-              >
-                {child}
-              </motion.div>
-            )
-          })}
+      {activeTabId && tabButtonIdx[activeTabId] && (
+        <div
+          className={cn(
+            `tab-panel content-cont${caretToggle ? ' open' : ' closed'} grid w-full h-auto`,
+          )}
+        >
+          <div className={cn(`inner flex flex-col`)}>
+            <motion.div
+              className={`title-cont`}
+              key={`title-${activeTabId}`}
+              initial={{ opacity: 0, x: '-100%' }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.25 }}
+              viewport={{ once: true }}
+            >
+              <h2>{tabButtonIdx[activeTabId].text}</h2>
+            </motion.div>
+            {React.Children.map(children, (child, index) => {
+              return (
+                <motion.div
+                  key={`${activeTabId}-content-${index}`}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.25 }}
+                  viewport={{ once: true }}
+                  className={cn({
+                    hidden: tabContentIdToArrIdx[activeTabId] !== index,
+                  })}
+                >
+                  {child}
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </>
   )
 }

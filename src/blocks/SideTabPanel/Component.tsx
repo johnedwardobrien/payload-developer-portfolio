@@ -3,6 +3,7 @@ import React from 'react'
 import type { SideTabPanel as SideTabPanelProps } from '@/payload-types'
 import { TabPanelClient } from './TabPanelClient'
 import { TabContent } from './TabContent'
+import { tabButtonHasDestination } from './hasTabLink'
 
 export const SideTabPanel: React.FC<SideTabPanelProps> = (props) => {
   const { tabGroups } = props
@@ -14,7 +15,9 @@ export const SideTabPanel: React.FC<SideTabPanelProps> = (props) => {
   let tab: { [key: string]: any }
   for (let i = 0; i < tabGroups?.length; i++) {
     tab = tabGroups[i]
-    if (i === 0) defaultTabIdx = tab.id
+    if (!defaultTabIdx && tab.id && !tabButtonHasDestination(tab.btn?.link)) {
+      defaultTabIdx = tab.id
+    }
     tabButtonIdx[tab.id] = tab.btn
     tabContentArr.push(tab.content)
     tabContentIdToArrIdx[tab.id] = i
