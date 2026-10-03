@@ -34,7 +34,7 @@ export const PostHero: React.FC<{
         )}
       </div>
       <Link
-        className="absolute left-4 top-4 z-20 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-[2rem] text-white [font-family:var(--gsc-font-header)] [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]"
+        className="absolute left-4 top-4 z-20 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-left text-[1.2rem] text-white [font-family:var(--gsc-font-header)] [text-shadow:0_1px_3px_rgba(0,0,0,0.5)] md:text-[1.5rem] lg:text-[1.7rem]"
         href="/blog"
       >
         <FaArrowLeft />
