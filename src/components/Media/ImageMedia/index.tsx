@@ -61,6 +61,15 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     src = getMediaUrl(url, cacheTag)
   }
 
+  const mediaResource =
+    resource && typeof resource === 'object' && !Array.isArray(resource)
+      ? (resource as MediaType)
+      : undefined
+  const objectPosition =
+    typeof mediaResource?.focalX === 'number' && typeof mediaResource?.focalY === 'number'
+      ? `${mediaResource.focalX}% ${mediaResource.focalY}%`
+      : undefined
+
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
@@ -98,6 +107,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         loading={loading}
         sizes={sizes}
         src={src}
+        style={objectPosition ? { objectPosition } : undefined}
         width={!fill ? width : undefined}
         unoptimized={true}
         onLoad={() => {

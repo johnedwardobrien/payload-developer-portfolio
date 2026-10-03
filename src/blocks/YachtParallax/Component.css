@@ -160,6 +160,16 @@
 	object-position: center;
 }
 
+.yacht-parallax-cont .TopHero .media picture,
+.yacht-parallax-cont .TopHero .media img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+
 .yacht-parallax-cont .TopHero .inner {
 	position: relative;
 	margin-inline: auto;
