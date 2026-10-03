@@ -159,14 +159,12 @@ export const LayoutListClient: React.FC<Props> = (props) => {
         aria-busy={isPending}
         aria-live="polite"
         className={cn(
-          'grid min-w-0 grid-cols-4 gap-x-4 gap-y-4 transition-opacity sm:grid-cols-8 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-8',
+          'grid min-w-0 grid-cols-1 gap-x-4 gap-y-4 transition-opacity sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-8',
           isPending && 'opacity-50 pointer-events-none',
         )}
       >
         {result.docs.map((doc) => (
-          <div className="col-span-4" key={`${doc.relationTo}-${doc.id}`}>
-            <LayoutListCard doc={doc} />
-          </div>
+          <LayoutListCard key={`${doc.relationTo}-${doc.id}`} doc={doc} />
         ))}
       </div>
 
@@ -174,7 +172,7 @@ export const LayoutListClient: React.FC<Props> = (props) => {
 
       {result.totalDocs > 0 && (
         <nav
-          className="flex w-fit items-center justify-start gap-2 text-black"
+          className="flex w-full items-center justify-center gap-2 text-black"
           aria-label="Pagination"
         >
           <Button
