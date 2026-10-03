@@ -7,6 +7,9 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
 
+import Link from 'next/link'
+import { FaArrowLeft } from 'react-icons/fa6'
+
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -64,11 +67,21 @@ export default async function Page({ params: paramsPromise }: Args) {
     <div
       className={cn(
         'root-page',
-        slug === 'blog' && 'bg-pl-gunmetal min-h-screen text-white',
+        slug === 'blog' &&
+          'fixed top-0 left-0 h-full w-full overflow-y-auto bg-pl-gunmetal text-white',
       )}
       data-custom-theme={theme || undefined}
     >
       <PageClient />
+      {slug === 'blog' && (
+        <Link
+          className="absolute left-4 top-4 z-10 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-[2rem] text-white [font-family:var(--gsc-font-header)]"
+          href="/"
+        >
+          <FaArrowLeft />
+          Back To Home
+        </Link>
+      )}
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 

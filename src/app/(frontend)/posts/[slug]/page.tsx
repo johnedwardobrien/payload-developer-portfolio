@@ -50,7 +50,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post) return <PayloadRedirects url={url} />
 
   return (
-    <article className="min-h-screen bg-pl-gunmetal pt-16 pb-16">
+    <article className="min-h-screen bg-pl-gunmetal pb-16">
       <PageClient />
 
       {/* Allows redirects for valid pages too */}

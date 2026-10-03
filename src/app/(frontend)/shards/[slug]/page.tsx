@@ -50,7 +50,7 @@ export default async function ShardDocPage({ params: paramsPromise }: Args) {
   if (!shard) return <PayloadRedirects url={url} />
 
   return (
-    <article className="min-h-screen bg-pl-gunmetal pt-16 pb-16 text-white">
+    <article className="min-h-screen bg-pl-gunmetal pb-16 text-white">
       <PageClient />
 
       <PayloadRedirects disableNotFound url={url} />

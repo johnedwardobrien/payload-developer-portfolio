@@ -16,7 +16,7 @@ export const LayoutListCard: React.FC<{ doc: LayoutListDoc }> = ({ doc }) => {
 
   return (
     <article
-      className="border border-border rounded-lg overflow-hidden bg-white text-black hover:cursor-pointer h-full flex flex-col"
+      className="border border-border rounded-lg overflow-hidden bg-white text-black shadow-sm hover:cursor-pointer h-full flex flex-col"
       ref={card.ref}
     >
       {doc.image && (

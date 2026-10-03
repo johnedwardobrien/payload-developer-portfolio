@@ -174,7 +174,7 @@ export const LayoutListClient: React.FC<Props> = (props) => {
 
       {result.totalDocs > 0 && (
         <nav
-          className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 text-black"
+          className="flex w-fit items-center justify-start gap-2 text-black"
           aria-label="Pagination"
         >
           <Button
@@ -188,7 +188,7 @@ export const LayoutListClient: React.FC<Props> = (props) => {
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <span className="min-w-0 text-center text-sm font-semibold text-black">
+          <span className="text-sm font-semibold text-black">
             Showing {start}
             {start > 0 ? ` - ${end}` : ''} of {result.totalDocs}
           </span>

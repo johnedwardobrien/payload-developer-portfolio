@@ -1,5 +1,7 @@
 import { formatDateTime } from 'src/utilities/formatDateTime'
+import Link from 'next/link'
 import React from 'react'
+import { FaArrowLeft } from 'react-icons/fa6'
 
 import type { Essay, Post, Shard } from '@/payload-types'
 
@@ -15,8 +17,27 @@ export const PostHero: React.FC<{
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
   return (
-    <div className="relative -mt-[10.4rem] flex items-end">
-      <div className="z-10 relative mx-auto w-[95%] pb-8 text-white md:w-[70%] lg:w-[60%] lg:max-w-[43rem]">
+    <div className="relative isolate flex min-h-[80vh] items-end">
+      <div className="absolute inset-0 select-none">
+        {heroImage && typeof heroImage !== 'string' && (
+          <Media
+            fill
+            priority
+            className="absolute inset-0"
+            pictureClassName="absolute inset-0"
+            imgClassName="object-cover"
+            resource={heroImage}
+          />
+        )}
+      </div>
+      <Link
+        className="absolute left-4 top-4 z-20 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-[2rem] text-white [font-family:var(--gsc-font-header)] [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]"
+        href="/blog"
+      >
+        <FaArrowLeft />
+        Go back
+      </Link>
+      <div className="relative z-10 mx-auto w-[95%] pb-8 text-white md:w-[70%] lg:w-[60%] lg:max-w-[43rem]">
         <div>
           <div className="uppercase text-sm mb-6">
             {categories?.map((category, index) => {
@@ -68,11 +89,6 @@ export const PostHero: React.FC<{
             )}
           </div>
         </div>
-      </div>
-      <div className="min-h-[80vh] select-none">
-        {heroImage && typeof heroImage !== 'string' && (
-          <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
-        )}
       </div>
     </div>
   )
