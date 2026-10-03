@@ -32,7 +32,7 @@ export const LayoutListBlock: React.FC<
 
   const header =
     title || introContent ? (
-      <div className="container mb-8">
+      <div className="mx-auto mb-8 w-[95%] md:w-[90%] lg:w-[80%]">
         {title && (
           <div className="prose dark:prose-invert max-w-none">
             <h2>{title}</h2>
@@ -63,7 +63,7 @@ export const LayoutListBlock: React.FC<
         : await fetchAllLayoutListDocs({ relationTo: slug, categories: categoryIds })
 
     return (
-      <div className="my-16 scroll-mt-24" id={blockId}>
+      <div className="mb-16 mt-28 scroll-mt-24" id={blockId}>
         {header}
         <LayoutListClient blockId={blockId} docs={docs} limit={limit} mode="local" />
       </div>
@@ -79,7 +79,7 @@ export const LayoutListBlock: React.FC<
   })
 
   return (
-    <div className="my-16 scroll-mt-24" id={blockId}>
+    <div className="mb-16 mt-28 scroll-mt-24" id={blockId}>
       {header}
       <LayoutListClient
         blockId={blockId}

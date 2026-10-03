@@ -16,7 +16,7 @@ export const LayoutListCard: React.FC<{ doc: LayoutListDoc }> = ({ doc }) => {
 
   return (
     <article
-      className="border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer h-full flex flex-col"
+      className="border border-border rounded-lg overflow-hidden bg-card text-card-foreground hover:cursor-pointer h-full flex flex-col"
       ref={card.ref}
     >
       {doc.image && (
@@ -31,7 +31,7 @@ export const LayoutListCard: React.FC<{ doc: LayoutListDoc }> = ({ doc }) => {
       )}
       <div className="p-4 flex flex-col flex-1">
         <div className="prose">
-          <h3>
+          <h3 className="[font-family:var(--gsc-font-header)]">
             {href ? (
               <Link className="not-prose" href={href} ref={link.ref}>
                 {doc.title}
@@ -43,11 +43,14 @@ export const LayoutListCard: React.FC<{ doc: LayoutListDoc }> = ({ doc }) => {
         </div>
         {doc.description && (
           <div className="mt-2">
-            <p>{doc.description}</p>
+            <p className="[font-family:var(--zs-font-body)]">{doc.description}</p>
           </div>
         )}
         {doc.publishedAt && (
-          <time className="mt-auto pt-4 text-sm" dateTime={doc.publishedAt}>
+          <time
+            className="mt-auto pt-4 text-sm italic [font-family:var(--gsc-font-header)]"
+            dateTime={doc.publishedAt}
+          >
             {formatLongDate(doc.publishedAt)}
           </time>
         )}

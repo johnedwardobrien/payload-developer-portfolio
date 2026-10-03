@@ -172,3 +172,24 @@ body {
   position: relative;
   min-height: 100%;
 }
+
+.article-prose {
+  color: white;
+  font-family: var(--zs-font-body);
+  font-size: min(5vw, 1.2rem);
+  --tw-prose-body: white;
+  --tw-prose-headings: white;
+  --tw-prose-lead: white;
+  --tw-prose-links: white;
+  --tw-prose-bold: white;
+  --tw-prose-counters: white;
+  --tw-prose-bullets: white;
+  --tw-prose-quotes: white;
+  --tw-prose-captions: white;
+  --tw-prose-code: white;
+}
+
+.article-prose :is(p, li) {
+  line-height: 172%;
+  letter-spacing: 0.1rem;
+}

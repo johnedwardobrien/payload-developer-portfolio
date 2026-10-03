@@ -10,6 +10,7 @@ import { homeStatic } from '@/endpoints/seed/home-static'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { cn } from '@/utilities/ui'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -60,7 +61,13 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { hero, layout, theme } = page
 
   return (
-    <div className="root-page" data-custom-theme={theme || undefined}>
+    <div
+      className={cn(
+        'root-page',
+        slug === 'blog' && 'bg-pl-gunmetal min-h-screen text-white',
+      )}
+      data-custom-theme={theme || undefined}
+    >
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />

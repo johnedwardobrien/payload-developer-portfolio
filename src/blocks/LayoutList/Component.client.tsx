@@ -113,7 +113,7 @@ export const LayoutListClient: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="container flex flex-col gap-8">
+    <div className="mx-auto flex w-[95%] flex-col gap-8 md:w-[90%] lg:w-[80%]">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="w-full max-w-xs">
           <Label className="sr-only" htmlFor={`${blockId}-search`}>
@@ -122,6 +122,7 @@ export const LayoutListClient: React.FC<Props> = (props) => {
           <Input
             id={`${blockId}-search`}
             type="search"
+            className="bg-white text-espresso placeholder:text-muted-foreground"
             placeholder="Search"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
