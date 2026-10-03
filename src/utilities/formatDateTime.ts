@@ -18,3 +18,12 @@ export const formatDateTime = (timestamp: string): string => {
 
   return `${MM}/${DD}/${YYYY}`
 }
+
+export const formatLongDate = (timestamp: string): string => {
+  const date = new Date(timestamp)
+  const month = date.toLocaleString('en-US', { month: 'long' })
+  const day = date.getDate()
+  const year = date.getFullYear()
+
+  return `${month}, ${day} ${year}`
+}

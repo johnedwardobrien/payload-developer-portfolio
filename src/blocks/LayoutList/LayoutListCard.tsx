@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Media } from '@/components/Media'
+import { formatLongDate } from '@/utilities/formatDateTime'
 import { getArticleHref } from '@/utilities/getArticleHref'
 import useClickableCard from '@/utilities/useClickableCard'
 
@@ -15,7 +16,7 @@ export const LayoutListCard: React.FC<{ doc: LayoutListDoc }> = ({ doc }) => {
 
   return (
     <article
-      className="border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer h-full"
+      className="border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer h-full flex flex-col"
       ref={card.ref}
     >
       {doc.image && (
@@ -28,7 +29,7 @@ export const LayoutListCard: React.FC<{ doc: LayoutListDoc }> = ({ doc }) => {
           />
         </div>
       )}
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-1">
         <div className="prose">
           <h3>
             {href ? (
@@ -44,6 +45,11 @@ export const LayoutListCard: React.FC<{ doc: LayoutListDoc }> = ({ doc }) => {
           <div className="mt-2">
             <p>{doc.description}</p>
           </div>
+        )}
+        {doc.publishedAt && (
+          <time className="mt-auto pt-4 text-sm" dateTime={doc.publishedAt}>
+            {formatLongDate(doc.publishedAt)}
+          </time>
         )}
       </div>
     </article>
