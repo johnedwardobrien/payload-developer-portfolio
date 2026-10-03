@@ -75,7 +75,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       {slug === 'blog' && (
         <Link
-          className="absolute left-4 top-4 z-10 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-[2rem] text-white [font-family:var(--gsc-font-header)]"
+          className="absolute left-4 top-4 z-10 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-[2rem] text-white [font-family:var(--gsc-font-header)] [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]"
           href="/"
         >
           <FaArrowLeft />

@@ -20,18 +20,21 @@ export const PostHero: React.FC<{
     <div className="relative isolate flex min-h-[80vh] items-end">
       <div className="absolute inset-0 select-none">
         {heroImage && typeof heroImage !== 'string' && (
-          <Media
-            fill
-            priority
-            className="absolute inset-0"
-            pictureClassName="absolute inset-0"
-            imgClassName="object-cover"
-            resource={heroImage}
-          />
+          <>
+            <Media
+              fill
+              priority
+              className="absolute inset-0"
+              pictureClassName="absolute inset-0"
+              imgClassName="object-cover"
+              resource={heroImage}
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
+          </>
         )}
       </div>
       <Link
-        className="absolute left-4 top-4 z-20 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-[2rem] text-white [font-family:var(--gsc-font-header)] [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]"
+        className="absolute left-4 top-4 z-20 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-[2rem] text-white [font-family:var(--gsc-font-header)] [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]"
         href="/blog"
       >
         <FaArrowLeft />
