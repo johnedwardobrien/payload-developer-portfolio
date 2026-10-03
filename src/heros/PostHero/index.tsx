@@ -42,7 +42,7 @@ export const PostHero: React.FC<{
       </Link>
       <div className="relative z-10 mx-auto w-[95%] pb-8 text-white md:w-[70%] lg:w-[60%] lg:max-w-[43rem]">
         <div>
-          <div className="uppercase text-sm mb-6">
+          <div className="mb-6 text-sm uppercase [font-family:var(--zs-font-body)]">
             {categories?.map((category, index) => {
               if (typeof category === 'object' && category !== null) {
                 const { title: categoryTitle } = category
@@ -70,7 +70,7 @@ export const PostHero: React.FC<{
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-16">
             {hasAuthors && (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 [font-family:var(--zs-font-body)]">
                 <div className="flex flex-col gap-1">
                   <p className="text-sm">Author</p>
 
