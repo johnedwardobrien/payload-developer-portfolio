@@ -4,6 +4,7 @@ import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { AnimationBlock } from '../../blocks/AnimationBlock/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
+import { LayoutList } from '../../blocks/LayoutList/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
@@ -83,6 +84,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Content,
                 MediaBlock,
                 Archive,
+                LayoutList,
                 FormBlock,
                 SideTabPanel,
                 ChatWindow,

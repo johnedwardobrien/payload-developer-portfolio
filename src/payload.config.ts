@@ -9,7 +9,9 @@ import { fileURLToPath } from 'url'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { Essays } from './collections/Essays'
 import { Posts } from './collections/Posts'
+import { Shards } from './collections/Shards'
 import { Users } from './collections/Users'
 import { YachtParallaxItem } from './collections/YachtParallaxItem'
 import { ScrollWindow } from './collections/ScrollWindow'
@@ -88,7 +90,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, YachtParallaxItem, ScrollWindow],
+  collections: [Pages, Posts, Essays, Shards, Media, Categories, Users, YachtParallaxItem, ScrollWindow],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, ChatHeader, ChatFooter],
   plugins: [

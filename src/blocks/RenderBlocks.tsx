@@ -4,6 +4,7 @@ import type { Page } from '@/payload-types'
 
 import { AnimationBlock } from '@/blocks/AnimationBlock/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
+import { LayoutListBlock } from '@/blocks/LayoutList/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
@@ -16,6 +17,7 @@ import { YachtParallax } from '@/blocks/YachtParallax/Component'
 const blockComponents = {
   animationBlock: AnimationBlock,
   archive: ArchiveBlock,
+  layoutList: LayoutListBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,

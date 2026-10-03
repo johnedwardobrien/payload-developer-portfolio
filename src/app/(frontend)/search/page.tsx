@@ -26,6 +26,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       slug: true,
       categories: true,
       meta: true,
+      doc: true,
     },
     // pagination: false reduces overhead if you don't need totalDocs
     pagination: false,
@@ -73,7 +74,10 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       </div>
 
       {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as CardPostData[]} />
+        <CollectionArchive
+          posts={posts.docs as CardPostData[]}
+          relationTos={posts.docs.map((d) => d.doc.relationTo)}
+        />
       ) : (
         <div className="container">No results found.</div>
       )}
