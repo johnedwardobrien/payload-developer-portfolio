@@ -79,7 +79,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { slug = '' } = await paramsPromise
   const shard = await queryShardBySlug({ slug })
 
-  return generateMeta({ doc: shard })
+  return generateMeta({
+    doc: shard,
+    path: `/shards/${slug}`,
+  })
 }
 
 const queryShardBySlug = cache(async ({ slug }: { slug: string }) => {

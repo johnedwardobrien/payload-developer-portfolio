@@ -18,15 +18,24 @@ const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
 
 export const generateMeta = async (args: {
   doc: Partial<Page> | Partial<Post> | Partial<Essay> | Partial<Shard> | null
+  path?: string
 }): Promise<Metadata> => {
-  const { doc } = args
+  const { doc, path } = args
+  const serverUrl = getServerSideURL()
 
   const ogImage = getImageURL(doc?.meta?.image)
 
   const title = doc?.meta?.title ?? ''
+  const docSlug = typeof doc?.slug === 'string' ? doc.slug : ''
+  const slugPath = docSlug && docSlug !== 'home' ? `/${docSlug}` : '/'
+  const canonicalPath = path ?? slugPath
+  const canonicalUrl = `${serverUrl}${canonicalPath}`
 
   return {
     description: doc?.meta?.description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || '',
       images: ogImage
@@ -37,7 +46,7 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      url: canonicalUrl,
     }),
     title,
   }
