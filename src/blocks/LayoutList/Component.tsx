@@ -4,7 +4,6 @@ import React from 'react'
 import RichText from '@/components/RichText'
 import type { ArticleCollectionSlug } from '@/types/articleCollections'
 import { isLocalVersion } from '@/utilities/isLocalVersion'
-import './Component.css'
 
 import { fetchLayoutListDocs } from './actions'
 import { LayoutListClient } from './Component.client'
@@ -33,10 +32,14 @@ export const LayoutListBlock: React.FC<
 
   const header =
     title || introContent ? (
-      <div className="layout-list-header">
-        {title && <h2 className="layout-list-title">{title}</h2>}
+      <div className="container mb-8">
+        {title && (
+          <div className="prose dark:prose-invert max-w-none">
+            <h2>{title}</h2>
+          </div>
+        )}
         {introContent && (
-          <RichText className="layout-list-description" data={introContent} enableGutter={false} />
+          <RichText className="ms-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         )}
       </div>
     ) : null
@@ -60,7 +63,7 @@ export const LayoutListBlock: React.FC<
         : await fetchAllLayoutListDocs({ relationTo: slug, categories: categoryIds })
 
     return (
-      <div className="layout-list" id={blockId}>
+      <div className="my-16 scroll-mt-24" id={blockId}>
         {header}
         <LayoutListClient blockId={blockId} docs={docs} limit={limit} mode="local" />
       </div>
@@ -76,7 +79,7 @@ export const LayoutListBlock: React.FC<
   })
 
   return (
-    <div className="layout-list" id={blockId}>
+    <div className="my-16 scroll-mt-24" id={blockId}>
       {header}
       <LayoutListClient
         blockId={blockId}

@@ -2,9 +2,13 @@
 
 import React, { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import type { ArticleCollectionSlug } from '@/types/articleCollections'
 import { cn } from '@/utilities/ui'
 import { useDebounce } from '@/utilities/useDebounce'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { fetchLayoutListDocs } from './actions'
 import { LayoutListCard } from './LayoutListCard'
@@ -109,29 +113,44 @@ export const LayoutListClient: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="layout-list-cont">
-      <div className="layout-list-toolbar">
-        <label className="layout-list-search">
-          <span className="sr-only">Search</span>
-          <input
+    <div className="container flex flex-col gap-8">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="w-full max-w-xs">
+          <Label className="sr-only" htmlFor={`${blockId}-search`}>
+            Search
+          </Label>
+          <Input
+            id={`${blockId}-search`}
             type="search"
             placeholder="Search"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-        </label>
-        <div className="layout-list-sort" role="group" aria-label="Sort">
-          {sortOptions.map((option) => (
-            <button
-              key={option.value}
-              type="button"
-              aria-pressed={sort === option.value}
-              className={cn(sort === option.value && 'is-active')}
-              onClick={() => sort !== option.value && load(1, option.value, search)}
-            >
-              {option.label}
-            </button>
-          ))}
+        </div>
+        <div
+          className="inline-flex overflow-hidden rounded border border-border"
+          role="group"
+          aria-label="Sort"
+        >
+          {sortOptions.map((option) => {
+            const isActive = sort === option.value
+            return (
+              <button
+                key={option.value}
+                type="button"
+                aria-pressed={isActive}
+                className={cn(
+                  'h-10 border-l border-border px-4 text-sm font-medium transition-colors first:border-l-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                  isActive
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-background text-foreground hover:bg-card',
+                )}
+                onClick={() => !isActive && load(1, option.value, search)}
+              >
+                {option.label}
+              </button>
+            )
+          })}
         </div>
       </div>
 
@@ -139,40 +158,45 @@ export const LayoutListClient: React.FC<Props> = (props) => {
         aria-busy={isPending}
         aria-live="polite"
         className={cn(
-          'layout-list-grid grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5',
-          isPending && 'is-pending',
+          'grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 transition-opacity',
+          isPending && 'opacity-50 pointer-events-none',
         )}
       >
         {result.docs.map((doc) => (
-          <LayoutListCard key={`${doc.relationTo}-${doc.id}`} doc={doc} />
+          <div className="col-span-4" key={`${doc.relationTo}-${doc.id}`}>
+            <LayoutListCard doc={doc} />
+          </div>
         ))}
       </div>
 
-      {result.docs.length === 0 && !isPending && (
-        <p className="layout-list-empty">No results found.</p>
-      )}
+      {result.docs.length === 0 && !isPending && <p>No results found.</p>}
 
       {result.totalDocs > 0 && (
-        <nav className="layout-list-pager" aria-label="Pagination">
-          <button
+        <nav className="flex items-center justify-end gap-2" aria-label="Pagination">
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             aria-label="Previous page"
             disabled={currentPage <= 1 || isPending}
             onClick={() => goToPage(currentPage - 1)}
           >
-            &#8249;
-          </button>
-          <span>
-            {start} - {end} of {result.totalDocs}
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <span className="font-semibold text-sm">
+            Showing {start}
+            {start > 0 ? ` - ${end}` : ''} of {result.totalDocs}
           </span>
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             aria-label="Next page"
             disabled={currentPage >= result.totalPages || isPending}
             onClick={() => goToPage(currentPage + 1)}
           >
-            &#8250;
-          </button>
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </nav>
       )}
     </div>
