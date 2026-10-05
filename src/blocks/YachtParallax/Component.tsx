@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useScroll, useMotionValueEvent, motion } from 'framer-motion'
 import type { YachtParallax as YachtParallaxType } from '@/payload-types'
 import { MdOutlineSailing } from 'react-icons/md'
@@ -16,10 +16,6 @@ export const YachtParallax: React.FC<Props> = (props) => {
   const [showHeader, setShowHeader] = useState(true)
   const [isTablet, setIsTablet] = useState(false)
   const { scrollY } = useScroll()
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   React.useEffect(() => {
     const checkTablet = () => {
