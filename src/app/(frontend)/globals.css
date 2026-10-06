@@ -160,6 +160,7 @@
 
 html {
   opacity: 0;
+  background-color: var(--color-pl-gunmetal);
 }
 
 html[data-theme='dark'],

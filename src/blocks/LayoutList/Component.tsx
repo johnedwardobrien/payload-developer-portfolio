@@ -47,7 +47,7 @@ export const LayoutListBlock: React.FC<
     ) : null
 
   const panel = (list: React.ReactNode) => (
-    <div className="mb-16 mt-28 scroll-mt-24" id={blockId}>
+    <div className="mb-16 mt-8 scroll-mt-24" id={blockId}>
       <div className="layout-list-panel mx-auto w-[95%] min-w-0 max-w-[1200px] rounded-xl bg-white p-6 text-black md:w-[90%] md:p-8 lg:w-[80%] lg:p-10">
         {header}
         {list}

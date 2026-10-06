@@ -67,15 +67,13 @@ export default async function Page({ params: paramsPromise }: Args) {
     <div
       className={cn(
         'root-page',
-        slug === 'blog' &&
-          'fixed top-0 left-0 h-full w-full overflow-y-auto bg-pl-gunmetal text-white',
       )}
       data-custom-theme={theme || undefined}
     >
       <PageClient />
       {slug === 'blog' && (
         <Link
-          className="absolute left-4 top-4 z-10 inline-flex items-center gap-3 bg-transparent px-6 py-4 text-left text-[1.2rem] text-white [font-family:var(--gsc-font-header)] [text-shadow:0_1px_3px_rgba(0,0,0,0.5)] md:text-[1.5rem] lg:text-[1.7rem]"
+          className="ml-4 mt-4 flex w-fit items-center gap-3 bg-transparent px-6 py-4 text-left text-[1.2rem] text-white [font-family:var(--gsc-font-header)] [text-shadow:0_1px_3px_rgba(0,0,0,0.5)] md:text-[1.5rem] lg:text-[1.7rem]"
           href="/"
         >
           <FaArrowLeft />
