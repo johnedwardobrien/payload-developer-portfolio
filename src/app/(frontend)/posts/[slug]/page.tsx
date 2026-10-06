@@ -14,6 +14,8 @@ import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { ShareLinksBlock } from '@/blocks/ShareLinks/Component'
+import { getServerSideURL } from '@/utilities/getURL'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -62,6 +64,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="article-sheet mx-auto w-[95%] bg-white p-6 text-black md:w-[70%] md:p-8 lg:w-[60%] lg:max-w-[43rem] lg:p-10">
+          <ShareLinksBlock url={`${getServerSideURL()}${url}`} title={post.title} />
           <RichText className="article-prose" data={post.content} enableGutter={false} />
           {post.relatedPosts && post.relatedPosts.length > 0 && (
             <RelatedPosts
